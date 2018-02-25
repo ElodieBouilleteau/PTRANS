@@ -4,4 +4,4 @@ Application Java de visualisation des données issus d'une analyse avec la Q-mé
 
 Autheurs :
 
-Axel JOURNE, Elodie BOUILLETEAU, Dai DJANG
+Axel JOURNE, Elodie BOUILLETEAU, Zheng DAI
