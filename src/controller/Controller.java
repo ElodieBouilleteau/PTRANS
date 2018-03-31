@@ -1,7 +1,7 @@
-package Controller;
+package controller;
 
 import javafx.event.ActionEvent;
-import Model.Model;
+import model.Model;
 
 public class Controller {
 	

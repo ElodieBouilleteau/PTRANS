@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.awt.Color;
 import java.awt.Image;
@@ -8,10 +8,10 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 
 public class Model implements Observable{
-	private Color color1, color2; // couleur de fond de la partie haute et basse de la visualisation
-	private int width, height; // largeur et hauteur de la visualisation
-	private int t; // taille des images les plus importante (le reste calculé selon cette derniere)
-	private ArrayList<Image> listeImage; //images
+	private Color color1, color2; // Colors of the upper and lower part of the visualization
+	private int width, height; // height and width of the visualization
+	private int t; // size of the most important picture (others'size are computed from this size)
+	private ArrayList<Image> listeImage; //picture
 	
 	
 	public Model(ArrayList<Image> listeImage) {
