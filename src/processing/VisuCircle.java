@@ -6,7 +6,6 @@ import processing.core.PApplet;
 import processing.core.PImage;
 import processing.data.IntList;
 
-
 public class VisuCircle extends PApplet{
 	private ArrayList<PImage> images = new ArrayList<PImage>(43);
 	  
@@ -18,7 +17,7 @@ public class VisuCircle extends PApplet{
 	//picture size in px
 	private int t1 = 80;
 	private int t3 = 180;
-	private int t2 = PApplet.floor(t1+(t3-t1)*0.4F); 
+	private int t2 = PApplet.floor(t1+(t3-t1)*pt); 
 	  
 	private float D1, D2, D3, d1, d2, d3;
 	
@@ -39,10 +38,10 @@ public class VisuCircle extends PApplet{
 	
 	public void setup() {
 		background(255);
-		D1 = floor(width-t1);
+		D1 = floor(width*pw-t1);
 		D2 = floor(D1*0.72F);
 		D3 = floor(D1*0.27F);
-		d1 = height-t1;
+		d1 = floor(height*ph-t1);
 		d2 = floor(d1*0.72F);
 		d3 = floor(d1*0.27F);
 		
@@ -226,5 +225,7 @@ public class VisuCircle extends PApplet{
 	public static void show() {
 		PApplet.main("VisuCircle");
 	}
+	
+	
 
 }

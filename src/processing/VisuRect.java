@@ -17,7 +17,7 @@ public class VisuRect extends PApplet {
 	//picture size in px
 	private int t1 = 80;
 	private int t3 = 180;
-	private int t2 = PApplet.floor(t1+(t3-t1)*0.4F); 
+	private int t2 = PApplet.floor(t1+(t3-t1)*pt); 
 	  
 	private int W, H1, H2, H3;
 	
