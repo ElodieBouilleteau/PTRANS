@@ -55,10 +55,10 @@ public class Image {
 	public void addListFactor(int numberOfFactor)
 	{
 		this.numberOfFactor = new SimpleIntegerProperty(numberOfFactor);
-		this.listFactor = new ArrayList<Factor>(numberOfFactor);
+		this.setListFactor(new ArrayList<Factor>(numberOfFactor));
 		for (int i = 0; i < numberOfFactor; i++)
 		{
-			this.listFactor.add(new Factor(0,0));
+			this.getListFactor().add(new Factor(0,0));
 		}
 	}
 	
@@ -66,7 +66,15 @@ public class Image {
 	//position 0 matches with factor 1
 	public void addFactor(int numberFactor, double zscore, int classementNumber)
 	{
-		this.listFactor.set(numberFactor-1,new Factor(zscore,classementNumber));
+		this.getListFactor().set(numberFactor-1,new Factor(zscore,classementNumber));
+	}
+
+	public ArrayList<Factor> getListFactor() {
+		return listFactor;
+	}
+
+	public void setListFactor(ArrayList<Factor> listFactor) {
+		this.listFactor = listFactor;
 	}
 
 }

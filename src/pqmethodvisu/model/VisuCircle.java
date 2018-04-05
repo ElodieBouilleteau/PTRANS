@@ -1,4 +1,4 @@
-package processing;
+package pqmethodvisu.model;
 
 import java.util.ArrayList;
 
@@ -7,30 +7,31 @@ import processing.core.PImage;
 import processing.data.IntList;
 
 public class VisuCircle extends PApplet{
-	private ArrayList<PImage> images = new ArrayList<PImage>(43);
+	private static ArrayList<PImage> images = new ArrayList<PImage>(43);
 	  
 	//size parameters 
-	private float pw = 1; //
-	private float ph = 1;
-	private float pt = 0.4F;
+	private static int width, height;
+	private static float pw = 1; //
+	private static float ph = 1;
+	private static float pt = 0.4F;
 	  
 	//picture size in px
-	private int t1 = 80;
-	private int t3 = 180;
-	private int t2 = PApplet.floor(t1+(t3-t1)*pt); 
+	private static int t1 = 80;
+	private static int t3 = 180;
+	private static int t2 = PApplet.floor(t1+(t3-t1)*pt); 
 	  
-	private float D1, D2, D3, d1, d2, d3;
+	private static float D1, D2, D3, d1, d2, d3;
 	
 	//colors and colors' features
-	private int CP, CM; //colors are represented by int
-	private float HP, SP, BP, HM, SM, BM;
+	private static int CP, CM; //colors are represented by int
+	private static float HP, SP, BP, HM, SM, BM;
 	
-	IntList G1P = new IntList();
-	IntList G2P = new IntList();
-	IntList G3P = new IntList();
-	IntList G1M = new IntList();
-	IntList G2M = new IntList();
-	IntList G3M = new IntList();
+	private static IntList G1P = new IntList();
+	private static IntList G2P = new IntList();
+	private static IntList G3P = new IntList();
+	private static IntList G1M = new IntList();
+	private static IntList G2M = new IntList();
+	private static IntList G3M = new IntList();
 	
 	public void settings() {
 		size(1200,700);
@@ -221,10 +222,23 @@ public class VisuCircle extends PApplet{
 		  }
 		}
 	}
-	
-	public static void show() {
-		PApplet.main("VisuCircle");
+
+	public static void setWidth(int width) {
+		VisuCircle.width = width;
 	}
+
+	public static void setHeight(int height) {
+		VisuCircle.height = height;
+	}
+
+	public static void setT1(int t1) {
+		VisuCircle.t1 = t1;
+	}
+
+	public static void setT3(int t3) {
+		VisuCircle.t3 = t3;
+	}
+
 	
 	
 

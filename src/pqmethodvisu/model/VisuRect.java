@@ -1,4 +1,4 @@
-package processing;
+package pqmethodvisu.model;
 
 import java.util.ArrayList;
 
@@ -7,33 +7,43 @@ import processing.core.PImage;
 import processing.data.IntList;
 
 public class VisuRect extends PApplet {
-	private ArrayList<PImage> images = new ArrayList<PImage>(43);
+	
+	public VisuRect() {
+		
+	}
+	
+	private static ArrayList<PImage> images = new ArrayList<PImage>(43);
 	  
+	//size of the window
+	private static int width, height;
+
 	//size parameters
-	private float pw = 1; //
-	private float ph = 1;
-	private float pt = 0.4F;
+	private static float pw = 1; //
+	private static float ph = 1;
+	private static float pt = 0.4F;
 	  
 	//picture size in px
-	private int t1 = 80;
-	private int t3 = 180;
-	private int t2 = PApplet.floor(t1+(t3-t1)*pt); 
+	private static int t1 = 80;
+	private static int t3 = 180;
+	private static int t2 = PApplet.floor(t1+(t3-t1)*pt); 
 	  
-	private int W, H1, H2, H3;
+	private static int W, H1, H2, H3;
 	
 	//colors and colors' features
-	private int CP, CM; //colors are represented by int
-	private float HP, SP, BP, HM, SM, BM;
+	private static int CP, CM; //colors are represented by int
+	private static float HP, SP, BP, HM, SM, BM;
 	
-	IntList G1P = new IntList();
-	IntList G2P = new IntList();
-	IntList G3P = new IntList();
-	IntList G1M = new IntList();
-	IntList G2M = new IntList();
-	IntList G3M = new IntList();
+	private static IntList G1P = new IntList();
+	private static IntList G2P = new IntList();
+	private static IntList G3P = new IntList();
+	private static IntList G1M = new IntList();
+	private static IntList G2M = new IntList();
+	private static IntList G3M = new IntList();
+	
+	
 	
 	public void settings() {
-		size(1200,700);
+		size(width,height);
 
 	}
 	
@@ -44,8 +54,8 @@ public class VisuRect extends PApplet {
 		H2 = floor(H1*0.72F);
 		H3 = floor(H1*0.27F);
 		
-		CP = this.color(84,192,254);
-		CM = this.color(254,1,1);
+		CP = color(84,192,254);
+		CM = color(254,1,1);
 		
 		HP = this.hue(CP);
 		SP = this.saturation(CP);
@@ -212,6 +222,38 @@ public class VisuRect extends PApplet {
 	
 	public static void show() {
 		PApplet.main("VisuRect");
+	}
+	
+	public static void setImages(ArrayList<PImage> images) {
+		VisuRect.images = images;
+	}
+
+	public static void setWidth(int width) {
+		VisuRect.width = width;
+	}
+
+	public static void setHeight(int height) {
+		VisuRect.height = height;
+	}
+
+	public static void setT1(int t1) {
+		VisuRect.t1 = t1;
+	}
+
+	public static void setT3(int t3) {
+		VisuRect.t3 = t3;
+	}
+
+	public static void setW(int w) {
+		W = w;
+	}
+
+	public static void setCP(int cP) {
+		CP = cP;
+	}
+
+	public static void setCM(int cM) {
+		CM = cM;
 	}
 
 }
