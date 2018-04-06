@@ -1,7 +1,5 @@
 package pqmethodvisu.model;
 
-
-
 import java.awt.Color;
 import java.util.ArrayList;
 
@@ -11,7 +9,7 @@ public class Visualization {
 	
 	private static Visualization uniqueInstance = new Visualization();
 	
-	private Color colorP, colorM; //colorP = up part color and colorM = low part color
+	private Color CP, CM; //colorP = up part color and colorM = low part color
 	private int factor1, factor2; //factor1 = main factor, factor2 = secondary factor
 	private int t1, t3;
 	private int width, height;
@@ -21,8 +19,8 @@ public class Visualization {
 	
 	
 	private Visualization() {
-		this.colorP = Color.BLUE;
-		this.colorM = Color.RED;
+		this.CP = Color.BLUE;
+		this.CM = Color.RED;
 		this.t1 = 80;
 		this.t3 = 180;
 		this.width = 1200;
@@ -65,7 +63,7 @@ public class Visualization {
 				this.GM2.add(i);
 			}
 			else if(zscore < -1.8 && zscore >= -2) {
-				this.GP2.add(i);
+				this.GP3.add(i);
 			}
 			else if(zscore == 0) {
 				this.G0.add(i);
@@ -89,15 +87,39 @@ public class Visualization {
 		VisuRect.setT3(this.t3);
 		VisuRect.setWidth(this.width);
 		VisuRect.setHeight(this.height);
+		VisuRect.setCP(this.CP);
+		VisuRect.setCM(this.CM);
 		PApplet.main("VisuRect");
 	}
 	
 	public void showCircularVisualization() {
-		VisuRect.setT1(this.t1);
-		VisuRect.setT3(this.t3);
-		VisuRect.setWidth(this.width);
-		VisuRect.setHeight(this.height);
+		VisuCircle.setT1(this.t1);
+		VisuCircle.setT3(this.t3);
+		VisuCircle.setWidth(this.width);
+		VisuCircle.setHeight(this.height);
+		VisuCircle.setCP(this.CP);
+		VisuCircle.setCM(this.CM);
 		PApplet.main("VisuCircle");
+	}
+	
+	public void showBlackRectangularVisualization( ) {
+		VisuRectBlack.setT1(this.t1);
+		VisuRectBlack.setT3(this.t3);
+		VisuRectBlack.setWidth(this.width);
+		VisuRectBlack.setHeight(this.height);
+		VisuRectBlack.setCP(this.CP);
+		VisuRectBlack.setCM(this.CM);
+		PApplet.main("VisuRect");
+	}
+	
+	public void showBlackCircularVisualization() {
+		VisuCircleBlack.setT1(this.t1);
+		VisuCircleBlack.setT3(this.t3);
+		VisuCircleBlack.setWidth(this.width);
+		VisuCircleBlack.setHeight(this.height);
+		VisuCircleBlack.setCP(this.CP);
+		VisuCircleBlack.setCM(this.CM);
+		PApplet.main("VisuCircleBlack");
 	}
 	
 	public void setCorpus(ArrayList<Image> corpus) {
@@ -105,20 +127,20 @@ public class Visualization {
 	}
 	
 
-	public Color getColorP() {
-		return colorP;
+	public Color getCP() {
+		return CP;
 	}
 
-	public void setColorP(Color colorP) {
-		this.colorP = colorP;
+	public void setCP(Color CP) {
+		this.CP = CP;
 	}
 
-	public Color getColorM() {
-		return colorM;
+	public Color getCM() {
+		return CM;
 	}
 
-	public void setColorM(Color colorM) {
-		this.colorM = colorM;
+	public void setCM(Color CM) {
+		this.CM = CM;
 	}
 
 	public int getFactor1() {

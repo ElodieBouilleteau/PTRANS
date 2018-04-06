@@ -7,9 +7,9 @@ import processing.core.PApplet;
 import processing.core.PImage;
 import processing.data.IntList;
 
-public class VisuRect extends PApplet {
+public class VisuRectBlack extends PApplet {
 	
-	public VisuRect() {
+	public VisuRectBlack() {
 		
 	}
 	
@@ -130,13 +130,13 @@ public class VisuRect extends PApplet {
 		
 		//upper part
 		for (int r = (H1/2+t1/2); r >=0; r--) {
-		  fill(HP, SP-r*(SP-0)/(H1/2+t1/2), BP-r*(BP-100)/(H1/2+t1/2));
+		  fill(HP, SP, BP-r*(BP-0)/(H1/2+t1/2));
 		  rect(width*(1-pw)/2, height/2-r-10, W, r);
 		}
 		
 		//lower part
 		for (int r = (H1/2+t1/2); r >=0; r--) {
-		  fill(HM, SM-r*(SM-0)/(H1/2+t1/2), BM-r*(BM-100)/(H1/2+t1/2));
+		  fill(HM, SM, BM-r*(BM-0)/(H1/2+t1/2));
 		  rect(width*(1-pw)/2, height/2+10, W, r);
 		}
 		
@@ -223,43 +223,43 @@ public class VisuRect extends PApplet {
 	}
 	
 	public static void show() {
-		PApplet.main("VisuRect");
+		PApplet.main("VisuRectBlack");
 	}
 	
 	public static void setImages(ArrayList<PImage> images) {
-		VisuRect.images = images;
+		VisuRectBlack.images = images;
 	}
 
 	public static void setWidth(int width) {
-		VisuRect.width = width;
+		VisuRectBlack.width = width;
 	}
 
 	public static void setHeight(int height) {
-		VisuRect.height = height;
+		VisuRectBlack.height = height;
 	}
 
 	public static void setT1(int t1) {
-		VisuRect.t1 = t1;
+		VisuRectBlack.t1 = t1;
 	}
 
 	public static void setT3(int t3) {
-		VisuRect.t3 = t3;
+		VisuRectBlack.t3 = t3;
 	}
 
 	public static void setW(int w) {
-		VisuRect.W = w;
+		VisuRectBlack.W = w;
 	}
 
 	public static void setCP(Color CP) {
-		VisuRect.RP = CP.getRed();
-		VisuRect.GP = CP.getGreen();
-		VisuRect.BlP = CP.getBlue();
+		VisuRectBlack.RP = CP.getRed();
+		VisuRectBlack.GP = CP.getGreen();
+		VisuRectBlack.BlP = CP.getBlue();
 	}
 	
 	public static void setCM(Color CM) {
-		VisuRect.RM = CM.getRed();
-		VisuRect.GM = CM.getGreen();
-		VisuRect.BlM = CM.getBlue();
+		VisuRectBlack.RM = CM.getRed();
+		VisuRectBlack.GM = CM.getGreen();
+		VisuRectBlack.BlM = CM.getBlue();
 	}
 
 }

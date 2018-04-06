@@ -1,5 +1,6 @@
 package pqmethodvisu.model;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
@@ -23,6 +24,7 @@ public class VisuCircle extends PApplet{
 	private static float D1, D2, D3, d1, d2, d3;
 	
 	//colors and colors' features
+	private static int RP, GP, BlP, RM, GM, BlM;
 	private static int CP, CM; //colors are represented by int
 	private static float HP, SP, BP, HM, SM, BM;
 	
@@ -46,8 +48,8 @@ public class VisuCircle extends PApplet{
 		d2 = floor(d1*0.72F);
 		d3 = floor(d1*0.27F);
 		
-		CP = color(84,192,254);
-		CM = color(254,1,1);
+		CP = color(RP,GP,BlP);
+		CM = color(RM,GM,BlM);
 		
 		HP = hue(CP);
 		SP = saturation(CP);
@@ -238,6 +240,20 @@ public class VisuCircle extends PApplet{
 	public static void setT3(int t3) {
 		VisuCircle.t3 = t3;
 	}
+	
+	public static void setCP(Color CP) {
+		VisuCircle.RP = CP.getRed();
+		VisuCircle.GP = CP.getGreen();
+		VisuCircle.BlP = CP.getBlue();
+	}
+	
+	public static void setCM(Color CM) {
+		VisuCircle.RM = CM.getRed();
+		VisuCircle.GM = CM.getGreen();
+		VisuCircle.BlM = CM.getBlue();
+	}
+	
+	
 
 	
 	

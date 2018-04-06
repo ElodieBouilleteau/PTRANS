@@ -7,18 +7,11 @@ import processing.core.PApplet;
 import processing.core.PImage;
 import processing.data.IntList;
 
-public class VisuRect extends PApplet {
-	
-	public VisuRect() {
-		
-	}
-	
+public class VisuCircleBlack extends PApplet{
 	private static ArrayList<PImage> images = new ArrayList<PImage>(43);
 	  
-	//size of the window
+	//size parameters 
 	private static int width, height;
-
-	//size parameters
 	private static float pw = 1; //
 	private static float ph = 1;
 	private static float pt = 0.4F;
@@ -28,7 +21,7 @@ public class VisuRect extends PApplet {
 	private static int t3 = 180;
 	private static int t2 = PApplet.floor(t1+(t3-t1)*pt); 
 	  
-	private static int W, H1, H2, H3;
+	private static float D1, D2, D3, d1, d2, d3;
 	
 	//colors and colors' features
 	private static int RP, GP, BlP, RM, GM, BlM;
@@ -42,29 +35,28 @@ public class VisuRect extends PApplet {
 	private static IntList G2M = new IntList();
 	private static IntList G3M = new IntList();
 	
-	
-	
 	public void settings() {
-		size(width,height);
-
+		size(1200,700);
 	}
 	
 	public void setup() {
 		background(255);
-		W = floor(width*pw);
-		H1 = floor(height*ph)-t1;
-		H2 = floor(H1*0.72F);
-		H3 = floor(H1*0.27F);
+		D1 = floor(width*pw-t1);
+		D2 = floor(D1*0.72F);
+		D3 = floor(D1*0.27F);
+		d1 = floor(height*ph-t1);
+		d2 = floor(d1*0.72F);
+		d3 = floor(d1*0.27F);
 		
 		CP = color(RP,GP,BlP);
 		CM = color(RM,GM,BlM);
 		
-		HP = this.hue(CP);
-		SP = this.saturation(CP);
-		BP = this.brightness(CP);
-		HM = this.hue(CM);
-		SM = this.saturation(CM);
-		BM = this.brightness(CM);
+		HP = hue(CP);
+		SP = saturation(CP);
+		BP = brightness(CP);
+		HM = hue(CM);
+		SM = saturation(CM);
+		BM = brightness(CM);
 		
 		G3P.append(22);
 		G3P.append(30);
@@ -115,75 +107,75 @@ public class VisuRect extends PApplet {
 		G1M.append(23);
 		G1M.append(27);
 		
-		//loading pictures
 		for (int i = 1; i<=43; i++){
 		  images.add(loadImage("images/"+i+".jpg"));
 		}
 		
-		//linear gradient
+		//radial gradient
 		
 		//transition
-		setGradient(floor(width*(1-pw)/2), height/2-10, floor(width*(1-pw)/2)+W, height/2+10, CP, CM);
-		 
+		setGradient(width/2, height/2, D1+t1, 10, CP, CM);
+		  
 		noStroke();
 		colorMode(HSB, 360, 100, 100);
-		
+		 
 		//upper part
-		for (int r = (H1/2+t1/2); r >=0; r--) {
-		  fill(HP, SP-r*(SP-0)/(H1/2+t1/2), BP-r*(BP-100)/(H1/2+t1/2));
-		  rect(width*(1-pw)/2, height/2-r-10, W, r);
+		for (int r = (int) (D1+t1); r >=0; r--) {
+		  fill(HP, SP, BP-r*(BP-0)/(D1+t1));
+		  arc(width/2, height/2-5, r,r*(d1+t1)/(D1+t1), PI, TWO_PI, OPEN);
 		}
-		
-		//lower part
-		for (int r = (H1/2+t1/2); r >=0; r--) {
-		  fill(HM, SM-r*(SM-0)/(H1/2+t1/2), BM-r*(BM-100)/(H1/2+t1/2));
-		  rect(width*(1-pw)/2, height/2+10, W, r);
+		 
+		//lower part  
+		for (int r = (int) (D1+t1); r >=0; r--) {
+		  fill(HM, SM, BM-r*(BM-0)/(D1+t1));
+		  arc(width/2, height/2+5, r,r*(d1+t1)/(D1+t1), 0, PI, OPEN);
 		}
 		
 		
 		//placing pictures
 		colorMode(RGB, 255,255,255,255);
-		tint(255,255,255, 100);
 		imageMode(CENTER);
+		tint(255,255,255, 100);
 		for(int i =1; i<=G1P.size();i++){
 		  int w = resizew(images.get(G1P.get(i-1)-1).width, images.get(G1P.get(i-1)-1).height, t1);
 		  int h = resizeh(images.get(G1P.get(i-1)-1).width, images.get(G1P.get(i-1)-1).height, t1);
-		  image(images.get(G1P.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G1P.size()+1), height/2-H1/2, w,h);
+		  image(images.get(G1P.get(i-1)-1), width/2+cos(i*PI/(G1P.size()+1))*D1/2, height/2-sin(i*PI/(G1P.size()+1))*d1/2, w, h);
 		}
-		
+		  
 		for(int i =1; i<=G1M.size();i++){
 		  int w = resizew(images.get(G1M.get(i-1)-1).width, images.get(G1M.get(i-1)-1).height, t1);
 		  int h = resizeh(images.get(G1M.get(i-1)-1).width, images.get(G1M.get(i-1)-1).height, t1);
-		  image(images.get(G1M.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G1M.size()+1), height/2+H1/2, w,h);
+		  image(images.get(G1M.get(i-1)-1), width/2+cos((G1M.size()+1+i)*PI/(G1M.size()+1))*D1/2, height/2-sin((G1M.size()+1+i)*PI/(G1M.size()+1))*d1/2, w, h);
 		}
-		
+		  
+		  
 		tint(255,255,255,200);
 		for(int i =1; i<=G2P.size();i++){
 		  int w = resizew(images.get(G2P.get(i-1)-1).width, images.get(G2P.get(i-1)-1).height, t2);
 		  int h = resizeh(images.get(G2P.get(i-1)-1).width, images.get(G2P.get(i-1)-1).height, t2);
-		  image(images.get(G2P.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G2P.size()+1), height/2-H2/2, w,h);
+		  image(images.get(G2P.get(i-1)-1), width/2+cos(i*PI/(G2P.size()+1))*D2/2, height/2-sin(i*PI/(G2P.size()+1))*d2/2, w, h);
 		}
-		
+		  
 		for(int i =1; i<=G2M.size();i++){
 		  int w = resizew(images.get(G2M.get(i-1)-1).width, images.get(G2M.get(i-1)-1).height, t2);
 		  int h = resizeh(images.get(G2M.get(i-1)-1).width, images.get(G2M.get(i-1)-1).height, t2);
-		  image(images.get(G2M.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G2M.size()+1), height/2+H2/2, w,h);
+		  image(images.get(G2M.get(i-1)-1), width/2+cos((G2M.size()+1+i)*PI/(G2M.size()+1))*D2/2, height/2-sin((G2M.size()+1+i)*PI/(G2M.size()+1))*d2/2, w, h);
 		}
-		
+		  
+		  
 		tint(255,255,255,255);
 		for(int i =1; i<=G3P.size();i++){
 		  int w = resizew(images.get(G3P.get(i-1)-1).width, images.get(G3P.get(i-1)-1).height, t3);
 		  int h = resizeh(images.get(G3P.get(i-1)-1).width, images.get(G3P.get(i-1)-1).height, t3);
-		  image(images.get(G3P.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G3P.size()+1), height/2-H3/2, w,h);
+		  image(images.get(G3P.get(i-1)-1), width/2+cos(i*PI/(G3P.size()+1))*D3/2, height/2-sin(i*PI/(G3P.size()+1))*d3/2, w, h);
 		}
-		
+		  
 		for(int i =1; i<=G3M.size();i++){
 		  int w = resizew(images.get(G3M.get(i-1)-1).width, images.get(G3M.get(i-1)-1).height, t3);
 		  int h = resizeh(images.get(G3M.get(i-1)-1).width, images.get(G3M.get(i-1)-1).height, t3);
-		  image(images.get(G3M.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G3M.size()+1), height/2+H3/2, w,h);
+		  image(images.get(G3M.get(i-1)-1), width/2+cos((G3M.size()+1+i)*PI/(G3M.size()+1))*D3/2, height/2-sin((G3M.size()+1+i)*PI/(G3M.size()+1))*d3/2, w, h);
 		}
 	}
-
 
 	
 	int resizew(int w, int h, int d){
@@ -203,63 +195,62 @@ public class VisuRect extends PApplet {
 		  
 		return floor(h/H*d);
 	}
-	
-	void setGradient(int x1, int y1, int x2, int y2, int C1, int C2){
+
+	void setGradient(int mx, int my, float w, float h, int c1, int c2){
 		/* This function build the transition between the upper part and the lower part*/
-		  
-		float R1, R2, G1, G2, Bl1, Bl2;
-		R1 = red(C1);
-		G1 = green(C1);
-		Bl1 = blue(C1);
-		R2 = red(C2);
-		G2 = green(C2);
-		Bl2 = blue(C2);
-		  
-		  
-		for( int i =0; i<(y2-y1); i++) {
-		  stroke(color(R1+i*(R2-R1)/(y2-y1), G1+i*(G2-G1)/(y2-y1), Bl1+i*(Bl2-Bl1)/(y2-y1)));
-		  line(x1,y1+i,x2,y1+i);
+		
+		noFill();
+		colorMode(RGB, 255);
+		float inter;
+		int ci;
+		int x = mx-floor(w/2);
+		int y = my-floor(h/2);
+		for (int i = 0; i < h; i++) {
+		  colorMode(RGB, 255, 255, 255);
+		  inter = map(i, 0, h, 0, 1);
+		  ci = lerpColor(c1,c2,inter);
+		  for (int j = x; j <= x+w/2; j++) {
+		      inter = map(j, x, x+w/2, 0, 1);
+		      int c = lerpColor(color(255,255,255), ci, inter);
+		      stroke(c);
+		      line(j, y+i, j, y+i+1);
+		  }
+		  for (int j = x+floor(w/2); j <= x+w; j++) {
+		      inter = map(j, x+w/2, x+w, 0, 1);
+		      int c = lerpColor(ci, color(255,255,255), inter);
+		      stroke(c);
+		      line(j, y+i, j, y+i+1);
+		  }
 		}
-	}
-	
-	public static void show() {
-		PApplet.main("VisuRect");
-	}
-	
-	public static void setImages(ArrayList<PImage> images) {
-		VisuRect.images = images;
 	}
 
 	public static void setWidth(int width) {
-		VisuRect.width = width;
+		VisuCircleBlack.width = width;
 	}
 
 	public static void setHeight(int height) {
-		VisuRect.height = height;
+		VisuCircleBlack.height = height;
 	}
 
 	public static void setT1(int t1) {
-		VisuRect.t1 = t1;
+		VisuCircleBlack.t1 = t1;
 	}
 
 	public static void setT3(int t3) {
-		VisuRect.t3 = t3;
+		VisuCircleBlack.t3 = t3;
 	}
-
-	public static void setW(int w) {
-		VisuRect.W = w;
-	}
-
+	
 	public static void setCP(Color CP) {
-		VisuRect.RP = CP.getRed();
-		VisuRect.GP = CP.getGreen();
-		VisuRect.BlP = CP.getBlue();
+		VisuCircleBlack.RP = CP.getRed();
+		VisuCircleBlack.GP = CP.getGreen();
+		VisuCircleBlack.BlP = CP.getBlue();
 	}
 	
 	public static void setCM(Color CM) {
-		VisuRect.RM = CM.getRed();
-		VisuRect.GM = CM.getGreen();
-		VisuRect.BlM = CM.getBlue();
+		VisuCircleBlack.RM = CM.getRed();
+		VisuCircleBlack.GM = CM.getGreen();
+		VisuCircleBlack.BlM = CM.getBlue();
 	}
+
 
 }
