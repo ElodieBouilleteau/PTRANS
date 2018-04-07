@@ -16,6 +16,9 @@ public class Main extends Application {
         primaryStage.setTitle("PQmethodVisu");
         primaryStage.setScene(new Scene(root, 200, 600));
         primaryStage.show();
+        //crée un model et l'ajouter dans le controller
+        //Model m = new Model();
+        //MainAppController controllerMainApp =  new MainAppController(m);
     }
 
 

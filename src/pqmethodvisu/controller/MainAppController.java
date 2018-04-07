@@ -15,14 +15,23 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import pqmethodvisu.model.Model;
+//ne pas toucher
 import javafx.fxml.FXML;
 
 public class MainAppController {
+	
+	Model model;
+	
+	public MainAppController(Model model) {
+		this.model = model;
+	}
 	
 	/*
 	 * Affiche la popup pour importer les images du dossier
 	 * 
 	 */
+	//ne pas toucher
 	@FXML
 	private void affichePopupImportImage()
 	{
