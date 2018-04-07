@@ -12,17 +12,16 @@ public class VisuCircleBlack extends PApplet{
 	  
 	//size parameters 
 	private static int width, height;
-	private static float pw = 1; //
-	private static float ph = 1;
-	private static float pt = 0.4F;
+	private static float D1, D2, D3, d1, d2, d3;
 	  
 	//picture size in px
-	private static int t1 = 80;
-	private static int t3 = 180;
-	private static int t2 = PApplet.floor(t1+(t3-t1)*pt); 
-	  
-	private static float D1, D2, D3, d1, d2, d3;
+	private static int t1;
+	private static int t3;
+	private static int t2;
 	
+	//transparency
+	private static float alpha1, alpha2, alpha3;
+	  
 	//colors and colors' features
 	private static int RP, GP, BlP, RM, GM, BlM;
 	private static int CP, CM; //colors are represented by int
@@ -45,12 +44,17 @@ public class VisuCircleBlack extends PApplet{
 	
 	public void setup() {
 		background(255);
-		D1 = floor(width*pw-t1);
+		D1 = floor(width-t1);
 		D2 = floor(D1*0.72F);
 		D3 = floor(D1*0.27F);
-		d1 = floor(height*ph-t1);
+		d1 = floor(height-t1);
 		d2 = floor(d1*0.72F);
 		d3 = floor(d1*0.27F);
+		
+		t2 = PApplet.floor(width*0.13F); 
+		
+		alpha3 = 1;
+		alpha2 = alpha1+(alpha3-alpha1)*0.4F;
 		
 		CP = color(RP,GP,BlP);
 		CM = color(RM,GM,BlM);
@@ -139,7 +143,7 @@ public class VisuCircleBlack extends PApplet{
 		//placing pictures
 		colorMode(RGB, 255,255,255,255);
 		imageMode(CENTER);
-		tint(255,255,255, 100);
+		tint(255,255,255, 255*alpha1);
 		for(int i =1; i<=G1P.size();i++){
 		  int w = resizew(images.get(G1P.get(i-1)-1).width, images.get(G1P.get(i-1)-1).height, t1);
 		  int h = resizeh(images.get(G1P.get(i-1)-1).width, images.get(G1P.get(i-1)-1).height, t1);
@@ -153,7 +157,7 @@ public class VisuCircleBlack extends PApplet{
 		}
 		  
 		  
-		tint(255,255,255,200);
+		tint(255,255,255,255*alpha2);
 		for(int i =1; i<=G2P.size();i++){
 		  int w = resizew(images.get(G2P.get(i-1)-1).width, images.get(G2P.get(i-1)-1).height, t2);
 		  int h = resizeh(images.get(G2P.get(i-1)-1).width, images.get(G2P.get(i-1)-1).height, t2);
@@ -167,7 +171,7 @@ public class VisuCircleBlack extends PApplet{
 		}
 		  
 		  
-		tint(255,255,255,255);
+		tint(255,255,255,255*alpha3);
 		for(int i =1; i<=G3P.size();i++){
 		  int w = resizew(images.get(G3P.get(i-1)-1).width, images.get(G3P.get(i-1)-1).height, t3);
 		  int h = resizeh(images.get(G3P.get(i-1)-1).width, images.get(G3P.get(i-1)-1).height, t3);
@@ -258,6 +262,10 @@ public class VisuCircleBlack extends PApplet{
 		VisuCircleBlack.RM = CM.getRed();
 		VisuCircleBlack.GM = CM.getGreen();
 		VisuCircleBlack.BlM = CM.getBlue();
+	}
+
+	public static void setAlpha1(float alpha1) {
+		VisuCircleBlack.alpha1 = alpha1;
 	}
 
 	public static void setSave(boolean save) {

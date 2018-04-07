@@ -17,18 +17,16 @@ public class VisuRectBlack extends PApplet {
 	  
 	//size of the window
 	private static int width, height;
-
-	//size parameters
-	private static float pw = 1; //
-	private static float ph = 1;
-	private static float pt = 0.4F;
+	private static int W, H1, H2, H3;
 	  
 	//picture size in px
-	private static int t1 = 80;
-	private static int t3 = 180;
-	private static int t2 = PApplet.floor(t1+(t3-t1)*pt); 
-	  
-	private static int W, H1, H2, H3;
+	private static int t1;
+	private static int t3;
+	private static int t2;
+	
+	//transparency
+	private static float alpha1, alpha2, alpha3;
+
 	
 	//colors and colors' features
 	private static int RP, GP, BlP, RM, GM, BlM;
@@ -53,10 +51,15 @@ public class VisuRectBlack extends PApplet {
 	
 	public void setup() {
 		background(255);
-		W = floor(width*pw);
-		H1 = floor(height*ph)-t1;
+		W = floor(width);
+		H1 = floor(height)-t1;
 		H2 = floor(H1*0.72F);
 		H3 = floor(H1*0.27F);
+		
+		t2 = PApplet.floor(width*0.13F); 
+		
+		alpha3 = 1;
+		alpha2 = alpha1+(alpha3-alpha1)*0.4F;
 		
 		CP = color(RP,GP,BlP);
 		CM = color(RM,GM,BlM);
@@ -125,7 +128,7 @@ public class VisuRectBlack extends PApplet {
 		//linear gradient
 		
 		//transition
-		setGradient(floor(width*(1-pw)/2), height/2-10, floor(width*(1-pw)/2)+W, height/2+10, CP, CM);
+		setGradient(floor(width/2), height/2-10, floor(width/2)+W, height/2+10, CP, CM);
 		 
 		noStroke();
 		colorMode(HSB, 360, 100, 100);
@@ -133,19 +136,19 @@ public class VisuRectBlack extends PApplet {
 		//upper part
 		for (int r = (H1/2+t1/2); r >=0; r--) {
 		  fill(HP, SP, BP-r*(BP-0)/(H1/2+t1/2));
-		  rect(width*(1-pw)/2, height/2-r-10, W, r);
+		  rect(width/2, height/2-r-10, W, r);
 		}
 		
 		//lower part
 		for (int r = (H1/2+t1/2); r >=0; r--) {
 		  fill(HM, SM, BM-r*(BM-0)/(H1/2+t1/2));
-		  rect(width*(1-pw)/2, height/2+10, W, r);
+		  rect(width/2, height/2+10, W, r);
 		}
 		
 		
 		//placing pictures
 		colorMode(RGB, 255,255,255,255);
-		tint(255,255,255, 100);
+		tint(255,255,255, 255*alpha1);
 		imageMode(CENTER);
 		for(int i =1; i<=G1P.size();i++){
 		  int w = resizew(images.get(G1P.get(i-1)-1).width, images.get(G1P.get(i-1)-1).height, t1);
@@ -159,7 +162,7 @@ public class VisuRectBlack extends PApplet {
 		  image(images.get(G1M.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G1M.size()+1), height/2+H1/2, w,h);
 		}
 		
-		tint(255,255,255,200);
+		tint(255,255,255,255*alpha2);
 		for(int i =1; i<=G2P.size();i++){
 		  int w = resizew(images.get(G2P.get(i-1)-1).width, images.get(G2P.get(i-1)-1).height, t2);
 		  int h = resizeh(images.get(G2P.get(i-1)-1).width, images.get(G2P.get(i-1)-1).height, t2);
@@ -172,7 +175,7 @@ public class VisuRectBlack extends PApplet {
 		  image(images.get(G2M.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G2M.size()+1), height/2+H2/2, w,h);
 		}
 		
-		tint(255,255,255,255);
+		tint(255,255,255,255*alpha3);
 		for(int i =1; i<=G3P.size();i++){
 		  int w = resizew(images.get(G3P.get(i-1)-1).width, images.get(G3P.get(i-1)-1).height, t3);
 		  int h = resizeh(images.get(G3P.get(i-1)-1).width, images.get(G3P.get(i-1)-1).height, t3);
@@ -191,8 +194,6 @@ public class VisuRectBlack extends PApplet {
 		}
 	}
 
-
-	
 	int resizew(int w, int h, int d){
 		/*This function take the diameter of a circle and the size of a picture 
 		 * and return the width of the same picture which can hold in the circle*/
@@ -267,6 +268,10 @@ public class VisuRectBlack extends PApplet {
 		VisuRectBlack.RM = CM.getRed();
 		VisuRectBlack.GM = CM.getGreen();
 		VisuRectBlack.BlM = CM.getBlue();
+	}
+	
+	public static void setAlpha1(float alpha1) {
+		VisuRectBlack.alpha1 = alpha1;
 	}
 	
 	public static void setSave(boolean save) {
