@@ -13,10 +13,12 @@ public class Visualization {
 	private int factor1, factor2; //factor1 = main factor, factor2 = secondary factor
 	private int t1, t3;
 	private int width, height;
-	private int alpha1, alpha2, alpha3; //transparency between 0 and 255
+	private int alpha1; //transparency for the little images, between 0 and 255
 	private ArrayList<Image> corpus;
 	private ArrayList<Image> GP1, GP2, GP3, GM1, GM2, GM3, G0;
 	private String savePath;
+	private String format;
+	private String name;
 	private boolean save;
 	
 	
@@ -28,8 +30,6 @@ public class Visualization {
 		this.width = 1200;
 		this.height = 700;
 		this.alpha1 = 100;
-		this.alpha2 = 200;
-		this.alpha3 = 255;
 		this.factor1 = 1;
 		this.factor2 = 2;
 		this.GP1 = new ArrayList<Image>();
@@ -67,7 +67,7 @@ public class Visualization {
 				this.GM2.add(i);
 			}
 			else if(zscore < -1.8 && zscore >= -2) {
-				this.GP3.add(i);
+				this.GM3.add(i);
 			}
 			else if(zscore == 0) {
 				this.G0.add(i);
@@ -93,6 +93,7 @@ public class Visualization {
 		VisuRect.setHeight(this.height);
 		VisuRect.setCP(this.CP);
 		VisuRect.setCM(this.CM);
+		VisuRect.setAlpha1(alpha1);
 		VisuRect.setSavePath(savePath);
 		VisuRect.setSave(save);
 		PApplet.main("VisuRect");
@@ -105,6 +106,7 @@ public class Visualization {
 		VisuCircle.setHeight(this.height);
 		VisuCircle.setCP(this.CP);
 		VisuCircle.setCM(this.CM);
+		VisuCircle.setAlpha1(alpha1);
 		VisuCircle.setSavePath(savePath);
 		VisuCircle.setSave(save);
 		PApplet.main("VisuCircle");
@@ -117,6 +119,7 @@ public class Visualization {
 		VisuRectBlack.setHeight(this.height);
 		VisuRectBlack.setCP(this.CP);
 		VisuRectBlack.setCM(this.CM);
+		VisuRectBlack.setAlpha1(alpha1);
 		VisuRectBlack.setSavePath(savePath);
 		VisuRectBlack.setSave(save);
 		PApplet.main("VisuRect");
@@ -129,6 +132,7 @@ public class Visualization {
 		VisuCircleBlack.setHeight(this.height);
 		VisuCircleBlack.setCP(this.CP);
 		VisuCircleBlack.setCM(this.CM);
+		VisuCircleBlack.setAlpha1(alpha1);
 		VisuCircleBlack.setSavePath(savePath);
 		VisuCircleBlack.setSave(save);
 		PApplet.main("VisuCircleBlack");
@@ -211,20 +215,36 @@ public class Visualization {
 		this.alpha1 = alpha1;
 	}
 
-	public int getAlpha2() {
-		return alpha2;
+	public String getSavePath() {
+		return savePath;
 	}
 
-	public void setAlpha2(int alpha2) {
-		this.alpha2 = alpha2;
+	public void setSavePath(String savePath) {
+		this.savePath = savePath;
 	}
 
-	public int getAlpha3() {
-		return alpha3;
+	public String getFormat() {
+		return format;
 	}
 
-	public void setAlpha3(int alpha3) {
-		this.alpha3 = alpha3;
+	public void setFormat(String format) {
+		this.format = format;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public boolean isSave() {
+		return save;
+	}
+
+	public void setSave(boolean save) {
+		this.save = save;
 	}
 	
 	
