@@ -35,6 +35,10 @@ public class VisuCircle extends PApplet{
 	private static IntList G2M = new IntList();
 	private static IntList G3M = new IntList();
 	
+	//save
+	private static String savePath;
+	private static boolean save;
+	
 	public void settings() {
 		size(1200,700);
 	}
@@ -176,6 +180,11 @@ public class VisuCircle extends PApplet{
 		  int h = resizeh(images.get(G3M.get(i-1)-1).width, images.get(G3M.get(i-1)-1).height, t3);
 		  image(images.get(G3M.get(i-1)-1), width/2+cos((G3M.size()+1+i)*PI/(G3M.size()+1))*D3/2, height/2-sin((G3M.size()+1+i)*PI/(G3M.size()+1))*d3/2, w, h);
 		}
+		
+		
+		if (save) {
+			this.save(savePath);
+		}
 	}
 
 	
@@ -253,9 +262,11 @@ public class VisuCircle extends PApplet{
 		VisuCircle.BlM = CM.getBlue();
 	}
 	
+	public static void setSave(boolean save) {
+		VisuCircle.save = save;
+	}
 	
-
-	
-	
-
+	public static void setSavePath(String savePath) {
+		VisuCircle.savePath = savePath;
+	}
 }

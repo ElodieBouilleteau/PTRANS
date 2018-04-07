@@ -42,7 +42,9 @@ public class VisuRect extends PApplet {
 	private static IntList G2M = new IntList();
 	private static IntList G3M = new IntList();
 	
-	
+	//save
+	private static String savePath;
+	private static boolean save;
 	
 	public void settings() {
 		size(width,height);
@@ -182,6 +184,11 @@ public class VisuRect extends PApplet {
 		  int h = resizeh(images.get(G3M.get(i-1)-1).width, images.get(G3M.get(i-1)-1).height, t3);
 		  image(images.get(G3M.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G3M.size()+1), height/2+H3/2, w,h);
 		}
+		
+		
+		if (save) {
+			this.save(savePath);
+		}
 	}
 
 
@@ -260,6 +267,14 @@ public class VisuRect extends PApplet {
 		VisuRect.RM = CM.getRed();
 		VisuRect.GM = CM.getGreen();
 		VisuRect.BlM = CM.getBlue();
+	}
+	
+	public static void setSave(boolean save) {
+		VisuRect.save = save;
+	}
+	
+	public static void setSavePath(String savePath) {
+		VisuRect.savePath = savePath;
 	}
 
 }

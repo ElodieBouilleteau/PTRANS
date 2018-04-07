@@ -16,6 +16,8 @@ public class Visualization {
 	private int alpha1, alpha2, alpha3; //transparency between 0 and 255
 	private ArrayList<Image> corpus;
 	private ArrayList<Image> GP1, GP2, GP3, GM1, GM2, GM3, G0;
+	private String savePath;
+	private boolean save;
 	
 	
 	private Visualization() {
@@ -37,6 +39,8 @@ public class Visualization {
 		this.GM2 = new ArrayList<Image>();
 		this.GM3 = new ArrayList<Image>();
 		this.G0 = new ArrayList<Image>();
+		this.savePath = "C:\\Users\\journ\\Images\\test.png";
+		this.save = false;
 	}
 	
 	public static Visualization getInstance() {
@@ -89,6 +93,8 @@ public class Visualization {
 		VisuRect.setHeight(this.height);
 		VisuRect.setCP(this.CP);
 		VisuRect.setCM(this.CM);
+		VisuRect.setSavePath(savePath);
+		VisuRect.setSave(save);
 		PApplet.main("VisuRect");
 	}
 	
@@ -99,6 +105,8 @@ public class Visualization {
 		VisuCircle.setHeight(this.height);
 		VisuCircle.setCP(this.CP);
 		VisuCircle.setCM(this.CM);
+		VisuCircle.setSavePath(savePath);
+		VisuCircle.setSave(save);
 		PApplet.main("VisuCircle");
 	}
 	
@@ -109,6 +117,8 @@ public class Visualization {
 		VisuRectBlack.setHeight(this.height);
 		VisuRectBlack.setCP(this.CP);
 		VisuRectBlack.setCM(this.CM);
+		VisuRectBlack.setSavePath(savePath);
+		VisuRectBlack.setSave(save);
 		PApplet.main("VisuRect");
 	}
 	
@@ -119,6 +129,8 @@ public class Visualization {
 		VisuCircleBlack.setHeight(this.height);
 		VisuCircleBlack.setCP(this.CP);
 		VisuCircleBlack.setCM(this.CM);
+		VisuCircleBlack.setSavePath(savePath);
+		VisuCircleBlack.setSave(save);
 		PApplet.main("VisuCircleBlack");
 	}
 	
