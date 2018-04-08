@@ -1,24 +1,34 @@
 package pqmethodvisu;
 
-/*fx:controller="APPLI.src.pqmethodvisu.view.MainAppController"*/
+/*D:\Elodie\Documents\POLYTECHNANTES\4èm année\PTRANS\1 images URDLA online Copie : fichier des images*/
+/*D:\Elodie\Documents\POLYTECHNANTES\4èm année\PTRANS\appli\résultats-pqmethod.txt : fichier du résultats*/
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import pqmethodvisu.controller.MainAppControllerOverview;
+import pqmethodvisu.model.Model;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("view/MainApp.fxml"));
+    	//Création d'un loader pour le fichier FXML
+    	FXMLLoader loader = new FXMLLoader();
+    	//Télécharger le fichier fxml
+        loader.setLocation(Main.class.getResource("view/MainAppOverview.fxml"));
+        //Création de l'anchor pane du menu
+        AnchorPane MainApp = (AnchorPane) loader.load();
         primaryStage.setTitle("PQmethodVisu");
-        primaryStage.setScene(new Scene(root, 200, 600));
+        primaryStage.setScene(new Scene(MainApp, 200, 600));
         primaryStage.show();
+        // Acceder au controller du fichier fxml
+        MainAppControllerOverview controller = loader.getController();
         //crée un model et l'ajouter dans le controller
-        //Model m = new Model();
-        //MainAppController controllerMainApp =  new MainAppController(m);
+        Model m = new Model();
+        controller.setModel(m);
     }
 
 

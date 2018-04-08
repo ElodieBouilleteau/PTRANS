@@ -17,21 +17,26 @@ public class CollectionImage {
 
 	//function importation picture with the path of the pictures
 	//the path of the pictures is path of the folder with the number of the picture at the end
-	public void importImage(String pathFolder)
+	public boolean importImage(String pathFolder)
 	{
 		File repertoire = new File(pathFolder);
-		this.imagesNumber = new  SimpleIntegerProperty(repertoire.listFiles().length);
-		this.corpus = new ArrayList<Image> (imagesNumber.get());
-		for (int i = 0; i < imagesNumber.get(); i++)
+		if (repertoire.isDirectory())
 		{
-			this.corpus.add(new Image(pathFolder+"\\"+(i+1)+".jpg"));
+			this.imagesNumber = new  SimpleIntegerProperty(repertoire.listFiles().length);
+			this.corpus = new ArrayList<Image> (imagesNumber.get());
+			for (int i = 0; i < imagesNumber.get(); i++)
+			{
+				this.corpus.add(new Image(pathFolder+"\\"+(i+1)+".jpg"));
+			}
 		}
+		return repertoire.isDirectory();
 	}
 	
 	//function importation result from qmethod
-	public void importData(String pathData) {
+	public Boolean importData(String pathData) {
 		try{
-			InputStream ips=new FileInputStream(pathData); 
+			System.out.println(pathData);
+			InputStream ips=new FileInputStream(pathData);
 			InputStreamReader ipsr=new InputStreamReader(ips);
 			BufferedReader br=new BufferedReader(ipsr);
 			String ligne;
@@ -48,6 +53,7 @@ public class CollectionImage {
 			int numberOfFactor = Integer.parseInt(ligne.substring(ligne.length()-1, ligne.length()));
 			//pass to the next line where the zscore and the classement number is
 			ligne=br.readLine();
+			System.out.println(imagesNumber.get());
 			for (int i = 0; i < imagesNumber.get(); i++)
 			{
 				ligne=br.readLine();
@@ -55,8 +61,11 @@ public class CollectionImage {
 				//name of the picture (5eme caractere to 60eme caractere of the line)
 				//the same longer for every picture
 				String name = ligne.substring(x, x+55);
+				System.out.println("test");
 				//add the name to the picture number i
+				System.out.println(name);
 				this.corpus.get(i).setName(name);
+				System.out.println("test1");
 				//add the list of factor to the picture number i
 				this.corpus.get(i).addListFactor(numberOfFactor);
 				int borne1 = ligne.length()-2;
@@ -71,11 +80,12 @@ public class CollectionImage {
 					this.corpus.get(i).addFactor(j, Double.parseDouble(zscore.replaceAll(" ","")), Integer.parseInt(classement.replaceAll(" ","")));
 				}
 			}
-
-			br.close(); 
+			
+			br.close();
+			return true;
 		}		
 		catch (Exception e){
-			System.out.println(e.toString());
+			return false;
 		}
 	}
 }
