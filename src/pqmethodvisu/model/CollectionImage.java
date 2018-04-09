@@ -7,14 +7,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-
 public class CollectionImage {
 	
 	private ArrayList<Image> corpus;
-	private IntegerProperty imagesNumber;
-
+	private Integer imagesNumber;
+	private Integer factorsNumber;
+	
 	//function importation picture with the path of the pictures
 	//the path of the pictures is path of the folder with the number of the picture at the end
 	public boolean importImage(String pathFolder)
@@ -22,9 +20,9 @@ public class CollectionImage {
 		File repertoire = new File(pathFolder);
 		if (repertoire.isDirectory())
 		{
-			this.imagesNumber = new  SimpleIntegerProperty(repertoire.listFiles().length);
-			this.corpus = new ArrayList<Image> (imagesNumber.get());
-			for (int i = 0; i < imagesNumber.get(); i++)
+			this.imagesNumber = repertoire.listFiles().length;
+			this.corpus = new ArrayList<Image> (imagesNumber);
+			for (int i = 0; i < imagesNumber; i++)
 			{
 				this.corpus.add(new Image(pathFolder+"\\"+(i+1)+".jpg"));
 			}
@@ -35,7 +33,6 @@ public class CollectionImage {
 	//function importation result from qmethod
 	public Boolean importData(String pathData) {
 		try{
-			System.out.println(pathData);
 			InputStream ips=new FileInputStream(pathData);
 			InputStreamReader ipsr=new InputStreamReader(ips);
 			BufferedReader br=new BufferedReader(ipsr);
@@ -51,21 +48,19 @@ public class CollectionImage {
 			//catch the number of factor
 			//this is the 2 ending caractere of the line
 			int numberOfFactor = Integer.parseInt(ligne.substring(ligne.length()-1, ligne.length()));
+			//add to the local variable
+			setFactorsNumber(numberOfFactor);
 			//pass to the next line where the zscore and the classement number is
 			ligne=br.readLine();
-			System.out.println(imagesNumber.get());
-			for (int i = 0; i < imagesNumber.get(); i++)
+			for (int i = 0; i < imagesNumber; i++)
 			{
 				ligne=br.readLine();
 				int x = 5;
 				//name of the picture (5eme caractere to 60eme caractere of the line)
 				//the same longer for every picture
 				String name = ligne.substring(x, x+55);
-				System.out.println("test");
 				//add the name to the picture number i
-				System.out.println(name);
 				this.corpus.get(i).setName(name);
-				System.out.println("test1");
 				//add the list of factor to the picture number i
 				this.corpus.get(i).addListFactor(numberOfFactor);
 				int borne1 = ligne.length()-2;
@@ -87,5 +82,15 @@ public class CollectionImage {
 		catch (Exception e){
 			return false;
 		}
+	}
+
+	//get the numbers of factors
+	public Integer getFactorsNumber() {
+		return factorsNumber;
+	}
+
+	//add the number of factors
+	public void setFactorsNumber(Integer factorsNumber) {
+		this.factorsNumber = factorsNumber;
 	}
 }

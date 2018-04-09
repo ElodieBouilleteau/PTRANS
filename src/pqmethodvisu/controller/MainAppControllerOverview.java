@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -20,7 +19,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import pqmethodvisu.FXUtils;
 import pqmethodvisu.model.CollectionImage;
 import pqmethodvisu.model.Model;
 import javafx.fxml.FXML;
@@ -183,10 +181,21 @@ public class MainAppControllerOverview implements Initializable {
         	@Override public void handle(ActionEvent e) {
         		if((path.getText().length()!=0)) {
         			Boolean test = model.getCollectionImage().importData(path.getText());
-        			System.out.println("test : "+test);
         			if (test) 
         			{
         				menuImportResults.setDisable(true);
+        				//initializer le comboBox du majorFactor
+        				int FactorsNumber = model.getCollectionImage().getFactorsNumber();
+        				ObservableList<String> list = FXCollections.observableArrayList();
+        				for (int i = 1; i<=FactorsNumber;i++)
+        				{
+        					list.add(Integer.toString(i));
+        				}
+        				MajorFactorCombobox.setItems(list);
+        				MajorFactorCombobox.getSelectionModel().select("1");
+        				//initializer le comboBox du minorFactor
+        				MinorFactorCombobox.setItems(list);
+        				MinorFactorCombobox.getSelectionModel().select("2");
             			popup.close();
             			Alert alert = new Alert(AlertType.INFORMATION);
             			alert.setTitle("Information");
