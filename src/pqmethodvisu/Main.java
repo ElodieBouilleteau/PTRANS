@@ -22,7 +22,7 @@ public class Main extends Application {
         //Création de l'anchor pane du menu
         AnchorPane MainApp = (AnchorPane) loader.load();
         primaryStage.setTitle("PQmethodVisu");
-        primaryStage.setScene(new Scene(MainApp, 200, 600));
+        primaryStage.setScene(new Scene(MainApp, 250, 600));
         primaryStage.show();
         // Acceder au controller du fichier fxml
         MainAppControllerOverview controller = loader.getController();

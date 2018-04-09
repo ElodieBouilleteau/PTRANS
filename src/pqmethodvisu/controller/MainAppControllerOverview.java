@@ -10,17 +10,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
@@ -44,24 +39,42 @@ public class MainAppControllerOverview implements Initializable {
 	private MenuItem menuImportResults;
 	@FXML
 	private MenuItem menuSaveImage;
+	@FXML
+	private ComboBox<String> MajorFactorCombobox;
+	@FXML
+	private ComboBox<String> MinorFactorCombobox;
+	@FXML
+	private ComboBox<String> TypeVizuComboBox;
+	@FXML
+	private ComboBox<String> ColorVizuComboBox;
+	@FXML
+	private ColorPicker Color1Vizu;
+	@FXML
+	private ColorPicker Color2Vizu;
+	@FXML
+	private Slider WidthCursor;
+	@FXML
+	private Slider HeightCursor;
+	@FXML
+	private Slider MaxSizeCursor;
+	@FXML
+	private Slider MinSizeCursor;
 	
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		//initializer le comboBox du type de visu
-		ComboBox<String> typeVizuComboBox = FXUtils.getChildByID(ap, "TypeVizuComboBox");
-		ObservableList<String> listType = FXCollections.observableArrayList("Rectangle","Circle");
-		typeVizuComboBox.setItems(listType);
-		typeVizuComboBox.getSelectionModel().select("Rectangle");
+		TypeVizuComboBox.setItems(FXCollections.observableArrayList("Rectangle","Circle"));
+		TypeVizuComboBox.getSelectionModel().select("Rectangle");
 		
 		//initializer le comboBox du choix de couleur
-		ComboBox<String> colorVizuComboBox = FXUtils.getChildByID(ap, "ColorVizuComboBox");
-		ObservableList<String> listColorVizu = FXCollections.observableArrayList("ColorFull","Black/White");
-		colorVizuComboBox.setItems(listColorVizu);
-		colorVizuComboBox.getSelectionModel().select("ColorFull");
+		ColorVizuComboBox.setItems(FXCollections.observableArrayList("ColorFull","Black/White"));
+		ColorVizuComboBox.getSelectionModel().select("ColorFull");
 	
 		//INITIALISER LES COULEURS DES COMBOBOX
+		Color1Vizu.setValue(Color.BLUE);
+		Color2Vizu.setValue(Color.RED);
 	}
 	
 	/*
@@ -199,6 +212,21 @@ public class MainAppControllerOverview implements Initializable {
         		}
         	}
         });
+	}
+
+	@FXML
+	private void applyValue()
+	{
+		System.out.println("Major Factor: " + MajorFactorCombobox.getValue());
+		System.out.println("Minor Factor: " + MinorFactorCombobox.getValue());
+		System.out.println("Visualization Type: " + TypeVizuComboBox.getValue());
+		System.out.println("Visualization Color: " + ColorVizuComboBox.getValue());
+		System.out.println("First Color: " + Color1Vizu.getValue());
+		System.out.println("Second Color: " + Color2Vizu.getValue());
+		System.out.println("Width: " + WidthCursor.getValue());
+		System.out.println("Height: " + HeightCursor.getValue());
+		System.out.println("Max Size: " + MaxSizeCursor.getValue());
+		System.out.println("Min Size: " + MinSizeCursor.getValue());
 	}
 	
 	/*@FXML

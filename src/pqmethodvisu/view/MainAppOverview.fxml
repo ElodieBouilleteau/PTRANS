@@ -13,14 +13,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="menu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pqmethodvisu.controller.MainAppControllerOverview">
+<AnchorPane fx:id="menu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pqmethodvisu.controller.MainAppControllerOverview">
    <children>
       <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
               <MenuItem fx:id="menuImportImmages" mnemonicParsing="false" onAction="#affichePopupImportImage" text="Import images..." />
-              <MenuItem fx:id="menuImportResults" disable="true" onAction="#affichePopupImportResult" mnemonicParsing="false" text="Import result..." />
+              <MenuItem fx:id="menuImportResults" disable="true" mnemonicParsing="false" onAction="#affichePopupImportResult" text="Import result..." />
               <MenuItem fx:id="menuSaveImage" disable="true" mnemonicParsing="false" text="Save Image" />
             </items>
           </Menu>
@@ -31,44 +31,39 @@
           </Menu>
         </menus>
       </MenuBar>
-      <AnchorPane fx:id="ap" layoutY="24.0" prefHeight="576.0" prefWidth="200.0" style="-fx-background-color: rgb(71, 78, 73);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="24.0">
+      <AnchorPane fx:id="ap" layoutY="24.0" style="-fx-background-color: rgb(71, 78, 73);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="32.0">
          <children>
-            <Label layoutX="85.0" layoutY="6.0" text="Factor" textFill="WHITE">
+            <Label text="Factor" textFill="WHITE" AnchorPane.leftAnchor="98.0" AnchorPane.rightAnchor="98.0" AnchorPane.topAnchor="5.0">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="12.0" layoutY="35.0" text="Major" textFill="WHITE" />
-            <ComboBox id="MajorFactorCombobox" layoutX="52.0" layoutY="31.0" prefHeight="25.0" prefWidth="130.0" />
+            <Label text="Major" textFill="WHITE" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="35.0" />
+            <ComboBox fx:id="MajorFactorCombobox" prefHeight="25.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="32.0" />
             <Label layoutX="12.0" layoutY="84.0" text="Minor" textFill="WHITE" />
-            <ComboBox id="MinorFactorCombobox" layoutX="52.0" layoutY="80.0" prefHeight="25.0" prefWidth="130.0" />
-            <Separator layoutY="129.0" prefWidth="200.0" AnchorPane.topAnchor="129.0" />
-            <ComboBox fx:id="TypeVizuComboBox" layoutX="25.0" layoutY="149.0" prefWidth="150.0" />
-            <ComboBox fx:id="ColorVizuComboBox" layoutX="25.0" layoutY="195.0" prefWidth="150.0" />
-            <Separator layoutY="243.0" prefWidth="200.0" />
+            <ComboBox fx:id="MinorFactorCombobox" prefHeight="25.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="80.0" />
+            <Separator AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="129.0" />
+            <ComboBox fx:id="TypeVizuComboBox" layoutX="25.0" layoutY="149.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+            <ComboBox fx:id="ColorVizuComboBox" layoutX="25.0" layoutY="195.0" prefWidth="150.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+            <Separator AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="243.0" />
             <Label layoutX="13.0" layoutY="261.0" text="Color 1" textFill="WHITE" />
-            <ColorPicker id="Color1Vizu" layoutX="72.0" layoutY="257.0" prefHeight="25.0" prefWidth="121.0" />
-            <Label layoutX="13.0" layoutY="297.0" text="Color 2" textFill="WHITE" />
-            <ColorPicker id="Color2Vizu" layoutX="72.0" layoutY="293.0" prefHeight="25.0" prefWidth="121.0" />
-            <Separator layoutY="326.0" prefWidth="200.0" />
-            <AnchorPane layoutY="327.0" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: rgb(39,43,55);" AnchorPane.bottomAnchor="99.0">
+            <ColorPicker fx:id="Color1Vizu" layoutY="257.0" AnchorPane.leftAnchor="72.0" AnchorPane.rightAnchor="10.0" />
+            <Label layoutX="13.0" layoutY="300.0" text="Color 2" textFill="WHITE" />
+            <ColorPicker fx:id="Color2Vizu" layoutY="298.0" AnchorPane.leftAnchor="72.0" AnchorPane.rightAnchor="10.0" />
+            <Separator AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="340.0" />
+            <AnchorPane AnchorPane.topAnchor="350.0">
                <children>
-                  <Label layoutX="78.0" layoutY="2.0" text="EFFET" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="14.0" layoutY="33.0" text="Width" textFill="WHITE" />
-                  <Slider id="MinSizeCursor" layoutX="57.0" layoutY="120.0" prefHeight="14.0" prefWidth="130.0" />
-                  <Label layoutX="14.0" layoutY="60.0" text="Height" textFill="WHITE" />
-                  <Slider id="MaxSizeCursor" layoutX="57.0" layoutY="90.0" prefHeight="14.0" prefWidth="130.0" />
-                  <Label layoutX="9.0" layoutY="89.0" text="MaxSize" textFill="WHITE" />
-                  <Slider id="HeightCursor" layoutX="57.0" layoutY="61.0" prefHeight="14.0" prefWidth="130.0" />
-                  <Label layoutX="9.0" layoutY="117.0" text="MinSize" textFill="WHITE" />
-                  <Slider id="WidthCursor" layoutX="57.0" layoutY="34.0" prefHeight="14.0" prefWidth="130.0" />
+                  <Label layoutX="14.0" text="Width" textFill="WHITE" />
+                  <Slider fx:id="WidthCursor" prefWidth="180.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Label layoutX="14.0" layoutY="25.0" text="Height" textFill="WHITE" />
+                  <Slider fx:id="HeightCursor" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0" />
+                  <Label layoutX="9.0" layoutY="50.0" text="MaxSize" textFill="WHITE" />
+                  <Slider fx:id="MaxSizeCursor" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="51.0" />
+                  <Label layoutX="9.0" layoutY="75.0" text="MinSize" textFill="WHITE" />
+                  <Slider fx:id="MinSizeCursor" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0" />
                </children>
             </AnchorPane>
-            <Button alignment="CENTER" layoutX="21.0" layoutY="503.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="159.0" style="-fx-background-color: STEELBLUE;" text="APPLY" textAlignment="JUSTIFY" textFill="WHITE" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="21.0">
+            <Button onAction="#applyValue" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="159.0" style="-fx-background-color: STEELBLUE;" text="APPLY" textAlignment="JUSTIFY" textFill="WHITE" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="460.0">
                <padding>
                   <Insets bottom="10.0" left="56.0" right="56.0" top="10.0" />
                </padding>
