@@ -7,7 +7,9 @@ import processing.core.PApplet;
 
 public class Visualization {
 	
-	private static Visualization uniqueInstance = new Visualization();
+	private static Visualization uniqueInstance;
+	
+	private Model model;
 	
 	private Color CP, CM; //colorP = up part color and colorM = low part color
 	private int factor1, factor2; //factor1 = main factor, factor2 = secondary factor
@@ -16,13 +18,14 @@ public class Visualization {
 	private int alpha1; //transparency for the little images, between 0 and 255
 	private ArrayList<Image> corpus;
 	private ArrayList<Image> GP1, GP2, GP3, GM1, GM2, GM3, G0;
-	private String savePath;
-	private String format;
+	private String savePath; //path to the saving directory
+	private String format; //format of the file (png or jpg);
 	private String name;
-	private boolean save;
+	private boolean save; //true is we want to save the visualization, false else
 	
 	
-	private Visualization() {
+	private Visualization(Model model) {
+		this.model = model;
 		this.CP = Color.BLUE;
 		this.CM = Color.RED;
 		this.t1 = 80;
@@ -43,7 +46,8 @@ public class Visualization {
 		this.save = false;
 	}
 	
-	public static Visualization getInstance() {
+	public static Visualization getInstance(Model model) {
+		Visualization.uniqueInstance = new Visualization(model);
 		return Visualization.uniqueInstance;
 	}
 	

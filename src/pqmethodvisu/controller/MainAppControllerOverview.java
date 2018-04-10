@@ -21,6 +21,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pqmethodvisu.model.CollectionImage;
 import pqmethodvisu.model.Model;
+import pqmethodvisu.model.Visualization;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
@@ -82,6 +83,8 @@ public class MainAppControllerOverview implements Initializable {
 		this.model = model;
 		CollectionImage collectionImages = new CollectionImage();
 		model.setCollectionImage(collectionImages);
+		Visualization visualization = Visualization.getInstance(model);
+		model.setVisualization(visualization);
 	}
 	
 	/*

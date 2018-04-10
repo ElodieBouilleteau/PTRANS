@@ -13,4 +13,14 @@ public class Model {
 		this.collectionImage = collectionImage;
 	}
 
+	public Visualization getVisualization() {
+		return visualization;
+	}
+
+	public void setVisualization(Visualization visualization) {
+		this.visualization = visualization;
+	}
+	
+	
+
 }
