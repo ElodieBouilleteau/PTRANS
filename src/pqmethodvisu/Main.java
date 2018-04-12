@@ -15,6 +15,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+    	//commentaire
     	//Création d'un loader pour le fichier FXML
     	FXMLLoader loader = new FXMLLoader();
     	//Télécharger le fichier fxml
