@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="menu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pqmethodvisu.controller.MainAppControllerOverview">
+<AnchorPane fx:id="menu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pqmethodvisu.controller.MainAppControllerOverview">
    <children>
       <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -31,7 +31,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <AnchorPane fx:id="ap" layoutY="24.0" style="-fx-background-color: rgb(71, 78, 73);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="32.0">
+      <AnchorPane fx:id="ap" layoutY="24.0" prefHeight="508.0" prefWidth="250.0" style="-fx-background-color: rgb(71, 78, 73);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="24.0">
          <children>
             <Label text="Factor" textFill="WHITE" AnchorPane.leftAnchor="98.0" AnchorPane.rightAnchor="98.0" AnchorPane.topAnchor="5.0">
                <font>
@@ -54,16 +54,16 @@
             <AnchorPane AnchorPane.topAnchor="350.0">
                <children>
                   <Label layoutX="14.0" text="Width" textFill="WHITE" />
-                  <Slider fx:id="WidthCursor" prefWidth="180.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Slider fx:id="WidthCursor" max="1900.0" prefWidth="180.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <Label layoutX="14.0" layoutY="25.0" text="Height" textFill="WHITE" />
-                  <Slider fx:id="HeightCursor" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0" />
+                  <Slider fx:id="HeightCursor" max="1200.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0" />
                   <Label layoutX="9.0" layoutY="50.0" text="MaxSize" textFill="WHITE" />
-                  <Slider fx:id="MaxSizeCursor" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="51.0" />
+                  <Slider fx:id="MaxSizeCursor" max="1000.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="51.0" />
                   <Label layoutX="9.0" layoutY="75.0" text="MinSize" textFill="WHITE" />
-                  <Slider fx:id="MinSizeCursor" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0" />
+                  <Slider fx:id="MinSizeCursor" max="500.0" showTickLabels="true" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0" />
                </children>
             </AnchorPane>
-            <Button onAction="#applyValue" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="159.0" style="-fx-background-color: STEELBLUE;" text="APPLY" textAlignment="JUSTIFY" textFill="WHITE" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="460.0">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#applyValue" prefHeight="40.0" prefWidth="159.0" style="-fx-background-color: STEELBLUE;" text="APPLY" textAlignment="JUSTIFY" textFill="WHITE" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="460.0">
                <padding>
                   <Insets bottom="10.0" left="56.0" right="56.0" top="10.0" />
                </padding>

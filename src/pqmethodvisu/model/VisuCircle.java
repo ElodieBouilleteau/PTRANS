@@ -3,8 +3,13 @@ package pqmethodvisu.model;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import processing.awt.PSurfaceAWT.SmoothCanvas;
 import processing.core.PApplet;
 import processing.core.PImage;
+import processing.core.PSurface;
 import processing.data.IntList;
 
 public class VisuCircle extends PApplet{
@@ -18,7 +23,6 @@ public class VisuCircle extends PApplet{
 	
 	//transparency
 	private static float alpha1, alpha2, alpha3;
-
 	  
 	private static float D1, D2, D3, d1, d2, d3;
 	
@@ -43,7 +47,9 @@ public class VisuCircle extends PApplet{
 	}
 	
 	public void setup() {
+		System.out.println("test");
 		background(255);
+		System.out.println("test1");
 		D1 = floor(width-t1);
 		D2 = floor(D1*0.72F);
 		D3 = floor(D1*0.27F);
@@ -116,7 +122,7 @@ public class VisuCircle extends PApplet{
 		G1M.append(27);
 		
 		for (int i = 1; i<=43; i++){
-		  images.add(loadImage("images/"+i+".jpg"));
+		  images.add(loadImage("D:\\Elodie\\Documents\\POLYTECHNANTES\\4èm année\\PTRANS\\1 images URDLA online Copie\\"+i+".jpg"));
 		}
 		
 		//radial gradient

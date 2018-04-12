@@ -7,6 +7,7 @@ import processing.core.PApplet;
 
 public class Visualization {
 	
+	private PApplet papplet;
 	private static Visualization uniqueInstance;
 	
 	private Model model;
@@ -100,7 +101,7 @@ public class Visualization {
 		VisuRect.setAlpha1(alpha1);
 		VisuRect.setSavePath(savePath);
 		VisuRect.setSave(save);
-		PApplet.main("VisuRect");
+		PApplet.main("pqmethodvisu.model.VisuRect");
 	}
 	
 	public void showCircularVisualization() {
@@ -113,7 +114,16 @@ public class Visualization {
 		VisuCircle.setAlpha1(alpha1);
 		VisuCircle.setSavePath(savePath);
 		VisuCircle.setSave(save);
-		PApplet.main("VisuCircle");
+		System.out.println("test");
+		//papplet = new VisuCircle();
+		//((VisuCircle) papplet).show();
+		PApplet.main("pqmethodvisu.model.VisuCircle");
+	}
+	
+	/*test*/
+	public PApplet getPApplet()
+	{
+		return papplet;
 	}
 	
 	public void showBlackRectangularVisualization( ) {
@@ -126,7 +136,7 @@ public class Visualization {
 		VisuRectBlack.setAlpha1(alpha1);
 		VisuRectBlack.setSavePath(savePath);
 		VisuRectBlack.setSave(save);
-		PApplet.main("VisuRect");
+		PApplet.main("pqmethodvisu.model.VisuRect");
 	}
 	
 	public void showBlackCircularVisualization() {
@@ -139,7 +149,7 @@ public class Visualization {
 		VisuCircleBlack.setAlpha1(alpha1);
 		VisuCircleBlack.setSavePath(savePath);
 		VisuCircleBlack.setSave(save);
-		PApplet.main("VisuCircleBlack");
+		PApplet.main("pqmethodvisu.model.VisuCircleBlack");
 	}
 	
 	public void setCorpus(ArrayList<Image> corpus) {

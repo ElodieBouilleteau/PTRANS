@@ -93,4 +93,10 @@ public class CollectionImage {
 	public void setFactorsNumber(Integer factorsNumber) {
 		this.factorsNumber = factorsNumber;
 	}
+	
+	//get the corpus of image
+	public ArrayList<Image> getCorpus()
+	{
+		return corpus;
+	}
 }

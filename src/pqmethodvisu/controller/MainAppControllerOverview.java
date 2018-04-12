@@ -1,7 +1,11 @@
 package pqmethodvisu.controller;
 
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import javax.swing.JPanel;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -10,11 +14,17 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -30,6 +40,7 @@ import javafx.fxml.Initializable;
 public class MainAppControllerOverview implements Initializable {
 	
 	private Model model;
+	private Visualization visualization;
 	
 	@FXML
 	private AnchorPane ap;
@@ -76,6 +87,10 @@ public class MainAppControllerOverview implements Initializable {
 		//INITIALISER LES COULEURS DES COMBOBOX
 		Color1Vizu.setValue(Color.BLUE);
 		Color2Vizu.setValue(Color.RED);
+		
+		//Initialiser les curseurs ATTENTION
+		
+		//MAx de cursor min = width*0.13F et Min de cursor max = width*0.13F
 	}
 	
 	/*
@@ -266,6 +281,7 @@ public class MainAppControllerOverview implements Initializable {
 	@FXML
 	private void applyValue()
 	{
+		visualization = Visualization.getInstance(model);
 		System.out.println("Major Factor: " + MajorFactorCombobox.getValue());
 		System.out.println("Minor Factor: " + MinorFactorCombobox.getValue());
 		System.out.println("Visualization Type: " + TypeVizuComboBox.getValue());
@@ -276,6 +292,55 @@ public class MainAppControllerOverview implements Initializable {
 		System.out.println("Height: " + HeightCursor.getValue());
 		System.out.println("Max Size: " + MaxSizeCursor.getValue());
 		System.out.println("Min Size: " + MinSizeCursor.getValue());
+
+		final Stage popup = new Stage();	//Création d'un stage
+		popup.initModality(Modality.APPLICATION_MODAL);	//initialisation du stage "popup"
+		Group root = new Group();
+		Canvas canvas = new Canvas(1200,700);
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		 
+		gc.setFill(Color.BLUE);
+		gc.fillRect(75,75,100,100);
+		System.out.println("test");
+		ArrayList<pqmethodvisu.model.Image> corpus = model.getCollectionImage().getCorpus();
+		Image img = new Image("file:D:\\Elodie\\Documents\\POLYTECHNANTES\\4èm année\\PTRANS\\1 images URDLA online Copie\\1.jpg");
+		gc.drawImage(img, 50, 50);
+		
+		System.out.println("test1");
+		root.getChildren().add(canvas);
+		Scene popupImportResultsScene = new Scene(root, 1200, 700);	//Création d'une scène initialiser avec la VBox "popupImportResults", et de taille : w et h.
+        popup.setTitle("Visualisation :");	//mettre un titre au stage "popup"
+        popup.setScene(popupImportResultsScene);	//Ajouter la scene "popupImportResultsScene"
+        popup.show();	//Afficher
+		
+		
+		//ajout corpus
+		//visualization.setCorpus(model.getCollectionImage());
+		//couleur principal
+		/*javafx.scene.paint.Color CP = Color1Vizu.getValue();
+		java.awt.Color awtCP = new java.awt.Color((float) CP.getRed(), (float) CP.getGreen(),(float) CP.getBlue(), (float) CP.getOpacity());
+		visualization.setCM(awtCP);
+		//couleur secondaire
+		javafx.scene.paint.Color CM = Color2Vizu.getValue();
+		java.awt.Color awtCM = new java.awt.Color((float) CM.getRed(), (float) CM.getGreen(),(float) CM.getBlue(), (float) CM.getOpacity());
+		visualization.setCM(awtCM);
+		//ATTENTION : voir taille max des curseurs et "integer" not double
+		//min size = t1
+		visualization.setT1((int)MinSizeCursor.getValue());
+		//max size = t3
+		visualization.setT3((int)MaxSizeCursor.getValue());
+		//width = largeur de la fenetre de la visu
+		visualization.setWidth((int)WidthCursor.getValue());
+		//heigth = hauteur de la fenetre de la visu
+		visualization.setHeight((int)HeightCursor.getValue());
+		//alpha1
+		//factor principal
+		visualization.setFactor1(Integer.parseInt(MajorFactorCombobox.getValue()));
+		//factor secondaire
+		visualization.setFactor2(Integer.parseInt(MinorFactorCombobox.getValue()));
+		//savePath, format, name
+		visualization.setSave(false);
+		visualization.showCircularVisualization();*/
 	}
 	
 }
