@@ -3,6 +3,8 @@ package pqmethodvisu.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -152,6 +154,36 @@ public class MainAppControllerOverview implements Initializable {
 	}
 	
 	/*
+	 * Bloquer certaines valeurs des combobox des facteurs
+	 */
+	@FXML
+	private void onActionFactor() {
+		//check si les valeurs des combobox ne sont pas null
+		if ((MajorFactorCombobox.getValue()!=null)&&(MinorFactorCombobox.getValue()!=null))
+		{
+			int valueMajorFactor = Integer.parseInt(MajorFactorCombobox.getValue());
+			int valueMinorFactor = Integer.parseInt(MinorFactorCombobox.getValue());
+			//si les valeurs sont identiques
+			if (valueMajorFactor==valueMinorFactor)
+			{
+				int FactorsNumber = model.getCollectionImage().getFactorsNumber();
+				//on recrée la liste des valeurs de la combobox du facteur minor en enlevant la valeur selectionner dans le combobox du factor major
+				ObservableList<String> newlist2 = FXCollections.observableArrayList();
+				for (int j = 1; j<=FactorsNumber;j++)
+				{
+					if(j!=valueMajorFactor)
+					{
+						newlist2.add(Integer.toString(j));
+					}
+				}
+				MinorFactorCombobox.getItems().clear();
+				MinorFactorCombobox.setItems(newlist2);
+				MinorFactorCombobox.getSelectionModel().select(newlist2.get(0));
+			}
+		}
+	}
+	
+	/*
 	 * Affiche la popup pour importer les resultats de la Qmethod
 	 */
 	@FXML
@@ -195,10 +227,15 @@ public class MainAppControllerOverview implements Initializable {
         					list.add(Integer.toString(i));
         				}
         				MajorFactorCombobox.setItems(list);
-        				MajorFactorCombobox.getSelectionModel().select("1");
+        				MajorFactorCombobox.getSelectionModel().select(list.get(0));
         				//initializer le comboBox du minorFactor
-        				MinorFactorCombobox.setItems(list);
-        				MinorFactorCombobox.getSelectionModel().select("2");
+        				ObservableList<String> list2 = FXCollections.observableArrayList();
+        				for (int j = 2; j<=FactorsNumber;j++)
+        				{
+        					list2.add(Integer.toString(j));
+        				}
+        				MinorFactorCombobox.setItems(list2);
+        				MinorFactorCombobox.getSelectionModel().select(list2.get(0));
             			popup.close();
             			Alert alert = new Alert(AlertType.INFORMATION);
             			alert.setTitle("Information");
@@ -241,17 +278,4 @@ public class MainAppControllerOverview implements Initializable {
 		System.out.println("Min Size: " + MinSizeCursor.getValue());
 	}
 	
-	/*@FXML
-	private AnchorPane ap;
-	private String value;
-	
-	@FXML
-	private void addItemsOnCb()
-	{
-		System.out.println("test");
-		ComboBox facteur = FXUtils.getChildByID(ap, "facteurPrincipalCombobox");
-        ObservableList<String> list = FXCollections.observableArrayList("1","2","3","4");
-        cb.setItems(list);
-	}*/
-		
 }

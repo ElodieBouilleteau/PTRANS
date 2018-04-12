@@ -39,9 +39,9 @@
                </font>
             </Label>
             <Label text="Major" textFill="WHITE" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="35.0" />
-            <ComboBox fx:id="MajorFactorCombobox" prefHeight="25.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="32.0" />
+            <ComboBox fx:id="MajorFactorCombobox" onAction="#onActionFactor" prefHeight="25.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="32.0" />
             <Label layoutX="12.0" layoutY="84.0" text="Minor" textFill="WHITE" />
-            <ComboBox fx:id="MinorFactorCombobox" prefHeight="25.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="80.0" />
+            <ComboBox fx:id="MinorFactorCombobox" onAction="#onActionFactor" prefHeight="25.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="80.0" />
             <Separator AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="129.0" />
             <ComboBox fx:id="TypeVizuComboBox" layoutX="25.0" layoutY="149.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
             <ComboBox fx:id="ColorVizuComboBox" layoutX="25.0" layoutY="195.0" prefWidth="150.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
