@@ -1,285 +1,221 @@
 package pqmethodvisu.model;
 
-import java.awt.Color;
+
 import java.util.ArrayList;
 
-import processing.core.PApplet;
-import processing.core.PImage;
-import processing.data.IntList;
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Arc;
+import javafx.scene.shape.ArcType;
+import javafx.scene.shape.Line;
+import javafx.stage.Stage;
 
-public class VisuRectBlack extends PApplet {
-	
-	public VisuRectBlack() {
-		
-	}
-	
-	private static ArrayList<PImage> images = new ArrayList<PImage>(43);
-	  
-	//size of the window
-	private static int width, height;
-	private static int W, H1, H2, H3;
-	  
-	//picture size in px
-	private static int t1;
-	private static int t3;
-	private static int t2;
-	
-	//transparency
-	private static float alpha1, alpha2, alpha3;
+public class VisuRectBlack extends Application {
 
-	
-	//colors and colors' features
-	private static int RP, GP, BlP, RM, GM, BlM;
-	private static int CP, CM; //colors are represented by int
-	private static float HP, SP, BP, HM, SM, BM;
-	
-	private static IntList G1P = new IntList();
-	private static IntList G2P = new IntList();
-	private static IntList G3P = new IntList();
-	private static IntList G1M = new IntList();
-	private static IntList G2M = new IntList();
-	private static IntList G3M = new IntList();
-	
-	//save
-	private static String savePath;
-	private static boolean save;
-	
-	public void settings() {
-		size(width,height);
-
-	}
-	
-	public void setup() {
-		background(255);
-		W = floor(width);
-		H1 = floor(height)-t1;
-		H2 = floor(H1*0.72F);
-		H3 = floor(H1*0.27F);
+	@Override
+    public void start(Stage primaryStage) throws Exception{
+		Group root = new Group();
+		Canvas canvas = new Canvas(1200,700);
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		ArrayList<Image> images = new ArrayList<Image>(43);
 		
-		t2 = PApplet.floor(width*0.13F); 
+		Color CP, CM;
+		double HP, SP, BP, HM, SM, BM;
 		
-		alpha3 = 1;
-		alpha2 = alpha1+(alpha3-alpha1)*0.4F;
+		ArrayList<Integer> G1P, G2P, G3P, G1M, G2M, G3M;
+		G1P = new ArrayList<Integer>();
+		G2P = new ArrayList<Integer>();
+		G3P = new ArrayList<Integer>();
+		G1M = new ArrayList<Integer>();
+		G2M = new ArrayList<Integer>();
+		G3M = new ArrayList<Integer>();
 		
-		CP = color(RP,GP,BlP);
-		CM = color(RM,GM,BlM);
-		
-		HP = this.hue(CP);
-		SP = this.saturation(CP);
-		BP = this.brightness(CP);
-		HM = this.hue(CM);
-		SM = this.saturation(CM);
-		BM = this.brightness(CM);
-		
-		G3P.append(22);
-		G3P.append(30);
-		  
-		G2P.append(25);
-		G2P.append(5);
-		G2P.append(42);
-		G2P.append(19);
-		G2P.append(26);
-		G2P.append(21);
-		G2P.append(17);
-		G2P.append(41);
-		  
-		G1P.append(1);
-		G1P.append(2);
-		G1P.append(10);
-		G1P.append(7);
-		G1P.append(4);
-		G1P.append(37);
-		G1P.append(3);
-		G1P.append(35);
-		G1P.append(11);
-		  
-		G3M.append(12);
-		G3M.append(40);
-		  
-		G2M.append(32);
-		G2M.append(11);
-		G2M.append(15);
-		G2M.append(24);
-		
-		G1M.append(16);
-		G1M.append(43);
-		G1M.append(39);
-		G1M.append(36);
-		G1M.append(34);
-		G1M.append(38);
-		G1M.append(32);
-		G1M.append(29);
-		G1M.append(14);
-		G1M.append(13);
-		G1M.append(8);
-		G1M.append(31);
-		G1M.append(20);
-		G1M.append(9);
-		G1M.append(6);
-		G1M.append(28);
-		G1M.append(23);
-		G1M.append(27);
-		
-		//loading pictures
-		for (int i = 1; i<=43; i++){
-		  images.add(loadImage("images/"+i+".jpg"));
-		}
-		
-		//linear gradient
-		
-		//transition
-		setGradient(floor(width/2), height/2-10, floor(width/2)+W, height/2+10, CP, CM);
+		//remplissage des listes
+		G3P.add(22);
+		G3P.add(30);
 		 
-		noStroke();
-		colorMode(HSB, 360, 100, 100);
+		G2P.add(25);
+		G2P.add(5);
+		G2P.add(42);
+		G2P.add(19);
+		G2P.add(26);
+		G2P.add(21);
+		G2P.add(17);
+		G2P.add(41);
 		
-		//upper part
-		for (int r = (H1/2+t1/2); r >=0; r--) {
-		  fill(HP, SP, BP-r*(BP-0)/(H1/2+t1/2));
-		  rect(width/2, height/2-r-10, W, r);
+		G1P.add(1);
+		G1P.add(2);
+		G1P.add(10);
+		G1P.add(7);
+		G1P.add(4);
+		G1P.add(37);
+		G1P.add(3);
+		G1P.add(35);
+		G1P.add(11);
+		
+		G3M.add(12);
+		G3M.add(40);
+		
+		G2M.add(32);
+		G2M.add(11);
+		G2M.add(15);
+		G2M.add(24);
+		
+		G1M.add(16);
+		G1M.add(43);
+		G1M.add(39);
+		G1M.add(36);
+		G1M.add(34);
+		G1M.add(38);
+		G1M.add(32);
+		G1M.add(29);
+		G1M.add(14);
+		G1M.add(13);
+		G1M.add(8);
+		G1M.add(31);
+		G1M.add(20);
+		G1M.add(9);
+		G1M.add(6);
+		G1M.add(28);
+		G1M.add(23);
+		G1M.add(27);
+		
+		for (int i = 1; i<=43; i++){
+	      Image img = new Image("file:C:\\Users\\journ\\Documents\\ETUDE\\PTRANS\\images\\1 images URDLA online Copie\\"+i+".jpg");
+		  images.add(img);
 		}
 		
-		//lower part
-		for (int r = (H1/2+t1/2); r >=0; r--) {
-		  fill(HM, SM, BM-r*(BM-0)/(H1/2+t1/2));
-		  rect(width/2, height/2+10, W, r);
+		int width, height;
+		
+		int t1, t2, t3;
+		
+		width = 1200;
+		height = 700;
+		
+		t1 = 80;
+		t2 = 100;
+		t3 = 180;
+		  
+		int W = width;
+		int H1 = height-t1;
+		int H2 = (int) (H1*0.72);
+		int H3 = (int) (H1*0.27);
+		
+		CP = Color.BLUE;
+		CM = Color.RED;
+		
+		HP = CP.getHue();
+		HM = CM.getHue();
+		SP = CP.getSaturation();
+		SM = CM.getSaturation();
+		BP = CP.getBrightness();
+		BM = CM.getBrightness();
+		
+		width = 1200;
+		height = 700;
+		
+		t1 = 80;
+		t2 = 120;
+		t3 = 180;
+	  
+		for (double r = (H1/2+t1/2); r >= 0; r--) {
+			gc.setFill(Color.hsb(HP, SP, BP-r*(BP-0)/(H1/2+t1/2)));
+			gc.fillRect(0,(H1/2+t1/2)-r,width,height-r);
+
+		}
+		for (double r = (H1/2+t1/2); r >= 0; r--) {
+			gc.setFill(Color.hsb(HM, SM, BM-r*(BM-0)/(H1/2+t1/2)));
+			gc.fillRect(0,height/2+10,width,r);
 		}
 		
-		
-		//placing pictures
-		colorMode(RGB, 255,255,255,255);
-		tint(255,255,255, 255*alpha1);
-		imageMode(CENTER);
+		setGradient(width/2,height/2,width,20,CP, CM, gc);
+		gc.setGlobalAlpha(0.3);
 		for(int i =1; i<=G1P.size();i++){
-		  int w = resizew(images.get(G1P.get(i-1)-1).width, images.get(G1P.get(i-1)-1).height, t1);
-		  int h = resizeh(images.get(G1P.get(i-1)-1).width, images.get(G1P.get(i-1)-1).height, t1);
-		  image(images.get(G1P.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G1P.size()+1), height/2-H1/2, w,h);
-		}
-		
-		for(int i =1; i<=G1M.size();i++){
-		  int w = resizew(images.get(G1M.get(i-1)-1).width, images.get(G1M.get(i-1)-1).height, t1);
-		  int h = resizeh(images.get(G1M.get(i-1)-1).width, images.get(G1M.get(i-1)-1).height, t1);
-		  image(images.get(G1M.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G1M.size()+1), height/2+H1/2, w,h);
-		}
-		
-		tint(255,255,255,255*alpha2);
-		for(int i =1; i<=G2P.size();i++){
-		  int w = resizew(images.get(G2P.get(i-1)-1).width, images.get(G2P.get(i-1)-1).height, t2);
-		  int h = resizeh(images.get(G2P.get(i-1)-1).width, images.get(G2P.get(i-1)-1).height, t2);
-		  image(images.get(G2P.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G2P.size()+1), height/2-H2/2, w,h);
-		}
-		
-		for(int i =1; i<=G2M.size();i++){
-		  int w = resizew(images.get(G2M.get(i-1)-1).width, images.get(G2M.get(i-1)-1).height, t2);
-		  int h = resizeh(images.get(G2M.get(i-1)-1).width, images.get(G2M.get(i-1)-1).height, t2);
-		  image(images.get(G2M.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G2M.size()+1), height/2+H2/2, w,h);
-		}
-		
-		tint(255,255,255,255*alpha3);
-		for(int i =1; i<=G3P.size();i++){
-		  int w = resizew(images.get(G3P.get(i-1)-1).width, images.get(G3P.get(i-1)-1).height, t3);
-		  int h = resizeh(images.get(G3P.get(i-1)-1).width, images.get(G3P.get(i-1)-1).height, t3);
-		  image(images.get(G3P.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G3P.size()+1), height/2-H3/2, w,h);
-		}
-		
-		for(int i =1; i<=G3M.size();i++){
-		  int w = resizew(images.get(G3M.get(i-1)-1).width, images.get(G3M.get(i-1)-1).height, t3);
-		  int h = resizeh(images.get(G3M.get(i-1)-1).width, images.get(G3M.get(i-1)-1).height, t3);
-		  image(images.get(G3M.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G3M.size()+1), height/2+H3/2, w,h);
-		}
-		
-		
-		if (save) {
-			this.save(savePath);
-		}
-	}
-
-	int resizew(int w, int h, int d){
-		/*This function take the diameter of a circle and the size of a picture 
-		 * and return the width of the same picture which can hold in the circle*/
+		    double w = resizew(images.get(G1P.get(i-1)-1).getWidth(), images.get(G1P.get(i-1)-1).getHeight(), t1);
+		    double h = resizeh(images.get(G1P.get(i-1)-1).getWidth(), images.get(G1P.get(i-1)-1).getHeight(), t1);
+		    gc.drawImage(images.get(G1P.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G1P.size()+1)-w/2, height/2-H1/2-h/2, w,h);
+		  }
 		  
-		float H = sqrt(sq(w) + sq(h));
-		  
-		return floor(w/H*d);
-	}
-
-	int resizeh(int w, int h, int d){
-		/*This function take the diameter of a circle and the size of a picture 
-		 * and return the height of the same picture which can hold in the circle*/
-		  
-		float H = sqrt(sq(w) + sq(h));
-		  
-		return floor(h/H*d);
-	}
-	
-	void setGradient(int x1, int y1, int x2, int y2, int C1, int C2){
-		/* This function build the transition between the upper part and the lower part*/
-		  
-		float R1, R2, G1, G2, Bl1, Bl2;
-		R1 = red(C1);
-		G1 = green(C1);
-		Bl1 = blue(C1);
-		R2 = red(C2);
-		G2 = green(C2);
-		Bl2 = blue(C2);
+		  for(int i =1; i<=G1M.size();i++){
+		    double w = resizew(images.get(G1M.get(i-1)-1).getWidth(), images.get(G1M.get(i-1)-1).getHeight(), t1);
+		    double h = resizeh(images.get(G1M.get(i-1)-1).getWidth(), images.get(G1M.get(i-1)-1).getHeight(), t1);
+		    gc.drawImage(images.get(G1M.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G1M.size()+1)-w/2, height/2+H1/2-h/2, w,h);
+		  }
 		  
 		  
-		for( int i =0; i<(y2-y1); i++) {
-		  stroke(color(R1+i*(R2-R1)/(y2-y1), G1+i*(G2-G1)/(y2-y1), Bl1+i*(Bl2-Bl1)/(y2-y1)));
-		  line(x1,y1+i,x2,y1+i);
-		}
+		  gc.setGlobalAlpha(0.7);
+		  for(int i =1; i<=G2P.size();i++){
+		    double w = resizew(images.get(G2P.get(i-1)-1).getWidth(), images.get(G2P.get(i-1)-1).getHeight(), t2);
+		    double h = resizeh(images.get(G2P.get(i-1)-1).getWidth(), images.get(G2P.get(i-1)-1).getHeight(), t2);
+		    gc.drawImage(images.get(G2P.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G2P.size()+1)-w/2, height/2-H2/2-h/2, w,h);
+		  }
+		  
+		  for(int i =1; i<=G2M.size();i++){
+			double w = resizew(images.get(G2M.get(i-1)-1).getWidth(), images.get(G2M.get(i-1)-1).getHeight(), t2);
+			double h = resizeh(images.get(G2M.get(i-1)-1).getWidth(), images.get(G2M.get(i-1)-1).getHeight(), t2);
+			gc.drawImage(images.get(G2M.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G2M.size()+1)-w/2, height/2+H2/2-h/2, w,h);
+		  }
+		  
+		  
+		  gc.setGlobalAlpha(1);
+		  for(int i =1; i<=G3P.size();i++){
+			double w = resizew(images.get(G3P.get(i-1)-1).getWidth(), images.get(G3P.get(i-1)-1).getHeight(), t3);
+			double h = resizeh(images.get(G3P.get(i-1)-1).getWidth(), images.get(G3P.get(i-1)-1).getHeight(), t3);
+			gc.drawImage(images.get(G3P.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G3P.size()+1)-w/2, height/2-H3/2-h/2, w,h);
+		  }
+		  
+		  for(int i =1; i<=G3M.size();i++){
+			double w = resizew(images.get(G3M.get(i-1)-1).getWidth(), images.get(G3M.get(i-1)-1).getHeight(), t3);
+			double h = resizeh(images.get(G3M.get(i-1)-1).getWidth(), images.get(G3M.get(i-1)-1).getHeight(), t3);
+			gc.drawImage(images.get(G3M.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G3M.size()+1)-w/2, height/2+H3/2-h/2, w,h);
+		  }
+		
+		root.getChildren().add(canvas);
+		Scene canvasScene = new Scene(root, 1200, 700);	//Création d'une scène initialiser avec la VBox "popupImportResults", et de taille : w et h.
+        primaryStage.setTitle("PQmethodVisu");
+        primaryStage.setScene(canvasScene);
+        primaryStage.show();
+        
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    
+    void setGradient(double mx, double my, double w, double h, Color c1, Color c2, GraphicsContext gc){
+	  
+	  double R1, R2, G1, G2, Bl1, Bl2;
+	  R1 = c1.getRed();
+	  G1 = c1.getGreen();
+	  Bl1 = c1.getBlue();
+	  R2 = c2.getRed();
+	  G2 = c2.getGreen();
+	  Bl2 = c2.getBlue();
+	  double x = mx-w/2;
+	  double y = my-h/2;
+	  
+	  for( int i =0; i<=h; i++) {
+	    gc.setFill(Color.color(R1+i*(R2-R1)/h, G1+i*(G2-G1)/h, Bl1+i*(Bl2-Bl1)/h));
+	    gc.fillRect(x,y+i,w,1);
+	  }
 	}
-	
-	public static void show() {
-		PApplet.main("VisuRectBlack");
-	}
-	
-	public static void setImages(ArrayList<PImage> images) {
-		VisuRectBlack.images = images;
+    double resizew(double w, double h, double d){
+	  
+      double H = Math.sqrt(w*w + h*h);
+	  
+	  return w/H*d;
 	}
 
-	public static void setWidth(int width) {
-		VisuRectBlack.width = width;
+    double resizeh(double w, double h, double d){
+	  
+	  double H = Math.sqrt(w*w + h*h);
+	  
+	  return h/H*d;
 	}
-
-	public static void setHeight(int height) {
-		VisuRectBlack.height = height;
-	}
-
-	public static void setT1(int t1) {
-		VisuRectBlack.t1 = t1;
-	}
-
-	public static void setT3(int t3) {
-		VisuRectBlack.t3 = t3;
-	}
-
-	public static void setW(int w) {
-		VisuRectBlack.W = w;
-	}
-
-	public static void setCP(Color CP) {
-		VisuRectBlack.RP = CP.getRed();
-		VisuRectBlack.GP = CP.getGreen();
-		VisuRectBlack.BlP = CP.getBlue();
-	}
-	
-	public static void setCM(Color CM) {
-		VisuRectBlack.RM = CM.getRed();
-		VisuRectBlack.GM = CM.getGreen();
-		VisuRectBlack.BlM = CM.getBlue();
-	}
-	
-	public static void setAlpha1(float alpha1) {
-		VisuRectBlack.alpha1 = alpha1;
-	}
-	
-	public static void setSave(boolean save) {
-		VisuRectBlack.save = save;
-	}
-	
-	public static void setSavePath(String savePath) {
-		VisuRectBlack.savePath = savePath;
-	}
-
 }

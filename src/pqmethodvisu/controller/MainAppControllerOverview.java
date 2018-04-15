@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -33,6 +34,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pqmethodvisu.model.CollectionImage;
 import pqmethodvisu.model.Model;
+import pqmethodvisu.model.VisuCircle;
 import pqmethodvisu.model.Visualization;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,7 +42,6 @@ import javafx.fxml.Initializable;
 public class MainAppControllerOverview implements Initializable {
 	
 	private Model model;
-	private Visualization visualization;
 	
 	@FXML
 	private AnchorPane ap;
@@ -66,11 +67,19 @@ public class MainAppControllerOverview implements Initializable {
 	@FXML
 	private Slider WidthCursor;
 	@FXML
+	private Label WidthLabel;
+	@FXML
 	private Slider HeightCursor;
+	@FXML
+	private Label HeightLabel;
 	@FXML
 	private Slider MaxSizeCursor;
 	@FXML
+	private Label MaxSizeLabel;
+	@FXML
 	private Slider MinSizeCursor;
+	@FXML
+	private Label MinSizeLabel;
 	
 	
 	@Override
@@ -84,13 +93,64 @@ public class MainAppControllerOverview implements Initializable {
 		ColorVizuComboBox.setItems(FXCollections.observableArrayList("ColorFull","Black/White"));
 		ColorVizuComboBox.getSelectionModel().select("ColorFull");
 	
-		//INITIALISER LES COULEURS DES COMBOBOX
-		Color1Vizu.setValue(Color.BLUE);
-		Color2Vizu.setValue(Color.RED);
+		//initializer les couleurs des combobox
+		Color1Vizu.setValue(Color.hsb(240,1,1));
+		Color2Vizu.setValue(Color.hsb(1,1,1));
 		
-		//Initialiser les curseurs ATTENTION
+		//Initialiser les curseurs de tailles
+		WidthCursor.setBlockIncrement(1);
+		WidthCursor.setMin(500);
+		WidthCursor.setValue(1200);
+		HeightCursor.setBlockIncrement(1);
+		HeightCursor.setMin(100);
+		HeightCursor.setValue(700);
 		
+		//Changer les valeurs des labels
+		WidthCursor.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,Number old_val, Number new_val) {
+            		WidthCursor.setValue(Math.round(new_val.doubleValue()));
+            		WidthLabel.setText(String.valueOf(WidthCursor.getValue()));
+            		MaxSizeCursor.setMin(WidthCursor.getValue()*0.13);
+            		MinSizeCursor.setMax(WidthCursor.getValue()*0.13);
+            }
+        });
+		HeightCursor.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,Number old_val, Number new_val) {
+            		HeightCursor.setValue(Math.round(new_val.doubleValue()));
+            		HeightLabel.setText(String.valueOf(HeightCursor.getValue()));
+            }
+        });
+		
+		//Initialiser les curseurs de max size
 		//MAx de cursor min = width*0.13F et Min de cursor max = width*0.13F
+		MaxSizeCursor.setMin(1200*0.13);
+		MaxSizeCursor.setValue(180);
+		MaxSizeCursor.setBlockIncrement(1);
+		//change les valeurs en integer
+		MaxSizeCursor.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                Number old_val, Number new_val) {
+            		MaxSizeCursor.setValue(Math.round(new_val.doubleValue()));
+            		MaxSizeLabel.setText(String.valueOf(MaxSizeCursor.getValue()));
+            }
+        });
+		MinSizeCursor.setMax(1200*0.13);
+		MinSizeCursor.setValue(80);
+		MinSizeCursor.setBlockIncrement(1);
+		//change les valeurs en integer
+		MinSizeCursor.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                Number old_val, Number new_val) {
+            		MinSizeCursor.setValue(Math.round(new_val.doubleValue()));
+            		MinSizeLabel.setText(String.valueOf(MinSizeCursor.getValue()));
+            }
+        });
+		
+		//Initialiser les valeurs des labels
+		WidthLabel.setText(String.valueOf(WidthCursor.getValue()));
+		HeightLabel.setText(String.valueOf(HeightCursor.getValue()));
+		MaxSizeLabel.setText(String.valueOf(MaxSizeCursor.getValue()));
+		MinSizeLabel.setText(String.valueOf(MinSizeCursor.getValue()));
 	}
 	
 	/*
@@ -100,7 +160,7 @@ public class MainAppControllerOverview implements Initializable {
 		this.model = model;
 		CollectionImage collectionImages = new CollectionImage();
 		model.setCollectionImage(collectionImages);
-		Visualization visualization = Visualization.getInstance(model);
+		Visualization visualization = Visualization.getInstance();
 		model.setVisualization(visualization);
 	}
 	
@@ -128,6 +188,9 @@ public class MainAppControllerOverview implements Initializable {
         final Button submit = new Button("Submit");	//Création du bouton "submit"
         submit.setTranslateY(25);	//Y placement 25
         submitcenter.getChildren().add(submit);	//Ajouter le bouton "submit" au HBox "submitcenter" 
+        //EXEMPLE A MODIFIER
+        path.setText("D:\\Elodie\\Documents\\POLYTECHNANTES\\4èm année\\PTRANS\\1 images URDLA online Copie");
+        /**/
         popupImportImages.getChildren().addAll(textinfoCenter,path,submitcenter);	//Ajouter au VBox "popupImportImages" les champs "textinfocenter", "path" et "submitcenter"
         Scene popupImportImagesScene = new Scene(popupImportImages, w, h);	//Création d'une scène initialiser avec la VBox "popupImportImages", et de taille : w et h.
         popup.setTitle("Importation des images (format : .jpg)");	//mettre un titre au stage "popup"
@@ -222,6 +285,9 @@ public class MainAppControllerOverview implements Initializable {
         final Button submit = new Button("Submit");	//Création du bouton "submit"
         submit.setTranslateY(25);	//Y placement 25
         submitcenter.getChildren().add(submit);	//Ajouter le bouton "submit" au HBox "submitcenter" 
+        //EXEMPLE A MODIFIER
+        path.setText("D:\\Elodie\\Documents\\POLYTECHNANTES\\4èm année\\PTRANS\\appli\\résultats-pqmethod.txt");
+        /**/
         popupImportResults.getChildren().addAll(textinfoCenter,path,submitcenter);	//Ajouter au VBox "popupImportResults" les champs "textinfocenter", "path" et "submitcenter"
         Scene popupImportResultsScene = new Scene(popupImportResults, w, h);	//Création d'une scène initialiser avec la VBox "popupImportResults", et de taille : w et h.
         popup.setTitle("Importation du résultat de la Qméthode (format : .txt)");	//mettre un titre au stage "popup"
@@ -281,8 +347,8 @@ public class MainAppControllerOverview implements Initializable {
 	@FXML
 	private void applyValue()
 	{
-		visualization = Visualization.getInstance(model);
-		System.out.println("Major Factor: " + MajorFactorCombobox.getValue());
+		model.getVisualization().init(model.getCollectionImage());
+		/*System.out.println("Major Factor: " + MajorFactorCombobox.getValue());
 		System.out.println("Minor Factor: " + MinorFactorCombobox.getValue());
 		System.out.println("Visualization Type: " + TypeVizuComboBox.getValue());
 		System.out.println("Visualization Color: " + ColorVizuComboBox.getValue());
@@ -291,24 +357,13 @@ public class MainAppControllerOverview implements Initializable {
 		System.out.println("Width: " + WidthCursor.getValue());
 		System.out.println("Height: " + HeightCursor.getValue());
 		System.out.println("Max Size: " + MaxSizeCursor.getValue());
-		System.out.println("Min Size: " + MinSizeCursor.getValue());
-
+		System.out.println("Min Size: " + MinSizeCursor.getValue());*/
 		final Stage popup = new Stage();	//Création d'un stage
 		popup.initModality(Modality.APPLICATION_MODAL);	//initialisation du stage "popup"
 		Group root = new Group();
-		Canvas canvas = new Canvas(1200,700);
-		GraphicsContext gc = canvas.getGraphicsContext2D();
-		 
-		gc.setFill(Color.BLUE);
-		gc.fillRect(75,75,100,100);
-		System.out.println("test");
-		ArrayList<pqmethodvisu.model.Image> corpus = model.getCollectionImage().getCorpus();
-		Image img = new Image("file:D:\\Elodie\\Documents\\POLYTECHNANTES\\4èm année\\PTRANS\\1 images URDLA online Copie\\1.jpg");
-		gc.drawImage(img, 50, 50);
-		
-		System.out.println("test1");
+		Canvas canvas = model.getVisualization().getCanvasVisuCircle();
 		root.getChildren().add(canvas);
-		Scene popupImportResultsScene = new Scene(root, 1200, 700);	//Création d'une scène initialiser avec la VBox "popupImportResults", et de taille : w et h.
+		Scene popupImportResultsScene = new Scene(root, WidthCursor.getValue(), HeightCursor.getValue());	//Création d'une scène initialiser avec la VBox "popupImportResults", et de taille : w et h.
         popup.setTitle("Visualisation :");	//mettre un titre au stage "popup"
         popup.setScene(popupImportResultsScene);	//Ajouter la scene "popupImportResultsScene"
         popup.show();	//Afficher

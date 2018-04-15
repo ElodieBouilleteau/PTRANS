@@ -1,161 +1,118 @@
 package pqmethodvisu.model;
 
-import java.awt.Color;
+import javafx.scene.paint.Color;
 import java.util.ArrayList;
 
-import processing.core.PApplet;
+import javafx.scene.canvas.Canvas;
 
 public class Visualization {
 	
-	private PApplet papplet;
 	private static Visualization uniqueInstance;
-	
-	private Model model;
-	
-	private Color CP, CM; //colorP = up part color and colorM = low part color
-	private int factor1, factor2; //factor1 = main factor, factor2 = secondary factor
-	private int t1, t3;
-	private int width, height;
-	private int alpha1; //transparency for the little images, between 0 and 255
 	private ArrayList<Image> corpus;
-	private ArrayList<Image> GP1, GP2, GP3, GM1, GM2, GM3, G0;
+	
+	private int width, height; //size parameters
+	private int t1, t3; //picture size in px
+	
+	//colors and colors' features
+	private ArrayList<Integer> G1P, G2P, G3P, G1M, G2M, G3M;
+	private Color CP, CM; //colorP = up part color and colorM = low part color
+	
+	private int factor1, factor2; //factor1 = main factor, factor2 = secondary factor
+	//private int alpha1; //transparency for the little images, between 0 and 255
 	private String savePath; //path to the saving directory
 	private String format; //format of the file (png or jpg);
 	private String name;
 	private boolean save; //true is we want to save the visualization, false else
 	
 	
-	private Visualization(Model model) {
-		this.model = model;
-		this.CP = Color.BLUE;
-		this.CM = Color.RED;
-		this.t1 = 80;
-		this.t3 = 180;
+	protected Visualization() {
 		this.width = 1200;
 		this.height = 700;
-		this.alpha1 = 100;
+		this.t1 = 80;
+		this.t3 = 180;
+		this.CP = Color.hsb(240,1,1);
+		this.CM = Color.hsb(1,1,1);
+		//this.alpha1 = 100;
 		this.factor1 = 1;
 		this.factor2 = 2;
-		this.GP1 = new ArrayList<Image>();
-		this.GP2 = new ArrayList<Image>();
-		this.GP3 = new ArrayList<Image>();
-		this.GM1 = new ArrayList<Image>();
-		this.GM2 = new ArrayList<Image>();
-		this.GM3 = new ArrayList<Image>();
-		this.G0 = new ArrayList<Image>();
+		this.G1P = new ArrayList<Integer>();
+		this.G2P = new ArrayList<Integer>();
+		this.G3P = new ArrayList<Integer>();
+		this.G1M = new ArrayList<Integer>();
+		this.G2M = new ArrayList<Integer>();
+		this.G3M = new ArrayList<Integer>();
 		this.savePath = "C:\\Users\\journ\\Images\\test.png";
 		this.save = false;
 	}
 	
-	public static Visualization getInstance(Model model) {
-		Visualization.uniqueInstance = new Visualization(model);
+	public static Visualization getInstance() {
+		Visualization.uniqueInstance = new Visualization();
 		return Visualization.uniqueInstance;
 	}
 	
-	public void setGroup() {
+	public void init(CollectionImage collectionImages)
+	{
+		this.corpus = collectionImages.getCorpus();
+		setGroup();
+	}
+	
+	private void setGroup() {
 		double zscore;
+		int compteur = 0;
 		for(Image i : corpus) {
 			zscore = i.getListFactor().get(factor1-1).getZscore();
-			if (zscore > 0 && zscore <= 1) {
-				this.GP1.add(i);
+			if (zscore >= 0 && zscore <= 1) {
+				this.G1P.add(compteur);
 			}
 			else if(zscore > 1 && zscore <= 1.8) {
-				this.GP2.add(i);
+				this.G2P.add(compteur);
 			}
 			else if(zscore > 1.8 && zscore <= 2) {
-				this.GP3.add(i);
+				this.G3P.add(compteur);
 			}
-			else if(zscore < 0 && zscore >= -1) {
-				this.GM1.add(i);
+			else if(zscore <= 0 && zscore >= -1) {
+				this.G1M.add(compteur);
 			}
 			else if(zscore < -1 && zscore >= -1.8) {
-				this.GM2.add(i);
+				this.G2M.add(compteur);
 			}
 			else if(zscore < -1.8 && zscore >= -2) {
-				this.GM3.add(i);
+				this.G3M.add(compteur);
 			}
-			else if(zscore == 0) {
-				this.G0.add(i);
-			}
-			while (this.G0.isEmpty() == false) {
-				if (this.GP1.size() < this.GM1.size()) {
-					this.GP1.add(this.G0.get(0));
-					this.G0.remove(0);
-				}
-				else {
-					this.GM1.add(this.G0.get(0));
-					this.G0.remove(0);
-				}
-				
-			}
+			compteur++;
 		}
 	}
 	
-	public void showRectangularVisualization( ) {
-		VisuRect.setT1(this.t1);
-		VisuRect.setT3(this.t3);
-		VisuRect.setWidth(this.width);
-		VisuRect.setHeight(this.height);
-		VisuRect.setCP(this.CP);
-		VisuRect.setCM(this.CM);
-		VisuRect.setAlpha1(alpha1);
-		VisuRect.setSavePath(savePath);
-		VisuRect.setSave(save);
-		PApplet.main("pqmethodvisu.model.VisuRect");
+	public Canvas getCanvasVisuCircle() {
+		VisuCircle visualisation = new VisuCircle();
+		visualisation.setCorpus(corpus);
+		visualisation.setGroupes(G1P, G2P, G3P, G1M, G2M, G3M);
+		visualisation.setT1(this.t1);
+		visualisation.setT3(this.t3);
+		visualisation.setWidth(this.width);
+		visualisation.setHeight(this.height);
+		visualisation.setCP(this.CP);
+		visualisation.setCM(this.CM);
+		//visualisation.setAlpha1(alpha1);
+		return visualisation.start();
 	}
 	
-	public void showCircularVisualization() {
-		VisuCircle.setT1(this.t1);
-		VisuCircle.setT3(this.t3);
-		VisuCircle.setWidth(this.width);
-		VisuCircle.setHeight(this.height);
-		VisuCircle.setCP(this.CP);
-		VisuCircle.setCM(this.CM);
-		VisuCircle.setAlpha1(alpha1);
-		VisuCircle.setSavePath(savePath);
-		VisuCircle.setSave(save);
-		System.out.println("test");
-		//papplet = new VisuCircle();
-		//((VisuCircle) papplet).show();
-		PApplet.main("pqmethodvisu.model.VisuCircle");
-	}
-	
-	/*test*/
-	public PApplet getPApplet()
-	{
-		return papplet;
-	}
-	
-	public void showBlackRectangularVisualization( ) {
-		VisuRectBlack.setT1(this.t1);
-		VisuRectBlack.setT3(this.t3);
-		VisuRectBlack.setWidth(this.width);
-		VisuRectBlack.setHeight(this.height);
-		VisuRectBlack.setCP(this.CP);
-		VisuRectBlack.setCM(this.CM);
-		VisuRectBlack.setAlpha1(alpha1);
-		VisuRectBlack.setSavePath(savePath);
-		VisuRectBlack.setSave(save);
-		PApplet.main("pqmethodvisu.model.VisuRect");
-	}
-	
-	public void showBlackCircularVisualization() {
-		VisuCircleBlack.setT1(this.t1);
-		VisuCircleBlack.setT3(this.t3);
-		VisuCircleBlack.setWidth(this.width);
-		VisuCircleBlack.setHeight(this.height);
-		VisuCircleBlack.setCP(this.CP);
-		VisuCircleBlack.setCM(this.CM);
-		VisuCircleBlack.setAlpha1(alpha1);
-		VisuCircleBlack.setSavePath(savePath);
-		VisuCircleBlack.setSave(save);
-		PApplet.main("pqmethodvisu.model.VisuCircleBlack");
+	public Canvas getCanvasVisuCircleBlack() {
+		VisuCircleBlack visualisation = new VisuCircleBlack();
+		visualisation.setT1(this.t1);
+		visualisation.setT3(this.t3);
+		visualisation.setWidth(this.width);
+		visualisation.setHeight(this.height);
+		visualisation.setCP(this.CP);
+		visualisation.setCM(this.CM);
+		//visualisation.setAlpha1(alpha1);
+		return visualisation.start();
 	}
 	
 	public void setCorpus(ArrayList<Image> corpus) {
 		this.corpus = corpus;
 	}
-	
+	 
 
 	public Color getCP() {
 		return CP;
@@ -221,13 +178,13 @@ public class Visualization {
 		this.height = height;
 	}
 
-	public int getAlpha1() {
+	/*public int getAlpha1() {
 		return alpha1;
 	}
 
 	public void setAlpha1(int alpha1) {
 		this.alpha1 = alpha1;
-	}
+	}*/
 
 	public String getSavePath() {
 		return savePath;
@@ -260,7 +217,5 @@ public class Visualization {
 	public void setSave(boolean save) {
 		this.save = save;
 	}
-	
-	
 
 }
