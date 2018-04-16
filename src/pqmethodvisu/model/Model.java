@@ -3,7 +3,7 @@ package pqmethodvisu.model;
 public class Model {
 	
 	private CollectionImage collectionImage;
-	private Visualization visualization;
+	private TraitementVisu visualization;
 	
 	public CollectionImage getCollectionImage() {
 		return collectionImage;
@@ -13,11 +13,11 @@ public class Model {
 		this.collectionImage = collectionImage;
 	}
 
-	public Visualization getVisualization() {
+	public TraitementVisu getVisualization() {
 		return visualization;
 	}
 
-	public void setVisualization(Visualization visualization) {
+	public void setVisualization(TraitementVisu visualization) {
 		this.visualization = visualization;
 	}
 	

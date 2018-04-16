@@ -8,29 +8,35 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 
-public class VisuCircle {
+public class VisuCircle extends VisuBipolar {
 	
 	private ArrayList<pqmethodvisu.model.Image> corpus;
 	private ArrayList<Image> images;
 	
 	//size parameters
-	private int width, height;
-	
-	//picture size in px
-	private int t1, t2, t3;
-	
 	private int D1, D2, D3, d1, d2, d3;
 	
 	//colors and colors' features
 	private ArrayList<Integer> G1P, G2P, G3P, G1M, G2M, G3M;
-	private Color CP, CM;
-	private double HP, SP, BP, HM, SM, BM;
 	
 	//save
 	//private static String savePath;
 	//private static boolean save;
 	
+	public VisuCircle(int width, int height, int t1, int t3, Color CP, Color CM, double alpha,
+			ArrayList<pqmethodvisu.model.Image> corpus, int factor1, int factor2) {
+		super(width, height, t1, t3, CP, CM, alpha, corpus, factor1, factor2);
+	    D1 = (int) (width-t1);
+	    D2 = (int) (D1*0.72);
+	    D3 = (int) (D1*0.27);
+	    d1 = (int) (height-t1);
+	    d2 = (int) (d1*0.72);
+	    d3 = (int) (d1*0.27);
+	}
+	
+	@Override
 	public Canvas start() {
+		
 		System.out.println("debut canvas");
 		Canvas canvas = new Canvas(width,height);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -42,21 +48,8 @@ public class VisuCircle {
 		  images.add(img);
 		}
 		System.out.println("CP");
-		HP = CP.getHue();
-		HM = CM.getHue();
-		SP = CP.getSaturation();
-		SM = CM.getSaturation();
-		BP = CP.getBrightness();
-		BM = CM.getBrightness();
-		
-		t2 = (int) (width*0.13);
 	  
-	    D1 = (int) (canvas.getWidth()-t1);
-	    D2 = (int) (D1*0.72);
-	    D3 = (int) (D1*0.27);
-	    d1 = (int) (canvas.getHeight()-t1);
-	    d2 = (int) (d1*0.72);
-	    d3 = (int) (d1*0.27);
+
 	    System.out.println("debut calcul");
 		for (double i = (D1+t1); i >= 0; i--) {
 			gc.setFill(Color.hsb(HP, (i-(D1+t1))*(0-SP)/(D1+t1), 1+(i-(D1+t1))*(1-BP)/(D1+t1)));
@@ -77,7 +70,7 @@ public class VisuCircle {
 		}
 		System.out.println("G1P");
 		setGradient(width/2,height/2,width,20,CP, CM, gc);
-		gc.setGlobalAlpha(0.3);
+		gc.setGlobalAlpha(this.alpha);
 		System.out.println("G1P_bis : "+G1P.size());
 		/*PROBLEME*/
 		for(int i =1; i<=G1P.size();i++){
@@ -93,7 +86,7 @@ public class VisuCircle {
 		  }
 		  
 		  System.out.println("G2P");
-		  gc.setGlobalAlpha(0.7);
+		  gc.setGlobalAlpha(this.alpha+(1-this.alpha)*0.4);
 		  for(int i =1; i<=G2P.size();i++){
 		    double w = resizew(images.get(G2P.get(i-1)-1).getWidth(), images.get(G2P.get(i-1)-1).getHeight(), t2);
 		    double h = resizeh(images.get(G2P.get(i-1)-1).getWidth(), images.get(G2P.get(i-1)-1).getHeight(), t2);
@@ -141,54 +134,5 @@ public class VisuCircle {
 	        gc.fillRect(j, y+i, 1, 1);
 	    }
 	  }
-	}
-    
-    private double resizew(double w, double h, double d){
-      double H = Math.sqrt(w*w + h*h);
-	  return w/H*d;
-	}
-
-    private double resizeh(double w, double h, double d){
-	  double H = Math.sqrt(w*w + h*h);
-	  return h/H*d;
-	}
-
-    public void setT1(int t1) {
-		this.t1 = t1;
-	}
-
-    public void setT3(int t3) {
-		this.t3 = t3;
-	}
-
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
-	public void setHeight(int height) {
-		this.height = height;
-	}
-
-	public void setCP(javafx.scene.paint.Color cp) {
-		this.CP = cp;
-	}
-
-	public void setCM(Color cm) {
-		this.CM = cm;
-	}
-	
-	public void setCorpus(ArrayList<pqmethodvisu.model.Image> corpus)
-	{
-		this.corpus = corpus;
-	}
-	
-	public void setGroupes(ArrayList<Integer> G1P, ArrayList<Integer> G2P, ArrayList<Integer> G3P, ArrayList<Integer> G1M, ArrayList<Integer> G2M, ArrayList<Integer> G3M)
-	{
-		this.G1P = G1P;
-		this.G2P = G2P;
-		this.G3P = G3P;
-		this.G1M = G1M;
-		this.G2M = G2M;
-		this.G3M = G3M;
 	}
 }

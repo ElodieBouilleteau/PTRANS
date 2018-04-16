@@ -35,7 +35,7 @@ import javafx.stage.Stage;
 import pqmethodvisu.model.CollectionImage;
 import pqmethodvisu.model.Model;
 import pqmethodvisu.model.VisuCircle;
-import pqmethodvisu.model.Visualization;
+import pqmethodvisu.model.TraitementVisu;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
@@ -160,7 +160,7 @@ public class MainAppControllerOverview implements Initializable {
 		this.model = model;
 		CollectionImage collectionImages = new CollectionImage();
 		model.setCollectionImage(collectionImages);
-		Visualization visualization = Visualization.getInstance();
+		TraitementVisu visualization = TraitementVisu.getInstance();
 		model.setVisualization(visualization);
 	}
 	
@@ -350,8 +350,8 @@ public class MainAppControllerOverview implements Initializable {
 		model.getVisualization().init(model.getCollectionImage());
 		/*System.out.println("Major Factor: " + MajorFactorCombobox.getValue());
 		System.out.println("Minor Factor: " + MinorFactorCombobox.getValue());
-		System.out.println("Visualization Type: " + TypeVizuComboBox.getValue());
-		System.out.println("Visualization Color: " + ColorVizuComboBox.getValue());
+		System.out.println("TraitementVisu Type: " + TypeVizuComboBox.getValue());
+		System.out.println("TraitementVisu Color: " + ColorVizuComboBox.getValue());
 		System.out.println("First Color: " + Color1Vizu.getValue());
 		System.out.println("Second Color: " + Color2Vizu.getValue());
 		System.out.println("Width: " + WidthCursor.getValue());
@@ -361,7 +361,8 @@ public class MainAppControllerOverview implements Initializable {
 		final Stage popup = new Stage();	//Création d'un stage
 		popup.initModality(Modality.APPLICATION_MODAL);	//initialisation du stage "popup"
 		Group root = new Group();
-		Canvas canvas = model.getVisualization().getCanvasVisuCircle();
+		model.getVisualization().setCanvasVisuCircle();
+		Canvas canvas = model.getVisualization().startVisu();
 		root.getChildren().add(canvas);
 		Scene popupImportResultsScene = new Scene(root, WidthCursor.getValue(), HeightCursor.getValue());	//Création d'une scène initialiser avec la VBox "popupImportResults", et de taille : w et h.
         popup.setTitle("Visualisation :");	//mettre un titre au stage "popup"
