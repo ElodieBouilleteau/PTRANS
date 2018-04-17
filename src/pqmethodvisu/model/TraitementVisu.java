@@ -8,7 +8,7 @@ import javafx.scene.canvas.Canvas;
 public class TraitementVisu {
 	
 	private static TraitementVisu uniqueInstance;
-	private ArrayList<Image> corpus;
+	private ArrayList<pqmethodvisu.model.Image> corpus;
 	private Visualization visualization;
 	
 	private int width, height; //size parameters
@@ -25,7 +25,7 @@ public class TraitementVisu {
 	private boolean save; //true is we want to save the visualization, false else
 	
 	
-	protected TraitementVisu() {
+	private TraitementVisu() {
 		this.width = 1200;
 		this.height = 700;
 		this.t1 = 80;
@@ -42,11 +42,6 @@ public class TraitementVisu {
 	public static TraitementVisu getInstance() {
 		TraitementVisu.uniqueInstance = new TraitementVisu();
 		return TraitementVisu.uniqueInstance;
-	}
-	
-	public void init(CollectionImage collectionImages)
-	{
-		this.corpus = collectionImages.getCorpus();
 	}
 	
 	public void setCanvasVisuCircle() {
@@ -69,11 +64,10 @@ public class TraitementVisu {
 		return visualization.start();
 	}
 	
-	public void setCorpus(ArrayList<Image> corpus) {
+	public void setCorpus(ArrayList<pqmethodvisu.model.Image> corpus) {
 		this.corpus = corpus;
 	}
 	 
-
 	public Color getCP() {
 		return CP;
 	}

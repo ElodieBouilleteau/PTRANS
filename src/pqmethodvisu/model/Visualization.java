@@ -3,8 +3,6 @@ package pqmethodvisu.model;
 import java.util.ArrayList;
 
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 
 public abstract class Visualization {
 	protected int width, height;
@@ -13,7 +11,7 @@ public abstract class Visualization {
 	public Visualization(int width, int height, ArrayList<pqmethodvisu.model.Image> corpus) {
 		this.width = width;
 		this.height = height;
-		this.corpus = corpus; 
+		this.corpus = corpus;
 	}
     
 	//This abstract method allow to launch the visualization

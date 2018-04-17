@@ -81,23 +81,25 @@ public class MainAppControllerOverview implements Initializable {
 	@FXML
 	private Label MinSizeLabel;
 	
+	/*canvas for the visualization*/
+	private Canvas visu;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
-		//initializer le comboBox du type de visu
+		//initializer of comboBox about visu type
 		TypeVizuComboBox.setItems(FXCollections.observableArrayList("Rectangle","Circle"));
 		TypeVizuComboBox.getSelectionModel().select("Rectangle");
 		
-		//initializer le comboBox du choix de couleur
+		//initializer of comboBox about color choice
 		ColorVizuComboBox.setItems(FXCollections.observableArrayList("ColorFull","Black/White"));
 		ColorVizuComboBox.getSelectionModel().select("ColorFull");
 	
-		//initializer les couleurs des combobox
+		//initializer of coulors of combobox
 		Color1Vizu.setValue(Color.hsb(240,1,1));
 		Color2Vizu.setValue(Color.hsb(1,1,1));
 		
-		//Initialiser les curseurs de tailles
+		//initializer of size cursors
 		WidthCursor.setBlockIncrement(1);
 		WidthCursor.setMin(500);
 		WidthCursor.setValue(1200);
@@ -105,7 +107,7 @@ public class MainAppControllerOverview implements Initializable {
 		HeightCursor.setMin(100);
 		HeightCursor.setValue(700);
 		
-		//Changer les valeurs des labels
+		//Change labels's values when Cursor's value change
 		WidthCursor.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,Number old_val, Number new_val) {
             		WidthCursor.setValue(Math.round(new_val.doubleValue()));
@@ -121,12 +123,12 @@ public class MainAppControllerOverview implements Initializable {
             }
         });
 		
-		//Initialiser les curseurs de max size
-		//MAx de cursor min = width*0.13F et Min de cursor max = width*0.13F
+		//Initializer of max size cursors
+		//MAx cursor min = width*0.13F et Min cursor max = width*0.13F
 		MaxSizeCursor.setMin(1200*0.13);
 		MaxSizeCursor.setValue(180);
 		MaxSizeCursor.setBlockIncrement(1);
-		//change les valeurs en integer
+		//Change double value to integer value
 		MaxSizeCursor.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                 Number old_val, Number new_val) {
@@ -137,7 +139,7 @@ public class MainAppControllerOverview implements Initializable {
 		MinSizeCursor.setMax(1200*0.13);
 		MinSizeCursor.setValue(80);
 		MinSizeCursor.setBlockIncrement(1);
-		//change les valeurs en integer
+		//Change double value to integer value
 		MinSizeCursor.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                 Number old_val, Number new_val) {
@@ -146,7 +148,7 @@ public class MainAppControllerOverview implements Initializable {
             }
         });
 		
-		//Initialiser les valeurs des labels
+		//Initializer labels's values
 		WidthLabel.setText(String.valueOf(WidthCursor.getValue()));
 		HeightLabel.setText(String.valueOf(HeightCursor.getValue()));
 		MaxSizeLabel.setText(String.valueOf(MaxSizeCursor.getValue()));
@@ -154,18 +156,18 @@ public class MainAppControllerOverview implements Initializable {
 	}
 	
 	/*
-	 * Ajoute le model dans le controler
+	 * Add model to controler
 	 */
 	public void setModel(Model model) {
 		this.model = model;
 		CollectionImage collectionImages = new CollectionImage();
 		model.setCollectionImage(collectionImages);
 		TraitementVisu visualization = TraitementVisu.getInstance();
-		model.setVisualization(visualization);
+		model.setTraitementVisualization(visualization);
 	}
 	
 	/*
-	 * Affiche la popup pour importer les images du dossier
+	 * Poste popup in order to import folder's pictures
 	 */
 	@FXML
 	private void affichePopupImportImage()
@@ -232,7 +234,7 @@ public class MainAppControllerOverview implements Initializable {
 	}
 	
 	/*
-	 * Bloquer certaines valeurs des combobox des facteurs
+	 * Block one of the values of combobox about factors
 	 */
 	@FXML
 	private void onActionFactor() {
@@ -262,7 +264,7 @@ public class MainAppControllerOverview implements Initializable {
 	}
 	
 	/*
-	 * Affiche la popup pour importer les resultats de la Qmethod
+	 * Poste popup in order to import qmethod's results
 	 */
 	@FXML
 	private void affichePopupImportResult()
@@ -347,7 +349,16 @@ public class MainAppControllerOverview implements Initializable {
 	@FXML
 	private void applyValue()
 	{
-		model.getVisualization().init(model.getCollectionImage());
+		//Add elements to TraitementVisualization
+		model.getTraitementVisualization().setCorpus(model.getCollectionImage().getCorpus());
+		model.getTraitementVisualization().setWidth((int) WidthCursor.getValue());
+		model.getTraitementVisualization().setHeight((int) HeightCursor.getValue());
+		model.getTraitementVisualization().setFactor1(Integer.parseInt(MajorFactorCombobox.getValue()));
+		model.getTraitementVisualization().setFactor2(Integer.parseInt(MinorFactorCombobox.getValue()));
+		model.getTraitementVisualization().setCP(Color1Vizu.getValue());
+		model.getTraitementVisualization().setCM(Color2Vizu.getValue());
+		model.getTraitementVisualization().setT1((int) MinSizeCursor.getValue());
+		model.getTraitementVisualization().setT3((int) MaxSizeCursor.getValue());
 		/*System.out.println("Major Factor: " + MajorFactorCombobox.getValue());
 		System.out.println("Minor Factor: " + MinorFactorCombobox.getValue());
 		System.out.println("TraitementVisu Type: " + TypeVizuComboBox.getValue());
@@ -358,45 +369,17 @@ public class MainAppControllerOverview implements Initializable {
 		System.out.println("Height: " + HeightCursor.getValue());
 		System.out.println("Max Size: " + MaxSizeCursor.getValue());
 		System.out.println("Min Size: " + MinSizeCursor.getValue());*/
+		//Creation of popup fenetre which contain visualization
 		final Stage popup = new Stage();	//Création d'un stage
 		popup.initModality(Modality.APPLICATION_MODAL);	//initialisation du stage "popup"
 		Group root = new Group();
-		model.getVisualization().setCanvasVisuCircle();
-		Canvas canvas = model.getVisualization().startVisu();
+		model.getTraitementVisualization().setCanvasVisuCircle();
+		Canvas canvas = model.getTraitementVisualization().startVisu();
 		root.getChildren().add(canvas);
 		Scene popupImportResultsScene = new Scene(root, WidthCursor.getValue(), HeightCursor.getValue());	//Création d'une scène initialiser avec la VBox "popupImportResults", et de taille : w et h.
         popup.setTitle("Visualisation :");	//mettre un titre au stage "popup"
         popup.setScene(popupImportResultsScene);	//Ajouter la scene "popupImportResultsScene"
         popup.show();	//Afficher
-		
-		
-		//ajout corpus
-		//visualization.setCorpus(model.getCollectionImage());
-		//couleur principal
-		/*javafx.scene.paint.Color CP = Color1Vizu.getValue();
-		java.awt.Color awtCP = new java.awt.Color((float) CP.getRed(), (float) CP.getGreen(),(float) CP.getBlue(), (float) CP.getOpacity());
-		visualization.setCM(awtCP);
-		//couleur secondaire
-		javafx.scene.paint.Color CM = Color2Vizu.getValue();
-		java.awt.Color awtCM = new java.awt.Color((float) CM.getRed(), (float) CM.getGreen(),(float) CM.getBlue(), (float) CM.getOpacity());
-		visualization.setCM(awtCM);
-		//ATTENTION : voir taille max des curseurs et "integer" not double
-		//min size = t1
-		visualization.setT1((int)MinSizeCursor.getValue());
-		//max size = t3
-		visualization.setT3((int)MaxSizeCursor.getValue());
-		//width = largeur de la fenetre de la visu
-		visualization.setWidth((int)WidthCursor.getValue());
-		//heigth = hauteur de la fenetre de la visu
-		visualization.setHeight((int)HeightCursor.getValue());
-		//alpha1
-		//factor principal
-		visualization.setFactor1(Integer.parseInt(MajorFactorCombobox.getValue()));
-		//factor secondaire
-		visualization.setFactor2(Integer.parseInt(MinorFactorCombobox.getValue()));
-		//savePath, format, name
-		visualization.setSave(false);
-		visualization.showCircularVisualization();*/
 	}
 	
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
-public class VisuBipolar extends Visualization{
+public class VisuBipolar extends Visualization {
 	
 	protected int t1, t2, t3;
 	protected Color CP, CM;
@@ -31,6 +31,13 @@ public class VisuBipolar extends Visualization{
 		this.BP = CP.getBrightness();
 		this.BM = CM.getBrightness();
 		this.t2 = (int) (width*0.13);
+		this.G1P = new ArrayList<Integer>();
+		this.G1M = new ArrayList<Integer>();
+		this.G2P = new ArrayList<Integer>();
+		this.G2M = new ArrayList<Integer>();
+		this.G3P = new ArrayList<Integer>();
+		this.G3M = new ArrayList<Integer>();
+		this.G0 = new ArrayList<Integer>();
 		setGroupF1();
 	}
 	
@@ -43,6 +50,7 @@ public class VisuBipolar extends Visualization{
 		/*This method allows to set up the group of images according to the two factors*/
 		double zscore;
 		int compteur = 1;
+		System.out.println("setgroupF1");
 		for(Image i : corpus) {
 			zscore = i.getListFactor().get(factor1-1).getZscore();
 			if (zscore > 0 && zscore <= 1) {
@@ -68,6 +76,7 @@ public class VisuBipolar extends Visualization{
 			}
 			compteur++;
 		}
+		System.out.println("moitier_setgroupF1");
 		compteur = 0;
 		while (!(this.G0.isEmpty())) {
 			if (compteur%2 == 0) {
@@ -78,6 +87,7 @@ public class VisuBipolar extends Visualization{
 				this.G2P.add(this.G0.get(0));
 				this.G0.remove(0);
 			}
+			compteur++;
 		}
 		setGroupeF2();
 	}
@@ -94,7 +104,7 @@ public class VisuBipolar extends Visualization{
 	
 	private int partition(ArrayList<Integer> G, int left, int right, int factor){
 		/*Partitionner for the quicksort*/
-	      int i = left, j = right;
+	      int i = left, j = right-1;
 	      int tmp;
 	      double pivot = getZscore((left + right) / 2, factor);    
 	      while (i <= j) {
@@ -184,6 +194,5 @@ public class VisuBipolar extends Visualization{
 		this.G2M = G2M;
 		this.G3M = G3M;
 	}
-}
 
 }

@@ -13,11 +13,11 @@ public class Model {
 		this.collectionImage = collectionImage;
 	}
 
-	public TraitementVisu getVisualization() {
+	public TraitementVisu getTraitementVisualization() {
 		return visualization;
 	}
 
-	public void setVisualization(TraitementVisu visualization) {
+	public void setTraitementVisualization(TraitementVisu visualization) {
 		this.visualization = visualization;
 	}
 	
