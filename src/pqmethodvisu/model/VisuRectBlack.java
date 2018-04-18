@@ -2,6 +2,7 @@ package pqmethodvisu.model;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -17,9 +18,7 @@ import javafx.stage.Stage;
 
 public class VisuRectBlack extends VisuBipolar {
 
-	private ArrayList<pqmethodvisu.model.Image> corpus;
-	private ArrayList<Image> images;
-	
+	private HashMap<String, Image> images;	
 	//size parameters
 	private int W, H1, H2, H3;
 	
@@ -46,11 +45,10 @@ public class VisuRectBlack extends VisuBipolar {
 		Canvas canvas = new Canvas(width,height);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		int numberImages = corpus.size();
-		images = new ArrayList<Image>(numberImages);
-		for (int i = 1; i<numberImages; i++){
-		  System.out.println(corpus.get(i).getPath());
-	      Image img = new Image("file:"+corpus.get(i).getPath());
-		  images.add(img);
+		images = new HashMap<String, Image>(numberImages);
+		for (int i = 0; i<numberImages; i++){
+	      Image img = new Image("file:"+super.getCorpus().get(i).getPath());
+		  images.put(super.getCorpus().get(i).getName(), img);
 		}
 		System.out.println("CP");
 	  
@@ -69,42 +67,42 @@ public class VisuRectBlack extends VisuBipolar {
 		
 		gc.setGlobalAlpha(this.alpha);
 		for(int i =1; i<=G1P.size();i++){
-		    double w = resizew(images.get(G1P.get(i-1)-1).getWidth(), images.get(G1P.get(i-1)-1).getHeight(), t1);
-		    double h = resizeh(images.get(G1P.get(i-1)-1).getWidth(), images.get(G1P.get(i-1)-1).getHeight(), t1);
-		    gc.drawImage(images.get(G1P.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G1P.size()+1)-w/2, height/2-H1/2-h/2, w,h);
+		    double w = resizew(images.get(super.G1P.get(i-1)).getWidth(), images.get(super.G1P.get(i-1)).getHeight(), t1);
+		    double h = resizeh(images.get(super.G1P.get(i-1)).getWidth(), images.get(super.G1P.get(i-1)).getHeight(), t1);
+		    gc.drawImage(images.get(super.G1P.get(i-1)),width/2-W/2 + W*(i-1/2)/(super.G1P.size()+1)-w/2, height/2-H1/2-h/2, w,h);
 		  }
 		  
 		  for(int i =1; i<=G1M.size();i++){
-		    double w = resizew(images.get(G1M.get(i-1)-1).getWidth(), images.get(G1M.get(i-1)-1).getHeight(), t1);
-		    double h = resizeh(images.get(G1M.get(i-1)-1).getWidth(), images.get(G1M.get(i-1)-1).getHeight(), t1);
-		    gc.drawImage(images.get(G1M.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G1M.size()+1)-w/2, height/2+H1/2-h/2, w,h);
+		    double w = resizew(images.get(super.G1M.get(i-1)).getWidth(), images.get(super.G1M.get(i-1)).getHeight(), t1);
+		    double h = resizeh(images.get(super.G1M.get(i-1)).getWidth(), images.get(super.G1M.get(i-1)).getHeight(), t1);
+		    gc.drawImage(images.get(super.G1M.get(i-1)),width/2-W/2 + W*(i-1/2)/(super.G1M.size()+1)-w/2, height/2+H1/2-h/2, w,h);
 		  }
 		  
 		  
 		  gc.setGlobalAlpha(this.alpha+(1-this.alpha)*0.4);
 		  for(int i =1; i<=G2P.size();i++){
-		    double w = resizew(images.get(G2P.get(i-1)-1).getWidth(), images.get(G2P.get(i-1)-1).getHeight(), t2);
-		    double h = resizeh(images.get(G2P.get(i-1)-1).getWidth(), images.get(G2P.get(i-1)-1).getHeight(), t2);
-		    gc.drawImage(images.get(G2P.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G2P.size()+1)-w/2, height/2-H2/2-h/2, w,h);
+		    double w = resizew(images.get(super.G2P.get(i-1)).getWidth(), images.get(super.G2P.get(i-1)).getHeight(), t2);
+		    double h = resizeh(images.get(super.G2P.get(i-1)).getWidth(), images.get(super.G2P.get(i-1)).getHeight(), t2);
+		    gc.drawImage(images.get(super.G2P.get(i-1)),width/2-W/2 + W*(i-1/2)/(G2P.size()+1)-w/2, height/2-H2/2-h/2, w,h);
 		  }
 		  
 		  for(int i =1; i<=G2M.size();i++){
-			double w = resizew(images.get(G2M.get(i-1)-1).getWidth(), images.get(G2M.get(i-1)-1).getHeight(), t2);
-			double h = resizeh(images.get(G2M.get(i-1)-1).getWidth(), images.get(G2M.get(i-1)-1).getHeight(), t2);
-			gc.drawImage(images.get(G2M.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G2M.size()+1)-w/2, height/2+H2/2-h/2, w,h);
+			double w = resizew(images.get(super.G2M.get(i-1)).getWidth(), images.get(super.G2M.get(i-1)).getHeight(), t2);
+			double h = resizeh(images.get(super.G2M.get(i-1)).getWidth(), images.get(super.G2M.get(i-1)).getHeight(), t2);
+			gc.drawImage(images.get(super.G2M.get(i-1)),width/2-W/2 + W*(i-1/2)/(G2M.size()+1)-w/2, height/2+H2/2-h/2, w,h);
 		  }
 		  
 		  gc.setGlobalAlpha(1);
 		  for(int i =1; i<=G3P.size();i++){
-			double w = resizew(images.get(G3P.get(i-1)-1).getWidth(), images.get(G3P.get(i-1)-1).getHeight(), t3);
-			double h = resizeh(images.get(G3P.get(i-1)-1).getWidth(), images.get(G3P.get(i-1)-1).getHeight(), t3);
-			gc.drawImage(images.get(G3P.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G3P.size()+1)-w/2, height/2-H3/2-h/2, w,h);
+			double w = resizew(images.get(super.G3P.get(i-1)).getWidth(), images.get(super.G3P.get(i-1)).getHeight(), t3);
+			double h = resizeh(images.get(super.G3P.get(i-1)).getWidth(), images.get(super.G3P.get(i-1)).getHeight(), t3);
+			gc.drawImage(images.get(super.G3P.get(i-1)),width/2-W/2 + W*(i-1/2)/(G3P.size()+1)-w/2, height/2-H3/2-h/2, w,h);
 		  }
 		  
 		  for(int i =1; i<=G3M.size();i++){
-			double w = resizew(images.get(G3M.get(i-1)-1).getWidth(), images.get(G3M.get(i-1)-1).getHeight(), t3);
-			double h = resizeh(images.get(G3M.get(i-1)-1).getWidth(), images.get(G3M.get(i-1)-1).getHeight(), t3);
-			gc.drawImage(images.get(G3M.get(i-1)-1),width/2-W/2 + W*(i-1/2)/(G3M.size()+1)-w/2, height/2+H3/2-h/2, w,h);
+			double w = resizew(images.get(super.G3M.get(i-1)).getWidth(), images.get(super.G3M.get(i-1)).getHeight(), t3);
+			double h = resizeh(images.get(super.G3M.get(i-1)).getWidth(), images.get(super.G3M.get(i-1)).getHeight(), t3);
+			gc.drawImage(images.get(super.G3M.get(i-1)),width/2-W/2 + W*(i-1/2)/(G3M.size()+1)-w/2, height/2+H3/2-h/2, w,h);
 		  }
 		
 		return(canvas);

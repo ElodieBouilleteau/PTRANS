@@ -14,7 +14,7 @@ public abstract class Visualization {
 		this.corpus = corpus;
 	}
     
-	//This abstract method allow to launch the visualization
+	//This abstract method allows to launch the visualization
 	//It must be implemented
     public abstract Canvas start();
 

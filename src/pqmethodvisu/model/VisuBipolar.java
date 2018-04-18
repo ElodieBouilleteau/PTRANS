@@ -11,7 +11,7 @@ public class VisuBipolar extends Visualization {
 	protected Color CP, CM;
 	protected double alpha;
 	protected double HP, SP, BP, HM, SM, BM;
-	protected ArrayList<Integer> G1P, G2P, G3P, G1M, G2M, G3M, G0;
+	protected ArrayList<String> G1P, G2P, G3P, G1M, G2M, G3M, G0;
 	protected int factor1, factor2;
 
 	public VisuBipolar(int width, int height, int t1, int t3, Color CP, Color CM, double alpha,
@@ -31,13 +31,13 @@ public class VisuBipolar extends Visualization {
 		this.BP = CP.getBrightness();
 		this.BM = CM.getBrightness();
 		this.t2 = (int) (width*0.13);
-		this.G1P = new ArrayList<Integer>();
-		this.G1M = new ArrayList<Integer>();
-		this.G2P = new ArrayList<Integer>();
-		this.G2M = new ArrayList<Integer>();
-		this.G3P = new ArrayList<Integer>();
-		this.G3M = new ArrayList<Integer>();
-		this.G0 = new ArrayList<Integer>();
+		this.G1P = new ArrayList<String>();
+		this.G1M = new ArrayList<String>();
+		this.G2P = new ArrayList<String>();
+		this.G2M = new ArrayList<String>();
+		this.G3P = new ArrayList<String>();
+		this.G3M = new ArrayList<String>();
+		this.G0 = new ArrayList<String>();
 		setGroupF1();
 	}
 	
@@ -54,25 +54,25 @@ public class VisuBipolar extends Visualization {
 		for(Image i : corpus) {
 			zscore = i.getListFactor().get(factor1-1).getZscore();
 			if (zscore > 0 && zscore <= 1) {
-				this.G1P.add(compteur);
+				this.G1P.add(i.getName());
 			}
 			else if(zscore > 1 && zscore <= 1.8) {
-				this.G2P.add(compteur);
+				this.G2P.add(i.getName());
 			}
 			else if(zscore > 1.8 && zscore <= 2) {
-				this.G3P.add(compteur);
+				this.G3P.add(i.getName());
 			}
 			else if(zscore < 0 && zscore >= -1) {
-				this.G1M.add(compteur);
+				this.G1M.add(i.getName());
 			}
 			else if(zscore < -1 && zscore >= -1.8) {
-				this.G2M.add(compteur);
+				this.G2M.add(i.getName());
 			}
 			else if(zscore < -1.8 && zscore >= -2) {
-				this.G3M.add(compteur);
+				this.G3M.add(i.getName());
 			}
 			else if(zscore == 0) {
-				this.G0.add(compteur);
+				this.G0.add(i.getName());
 			}
 			compteur++;
 		}
@@ -102,10 +102,10 @@ public class VisuBipolar extends Visualization {
 		quickSort(G3M, 0, G3M.size(), factor2);
 	}
 	
-	private int partition(ArrayList<Integer> G, int left, int right, int factor){
+	private int partition(ArrayList<String> G, int left, int right, int factor){
 		/*Partitionner for the quicksort*/
 	      int i = left, j = right-1;
-	      int tmp;
+	      String tmp;
 	      double pivot = getZscore((left + right) / 2, factor);    
 	      while (i <= j) {
 	            while (getZscore(i, factor) < pivot)
@@ -123,7 +123,7 @@ public class VisuBipolar extends Visualization {
 	      return i;
 	}
 	 
-	private void quickSort(ArrayList<Integer> G, int left, int right, int factor) {
+	private void quickSort(ArrayList<String> G, int left, int right, int factor) {
 	      int index = partition(G, left, right, factor);
 	      if (left < index - 1)
 	            quickSort(G, left, index - 1, factor);
@@ -185,7 +185,7 @@ public class VisuBipolar extends Visualization {
 		return this.corpus.get(i).getListFactor().get(factor).getZscore();
 	}
 	
-	public void setGroupes(ArrayList<Integer> G1P, ArrayList<Integer> G2P, ArrayList<Integer> G3P, ArrayList<Integer> G1M, ArrayList<Integer> G2M, ArrayList<Integer> G3M)
+	public void setGroupes(ArrayList<String> G1P, ArrayList<String> G2P, ArrayList<String> G3P, ArrayList<String> G1M, ArrayList<String> G2M, ArrayList<String> G3M)
 	{
 		this.G1P = G1P;
 		this.G2P = G2P;
@@ -194,5 +194,4 @@ public class VisuBipolar extends Visualization {
 		this.G2M = G2M;
 		this.G3M = G3M;
 	}
-
 }
