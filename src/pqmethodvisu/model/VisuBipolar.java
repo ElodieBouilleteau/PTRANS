@@ -182,6 +182,7 @@ public class VisuBipolar extends Visualization {
 	}
 	
 	private double getZscore(int i, int factor) {
+		System.out.println(factor);
 		return this.corpus.get(i).getListFactor().get(factor).getZscore();
 	}
 	

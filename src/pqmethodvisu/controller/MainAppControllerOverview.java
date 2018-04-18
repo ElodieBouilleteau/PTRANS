@@ -373,7 +373,22 @@ public class MainAppControllerOverview implements Initializable {
 		final Stage popup = new Stage();	//Création d'un stage
 		popup.initModality(Modality.APPLICATION_MODAL);	//initialisation du stage "popup"
 		Group root = new Group();
-		model.getTraitementVisualization().setCanvasVisuCircle();
+		if(TypeVizuComboBox.getValue()=="Rectangle"&ColorVizuComboBox.getValue()=="ColorFull")
+		{
+			model.getTraitementVisualization().setCanvasVisuRect();
+		}
+		else if(TypeVizuComboBox.getValue()=="Rectangle"&ColorVizuComboBox.getValue()=="Black/White")
+		{
+			model.getTraitementVisualization().setCanvasVisuRectBlack();
+		}
+		else if(TypeVizuComboBox.getValue()=="Circle"&ColorVizuComboBox.getValue()=="ColorFull")
+		{
+			model.getTraitementVisualization().setCanvasVisuCircle();
+		}
+		else if(TypeVizuComboBox.getValue()=="Circle"&ColorVizuComboBox.getValue()=="Black/White")
+		{
+			model.getTraitementVisualization().setCanvasVisuCircleBlack();
+		}
 		Canvas canvas = model.getTraitementVisualization().startVisu();
 		root.getChildren().add(canvas);
 		Scene popupImportResultsScene = new Scene(root, WidthCursor.getValue(), HeightCursor.getValue());	//Création d'une scène initialiser avec la VBox "popupImportResults", et de taille : w et h.

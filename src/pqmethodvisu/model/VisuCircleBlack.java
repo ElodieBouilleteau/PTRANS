@@ -15,9 +15,6 @@ public class VisuCircleBlack extends VisuBipolar{
 	//size parameters
 	private int D1, D2, D3, d1, d2, d3;
 	
-	//colors and colors' features
-	private ArrayList<Integer> G1P, G2P, G3P, G1M, G2M, G3M;
-	
 	//save
 	//private static String savePath;
 	//private static boolean save;
@@ -35,9 +32,8 @@ public class VisuCircleBlack extends VisuBipolar{
 	
 	@Override
 	public Canvas start() {
-		
-		System.out.println("debut canvas");
-		Canvas canvas = new Canvas(width,height);
+
+		Canvas canvas = new Canvas(super.width,super.height);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		int numberImages = corpus.size();
 		images = new HashMap<String, Image>(numberImages);
@@ -45,7 +41,6 @@ public class VisuCircleBlack extends VisuBipolar{
 	      Image img = new Image("file:"+super.getCorpus().get(i).getPath());
 		  images.put(super.getCorpus().get(i).getName(), img);
 		}
-		System.out.println("CP");
 	  
 
 		for (double i = (D1+t1); i >= 0; i--) {
@@ -65,23 +60,18 @@ public class VisuCircleBlack extends VisuBipolar{
 					i*(d1+t1/2)/(D1+t1),
 					180,180,ArcType.ROUND);
 		}
-		System.out.println("G1P");
 		setGradient(super.getWidth()/2,super.getHeight()/2,super.getWidth(),20,super.getCP(), super.getCM(), gc);
 		gc.setGlobalAlpha(this.alpha);
-		System.out.println("G1P_bis : "+super.G1P.size());
 		for(int i =1; i<=super.G1P.size();i++){
 		    double w = resizew(images.get(super.G1P.get(i-1)).getWidth(), images.get(super.G1P.get(i-1)).getHeight(), t1);
 		    double h = resizeh(images.get(super.G1P.get(i-1)).getWidth(), images.get(super.G1P.get(i-1)).getHeight(), t1);
 		    gc.drawImage(images.get(super.G1P.get(i-1)), super.getWidth()/2+Math.cos(i*Math.PI/(super.G1P.size()+1))*D1/2-w/2, super.getHeight()/2-Math.sin(i*Math.PI/(super.G1P.size()+1))*d1/2-h/2, w, h);
 		  }
-		System.out.println("G1M");
-		System.out.println(images.size());
 		  for(int i =1; i<=super.G1M.size();i++){
 		    double w = resizew(images.get(super.G1M.get(i-1)).getWidth(), images.get(super.G1M.get(i-1)).getHeight(), t1);
 		    double h = resizeh(images.get(super.G1M.get(i-1)).getWidth(), images.get(super.G1M.get(i-1)).getHeight(), t1);
 		    gc.drawImage(images.get(super.G1M.get(i-1)), super.getWidth()/2+Math.cos((super.G1M.size()+1+i)*Math.PI/(super.G1M.size()+1))*D1/2-w/2, super.getHeight()/2-Math.sin((super.G1M.size()+1+i)*Math.PI/(super.G1M.size()+1))*d1/2-h/2, w, h);
 		}
-		System.out.println("G2P");
 		gc.setGlobalAlpha(this.alpha+(1-this.alpha)*0.4);
 		for(int i =1; i<=super.G2P.size();i++){
 		  double w = resizew(images.get(super.G2P.get(i-1)).getWidth(), images.get(super.G2P.get(i-1)).getHeight(), t2);
@@ -95,7 +85,6 @@ public class VisuCircleBlack extends VisuBipolar{
 		  gc.drawImage(images.get(super.G2M.get(i-1)), super.getWidth()/2+Math.cos((super.G2M.size()+1+i)*Math.PI/(super.G2M.size()+1))*D2/2-w/2, super.getHeight()/2-Math.sin((super.G2M.size()+1+i)*Math.PI/(super.G2M.size()+1))*d2/2-h/2, w, h);
 		}
 		  
-		System.out.println("G3P");
 		gc.setGlobalAlpha(1);
 		for(int i =1; i<=super.G3P.size();i++){
 		  double w = resizew(images.get(super.G3P.get(i-1)).getWidth(), images.get(super.G3P.get(i-1)).getHeight(), t3);

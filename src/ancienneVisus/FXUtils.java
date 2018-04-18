@@ -1,4 +1,4 @@
-package pqmethodvisu;
+package ancienneVisus;
 
 import javafx.scene.*;
 import javafx.scene.control.*;
