@@ -30,6 +30,19 @@ public class VisuRect extends VisuBipolar {
 	
 	@Override
 	public Canvas start() {
+		
+		System.out.println("width : "+super.width);
+		System.out.println("height : "+super.height);
+		System.out.println("t1 : "+super.t1);
+		System.out.println("t3 : "+super.t3);
+		System.out.println("CP : "+super.CP);
+		System.out.println("CM : "+super.CM);
+		System.out.println("alpha : "+super.alpha);
+		System.out.println("factor1 : "+super.factor1);
+		System.out.println("factor2 : "+super.factor2);
+		System.out.println("SP : "+super.SP);
+		System.out.println("SM : "+super.SM);
+		
 		Canvas canvas = new Canvas(super.width,super.height);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		int numberImages = super.getCorpus().size();
@@ -38,8 +51,7 @@ public class VisuRect extends VisuBipolar {
 	      Image img = new Image("file:"+super.getCorpus().get(i).getPath());
 		  images.put(super.getCorpus().get(i).getName(), img);
 		}
-	  
-
+		
 		for (double r = (H1/2+t1/2); r >= 0; r--) {
 			gc.setFill(Color.hsb(HP, SP-r*(SP-0)/(H1/2+t1/2), BP-r*(BP-1)/(H1/2+t1/2)));
 			gc.fillRect(0,(H1/2+t1/2)-r,width,height-r);

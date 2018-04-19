@@ -1,11 +1,10 @@
 package pqmethodvisu.controller;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import javax.swing.JPanel;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -13,28 +12,25 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import pqmethodvisu.model.CollectionImage;
 import pqmethodvisu.model.Model;
-import pqmethodvisu.model.VisuCircle;
 import pqmethodvisu.model.TraitementVisu;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -80,12 +76,20 @@ public class MainAppControllerOverview implements Initializable {
 	private Slider MinSizeCursor;
 	@FXML
 	private Label MinSizeLabel;
+	@FXML
+	private Button ApplyButton;
 	
 	/*canvas for the visualization*/
-	private Canvas visu;
+	private ArrayList<Canvas> listVizuCanvas;
+	/*number of visualization*/
+	private Integer compteurVizu;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		//initializer of the visualization list and compteurVizu
+		listVizuCanvas = new ArrayList<Canvas>();
+		compteurVizu = 0;
 		
 		//initializer of comboBox about visu type
 		TypeVizuComboBox.setItems(FXCollections.observableArrayList("Rectangle","Circle"));
@@ -99,19 +103,24 @@ public class MainAppControllerOverview implements Initializable {
 		Color1Vizu.setValue(Color.hsb(240,1,1));
 		Color2Vizu.setValue(Color.hsb(1,1,1));
 		
+		//Screen size
+		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+
 		//initializer of size cursors
 		WidthCursor.setBlockIncrement(1);
-		WidthCursor.setMin(500);
+		WidthCursor.setMin(primaryScreenBounds.getWidth()/3);
+		WidthCursor.setMax(primaryScreenBounds.getWidth()-primaryScreenBounds.getWidth()*0.05);
 		WidthCursor.setValue(1200);
 		HeightCursor.setBlockIncrement(1);
-		HeightCursor.setMin(100);
+		HeightCursor.setMin(primaryScreenBounds.getHeight()/3);
+		HeightCursor.setMax(primaryScreenBounds.getHeight()-primaryScreenBounds.getHeight()*0.05);
 		HeightCursor.setValue(700);
 		
 		//Change labels's values when Cursor's value change
 		WidthCursor.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,Number old_val, Number new_val) {
             		WidthCursor.setValue(Math.round(new_val.doubleValue()));
-            		WidthLabel.setText(String.valueOf(WidthCursor.getValue()));
+            		WidthLabel.setText(String.valueOf(Math.round(WidthCursor.getValue()*100)/100));
             		MaxSizeCursor.setMin(WidthCursor.getValue()*0.13);
             		MinSizeCursor.setMax(WidthCursor.getValue()*0.13);
             }
@@ -119,7 +128,7 @@ public class MainAppControllerOverview implements Initializable {
 		HeightCursor.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,Number old_val, Number new_val) {
             		HeightCursor.setValue(Math.round(new_val.doubleValue()));
-            		HeightLabel.setText(String.valueOf(HeightCursor.getValue()));
+            		HeightLabel.setText(String.valueOf(Math.round(HeightCursor.getValue()*100)/100));
             }
         });
 		
@@ -133,7 +142,7 @@ public class MainAppControllerOverview implements Initializable {
             public void changed(ObservableValue<? extends Number> ov,
                 Number old_val, Number new_val) {
             		MaxSizeCursor.setValue(Math.round(new_val.doubleValue()));
-            		MaxSizeLabel.setText(String.valueOf(MaxSizeCursor.getValue()));
+            		MaxSizeLabel.setText(String.valueOf(Math.round(MaxSizeCursor.getValue()*100)/100));
             }
         });
 		MinSizeCursor.setMax(1200*0.13);
@@ -144,7 +153,7 @@ public class MainAppControllerOverview implements Initializable {
             public void changed(ObservableValue<? extends Number> ov,
                 Number old_val, Number new_val) {
             		MinSizeCursor.setValue(Math.round(new_val.doubleValue()));
-            		MinSizeLabel.setText(String.valueOf(MinSizeCursor.getValue()));
+            		MinSizeLabel.setText(String.valueOf(Math.round(MinSizeCursor.getValue()*100)/100));
             }
         });
 		
@@ -302,6 +311,7 @@ public class MainAppControllerOverview implements Initializable {
         			if (test) 
         			{
         				menuImportResults.setDisable(true);
+        				ApplyButton.setDisable(false);
         				//initializer le comboBox du majorFactor
         				int FactorsNumber = model.getCollectionImage().getFactorsNumber();
         				ObservableList<String> list = FXCollections.observableArrayList();
@@ -359,19 +369,10 @@ public class MainAppControllerOverview implements Initializable {
 		model.getTraitementVisualization().setCM(Color2Vizu.getValue());
 		model.getTraitementVisualization().setT1((int) MinSizeCursor.getValue());
 		model.getTraitementVisualization().setT3((int) MaxSizeCursor.getValue());
-		/*System.out.println("Major Factor: " + MajorFactorCombobox.getValue());
-		System.out.println("Minor Factor: " + MinorFactorCombobox.getValue());
-		System.out.println("TraitementVisu Type: " + TypeVizuComboBox.getValue());
-		System.out.println("TraitementVisu Color: " + ColorVizuComboBox.getValue());
-		System.out.println("First Color: " + Color1Vizu.getValue());
-		System.out.println("Second Color: " + Color2Vizu.getValue());
-		System.out.println("Width: " + WidthCursor.getValue());
-		System.out.println("Height: " + HeightCursor.getValue());
-		System.out.println("Max Size: " + MaxSizeCursor.getValue());
-		System.out.println("Min Size: " + MinSizeCursor.getValue());*/
+		
 		//Creation of popup fenetre which contain visualization
 		final Stage popup = new Stage();	//Création d'un stage
-		popup.initModality(Modality.APPLICATION_MODAL);	//initialisation du stage "popup"
+		//popup.initModality(Modality.APPLICATION_MODAL);	//initialisation du stage "popup"
 		Group root = new Group();
 		if(TypeVizuComboBox.getValue()=="Rectangle"&ColorVizuComboBox.getValue()=="ColorFull")
 		{
@@ -389,12 +390,40 @@ public class MainAppControllerOverview implements Initializable {
 		{
 			model.getTraitementVisualization().setCanvasVisuCircleBlack();
 		}
-		Canvas canvas = model.getTraitementVisualization().startVisu();
-		root.getChildren().add(canvas);
+		//ajouter la fenetre de la visualisation dans une liste de fenetre de canvas
+		listVizuCanvas.add(model.getTraitementVisualization().startVisu());
+		System.out.println("compteurVizu :"+compteurVizu);
+		root.getChildren().add(listVizuCanvas.get(compteurVizu));
+		compteurVizu++;
+		//option save active
+		menuSaveImage.setDisable(false);
+		//poste the scene of the visualization
 		Scene popupImportResultsScene = new Scene(root, WidthCursor.getValue(), HeightCursor.getValue());	//Création d'une scène initialiser avec la VBox "popupImportResults", et de taille : w et h.
-        popup.setTitle("Visualisation :");	//mettre un titre au stage "popup"
+        popup.setTitle("Visualisation"+compteurVizu);	//mettre un titre au stage "popup"
+        //
+        //String result = s.substring(length -n, length);
+        //currentCompteurVizu = String result = s.substring(length -n, length);popup.getTitle();
         popup.setScene(popupImportResultsScene);	//Ajouter la scene "popupImportResultsScene"
         popup.show();	//Afficher
+        //si on ferme une visu alors on decremente le compteur et on enleve le canvas correspondant
+        popup.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@SuppressWarnings("unlikely-arg-type")
+			@Override
+			public void handle(WindowEvent arg0) {
+				Integer numCanvas = null;
+				Pattern p = Pattern.compile("\\d+");
+				Matcher m = p.matcher(popup.getTitle());
+				while(m.find())
+					numCanvas = Integer.parseInt(m.group());
+				System.out.println(popup.getTitle());
+				listVizuCanvas.remove(numCanvas);
+				compteurVizu--;
+				if(compteurVizu==0) {
+					//option save desactive
+					menuSaveImage.setDisable(true);
+				}
+			}
+        });
 	}
 	
 }

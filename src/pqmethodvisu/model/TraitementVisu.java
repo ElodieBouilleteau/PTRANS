@@ -26,17 +26,20 @@ public class TraitementVisu {
 	
 	
 	private TraitementVisu() {
-		this.width = 1200;
-		this.height = 700;
-		this.t1 = 80;
-		this.t3 = 180;
-		this.CP = Color.hsb(240,1,1);
-		this.CM = Color.hsb(1,1,1);
 		this.alpha = 100;
-		this.factor1 = 1;
-		this.factor2 = 2;
-		this.savePath = "C:\\Users\\journ\\Images\\test.png";
-		this.save = false;
+	}
+	
+	private void print()
+	{
+		System.out.println("width : "+this.width);
+		System.out.println("height : "+this.height);
+		System.out.println("t1 : "+this.t1);
+		System.out.println("t3 : "+this.t3);
+		System.out.println("CP : "+this.CP);
+		System.out.println("CM : "+this.CM);
+		System.out.println("alpha : "+this.alpha);
+		System.out.println("factor1 : "+this.factor1);
+		System.out.println("factor2 : "+this.factor2);
 	}
 	
 	public static TraitementVisu getInstance() {
@@ -45,18 +48,22 @@ public class TraitementVisu {
 	}
 	
 	public void setCanvasVisuCircle() {
+		print();
 		this.visualization = new VisuCircle(width, height, t1, t3, CP, CM, alpha, corpus, factor1, factor2);
 	}
 	
 	public void setCanvasVisuCircleBlack() {
+		print();
 		this.visualization = new VisuCircleBlack(width, height, t1, t3, CP, CM, alpha, corpus, factor1, factor2);
 	}
 	
 	public void setCanvasVisuRect() {
+		print();
 		this.visualization = new VisuRect(width, height, t1, t3, CP, CM, alpha, corpus, factor1, factor2);
 	}
 	
 	public void setCanvasVisuRectBlack() {
+		print();
 		this.visualization = new VisuRectBlack(width, height, t1, t3, CP, CM, alpha, corpus, factor1, factor2);
 	}
 	
