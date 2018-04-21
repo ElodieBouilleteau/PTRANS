@@ -43,9 +43,9 @@
             <Label layoutX="12.0" layoutY="84.0" text="Minor" textFill="WHITE" />
             <ComboBox fx:id="MinorFactorCombobox" onAction="#onActionFactor" prefHeight="25.0" prefWidth="160.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="108.0" AnchorPane.topAnchor="80.0" />
             <Separator AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="129.0" />
-            <Label layoutX="17.0" layoutY="153.0" prefHeight="17.0" prefWidth="125.0" text="Type de visualisation" textFill="WHITE" />
+            <Label layoutX="17.0" layoutY="153.0" prefHeight="17.0" prefWidth="125.0" text="Visualization style" textFill="WHITE" />
             <ComboBox fx:id="TypeVizuComboBox" layoutX="140.0" layoutY="149.0" prefHeight="25.0" prefWidth="160.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="5.0" />
-            <Label layoutX="17.0" layoutY="199.0" prefHeight="17.0" prefWidth="125.0" text="Couleur/Black&amp;White" textFill="WHITE" />
+            <Label layoutX="17.0" layoutY="199.0" prefHeight="17.0" prefWidth="125.0" text="Color style" textFill="WHITE" />
             <ComboBox fx:id="ColorVizuComboBox" layoutX="140.0" layoutY="195.0" prefHeight="25.0" prefWidth="187.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="5.0" />
             <Separator AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="243.0" />
             <Label layoutX="13.0" layoutY="261.0" text="Color 1" textFill="WHITE" />

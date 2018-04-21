@@ -96,8 +96,8 @@ public class MainAppControllerOverview implements Initializable {
 		TypeVizuComboBox.getSelectionModel().select("Rectangle");
 		
 		//initializer of comboBox about color choice
-		ColorVizuComboBox.setItems(FXCollections.observableArrayList("ColorFull","Black/White"));
-		ColorVizuComboBox.getSelectionModel().select("ColorFull");
+		ColorVizuComboBox.setItems(FXCollections.observableArrayList("White","Black"));
+		ColorVizuComboBox.getSelectionModel().select("White");
 	
 		//initializer of coulors of combobox
 		Color1Vizu.setValue(Color.hsb(240,1,1));
@@ -188,7 +188,7 @@ public class MainAppControllerOverview implements Initializable {
         VBox popupImportImages = new VBox();	//création d'un VBox
         HBox textinfoCenter = new HBox();	//création d'un HBox pour centré le texte d'information
         textinfoCenter.setAlignment(Pos.CENTER);	//Centre le HBox "textinfoCenter"
-        final Label textinfo = new Label("Veuillez entrée le chemin vers le dossier contenant les images.");	//Création d'un label pour le texte d'information
+        final Label textinfo = new Label("Please input the path of the folder of images");	//Création d'un label pour le texte d'information
         textinfo.setTranslateY(5);	//Y placement = 5
         textinfo.setFont(Font.font("Arial", FontWeight.BOLD, 12));	//Type "Arial", Gras, taille : 12.
         textinfoCenter.getChildren().add(textinfo);	//Ajouter le text "textinfo" dans le HBox "textinfoCenter"
@@ -204,7 +204,7 @@ public class MainAppControllerOverview implements Initializable {
         /**/
         popupImportImages.getChildren().addAll(textinfoCenter,path,submitcenter);	//Ajouter au VBox "popupImportImages" les champs "textinfocenter", "path" et "submitcenter"
         Scene popupImportImagesScene = new Scene(popupImportImages, w, h);	//Création d'une scène initialiser avec la VBox "popupImportImages", et de taille : w et h.
-        popup.setTitle("Importation des images (format : .jpg)");	//mettre un titre au stage "popup"
+        popup.setTitle("Images importation(format : .jpg)");	//mettre un titre au stage "popup"
         popup.setScene(popupImportImagesScene);	//Ajouter la scene "popupImportImagesScene"
         popup.show();	//Afficher
         submit.setOnAction(new EventHandler<ActionEvent>() {
@@ -219,23 +219,23 @@ public class MainAppControllerOverview implements Initializable {
             			Alert alert = new Alert(AlertType.INFORMATION);
             			alert.setTitle("Information");
             			alert.setHeaderText(null);
-            			alert.setContentText("Les images ont été récupérer !");
+            			alert.setContentText("Importation success");
             			alert.showAndWait();
         			}
         			else
         			{
         				Alert alert = new Alert(AlertType.ERROR);
             			alert.setTitle("Error");
-            			alert.setHeaderText("Erreur d'entrée");
-            			alert.setContentText("Le chemin du dossier est incorrect");
+            			alert.setHeaderText("Importation error");
+            			alert.setContentText("The path of the folder is not correct.");
             			alert.showAndWait();
         			}
         		}
         		else {
         			Alert alert = new Alert(AlertType.ERROR);
         			alert.setTitle("Error");
-        			alert.setHeaderText("Erreur d'entrée");
-        			alert.setContentText("Vous n'avez entrée aucun chemin vers le dossier des images");
+        			alert.setHeaderText("Importation error");
+        			alert.setContentText("You have to input a path of the folder");
         			alert.showAndWait();
         		}
         	}
@@ -285,7 +285,7 @@ public class MainAppControllerOverview implements Initializable {
         VBox popupImportResults = new VBox();	//création d'un VBox
         HBox textinfoCenter = new HBox();	//création d'un HBox pour centré le texte d'information
         textinfoCenter.setAlignment(Pos.CENTER);	//Centre le HBox "textinfoCenter"
-        final Label textinfo = new Label("Veuillez entrée le chemin vers du fichier de résultat.");	//Création d'un label pour le texte d'information
+        final Label textinfo = new Label("Please input the path of the file of results");	//Création d'un label pour le texte d'information
         textinfo.setTranslateY(5);	//Y placement = 5
         textinfo.setFont(Font.font("Arial", FontWeight.BOLD, 12));	//Type "Arial", Gras, taille : 12.
         textinfoCenter.getChildren().add(textinfo);	//Ajouter le text "textinfo" dans le HBox "textinfoCenter"
@@ -301,7 +301,7 @@ public class MainAppControllerOverview implements Initializable {
         /**/
         popupImportResults.getChildren().addAll(textinfoCenter,path,submitcenter);	//Ajouter au VBox "popupImportResults" les champs "textinfocenter", "path" et "submitcenter"
         Scene popupImportResultsScene = new Scene(popupImportResults, w, h);	//Création d'une scène initialiser avec la VBox "popupImportResults", et de taille : w et h.
-        popup.setTitle("Importation du résultat de la Qméthode (format : .txt)");	//mettre un titre au stage "popup"
+        popup.setTitle("Qmethod results importation(format : .txt)");	//mettre un titre au stage "popup"
         popup.setScene(popupImportResultsScene);	//Ajouter la scene "popupImportResultsScene"
         popup.show();	//Afficher
         submit.setOnAction(new EventHandler<ActionEvent>() {
@@ -333,23 +333,23 @@ public class MainAppControllerOverview implements Initializable {
             			Alert alert = new Alert(AlertType.INFORMATION);
             			alert.setTitle("Information");
             			alert.setHeaderText(null);
-            			alert.setContentText("Les données ont été récupérer !");
+            			alert.setContentText("Importation success");
             			alert.showAndWait();
         			}
         			else
         			{
         				Alert alert = new Alert(AlertType.ERROR);
             			alert.setTitle("Error");
-            			alert.setHeaderText("Erreur d'entrée");
-            			alert.setContentText("Le chemin du fichier des résultats est incorrect");
+            			alert.setHeaderText("Importation error");
+            			alert.setContentText("The path of the file is not correct.");
             			alert.showAndWait();
         			}
         		}
         		else {
         			Alert alert = new Alert(AlertType.ERROR);
         			alert.setTitle("Error");
-        			alert.setHeaderText("Erreur d'entrée");
-        			alert.setContentText("Vous n'avez entrée aucun chemin vers le fichier de résultat.");
+        			alert.setHeaderText("Importation error");
+        			alert.setContentText("You have to input a path of the file");
         			alert.showAndWait();
         		}
         	}
@@ -374,19 +374,19 @@ public class MainAppControllerOverview implements Initializable {
 		final Stage popup = new Stage();	//Création d'un stage
 		//popup.initModality(Modality.APPLICATION_MODAL);	//initialisation du stage "popup"
 		Group root = new Group();
-		if(TypeVizuComboBox.getValue()=="Rectangle"&ColorVizuComboBox.getValue()=="ColorFull")
+		if(TypeVizuComboBox.getValue()=="Rectangle"&ColorVizuComboBox.getValue()=="White")
 		{
 			model.getTraitementVisualization().setCanvasVisuRect();
 		}
-		else if(TypeVizuComboBox.getValue()=="Rectangle"&ColorVizuComboBox.getValue()=="Black/White")
+		else if(TypeVizuComboBox.getValue()=="Rectangle"&ColorVizuComboBox.getValue()=="Black")
 		{
 			model.getTraitementVisualization().setCanvasVisuRectBlack();
 		}
-		else if(TypeVizuComboBox.getValue()=="Circle"&ColorVizuComboBox.getValue()=="ColorFull")
+		else if(TypeVizuComboBox.getValue()=="Circle"&ColorVizuComboBox.getValue()=="White")
 		{
 			model.getTraitementVisualization().setCanvasVisuCircle();
 		}
-		else if(TypeVizuComboBox.getValue()=="Circle"&ColorVizuComboBox.getValue()=="Black/White")
+		else if(TypeVizuComboBox.getValue()=="Circle"&ColorVizuComboBox.getValue()=="Black")
 		{
 			model.getTraitementVisualization().setCanvasVisuCircleBlack();
 		}

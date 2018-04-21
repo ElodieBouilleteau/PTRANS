@@ -139,13 +139,13 @@ public class TraitementVisu {
 		this.height = height;
 	}
 
-	/*public int getAlpha() {
-		return alpha1;
+	public int getAlpha() {
+		return alpha;
 	}
 
 	public void setAlpha(int alpha) {
-		this.alpha1 = alpha;
-	}*/
+		this.alpha = alpha;
+	}
 
 	public String getSavePath() {
 		return savePath;
