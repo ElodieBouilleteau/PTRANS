@@ -77,7 +77,7 @@
             </Button>
             <Label fx:id="WidthLabel" layoutX="280.0" layoutY="348.0" textFill="WHITE" />
             <Label fx:id="HeightLabel" layoutX="280.0" layoutY="374.0" textFill="WHITE" />
-            <Label fx:id="HeightLabel1" layoutX="280.0" layoutY="399.0" text="100%" textFill="WHITE" />
+            <Label fx:id="TransparentLabel" layoutX="280.0" layoutY="399.0" text="100%" textFill="WHITE" />
             <Label fx:id="MaxSizeLabel" layoutX="280.0" layoutY="425.0" textFill="WHITE" />
             <Label fx:id="MinSizeLabel" layoutX="280.0" layoutY="450.0" textFill="WHITE" />
          </children></AnchorPane>

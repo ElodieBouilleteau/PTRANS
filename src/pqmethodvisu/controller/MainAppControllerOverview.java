@@ -67,6 +67,8 @@ public class MainAppControllerOverview implements Initializable {
 	@FXML
 	private Slider HeightCursor;
 	@FXML
+	private Label TransparentLabel;
+	@FXML
 	private Slider TransparentCursor;
 	@FXML
 	private Label HeightLabel;
@@ -133,6 +135,15 @@ public class MainAppControllerOverview implements Initializable {
             		HeightLabel.setText(String.valueOf(Math.round(HeightCursor.getValue()*100)/100));
             }
         });
+
+		TransparentCursor.setValue(0);
+		TransparentLabel.setText("0%");
+		TransparentCursor.valueProperty().addListener(new ChangeListener<Number>() {
+			public void changed(ObservableValue<? extends Number> ov,Number old_val, Number new_val) {
+				TransparentCursor.setValue(Math.round(new_val.doubleValue()));
+				TransparentLabel.setText(String.valueOf(Math.round(TransparentCursor.getValue()*100)/100) + "%");
+			}
+		});
 		
 		//Initializer of max size cursors
 		//MAx cursor min = width*0.13F et Min cursor max = width*0.13F
