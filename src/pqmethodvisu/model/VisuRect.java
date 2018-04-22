@@ -30,7 +30,7 @@ public class VisuRect extends VisuBipolar {
 	
 	@Override
 	public Canvas start() {
-		
+		/*
 		System.out.println("width : "+super.width);
 		System.out.println("height : "+super.height);
 		System.out.println("t1 : "+super.t1);
@@ -42,7 +42,7 @@ public class VisuRect extends VisuBipolar {
 		System.out.println("factor2 : "+super.factor2);
 		System.out.println("SP : "+super.SP);
 		System.out.println("SM : "+super.SM);
-		
+		*/
 		Canvas canvas = new Canvas(super.width,super.height);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		int numberImages = super.getCorpus().size();

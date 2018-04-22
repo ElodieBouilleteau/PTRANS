@@ -21,7 +21,7 @@
             <items>
               <MenuItem fx:id="menuImportImmages" mnemonicParsing="false" onAction="#affichePopupImportImage" text="Import images..." />
               <MenuItem fx:id="menuImportResults" disable="true" mnemonicParsing="false" onAction="#affichePopupImportResult" text="Import results..." />
-              <MenuItem fx:id="menuSaveImage" disable="true" mnemonicParsing="false" text="Save Image" />
+              <MenuItem fx:id="menuSaveImage" disable="true" mnemonicParsing="false" onAction="#saveVisualization" text="Save Image" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">

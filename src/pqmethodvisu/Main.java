@@ -4,6 +4,7 @@ package pqmethodvisu;
 /*D:\Elodie\Documents\POLYTECHNANTES\4èm année\PTRANS\appli\résultats-pqmethod.txt : fichier du résultats*/
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -31,6 +32,8 @@ public class Main extends Application {
         //crée un model et l'ajouter dans le controller
         Model m = new Model();
         controller.setModel(m);
+        //fermer l'application
+        primaryStage.setOnCloseRequest(e -> Platform.exit());
     }
 
 

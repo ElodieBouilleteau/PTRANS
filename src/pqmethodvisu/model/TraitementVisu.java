@@ -48,22 +48,22 @@ public class TraitementVisu {
 	}
 	
 	public void setCanvasVisuCircle() {
-		print();
+		//print();
 		this.visualization = new VisuCircle(width, height, t1, t3, CP, CM, alpha, corpus, factor1, factor2);
 	}
 	
 	public void setCanvasVisuCircleBlack() {
-		print();
+		//print();
 		this.visualization = new VisuCircleBlack(width, height, t1, t3, CP, CM, alpha, corpus, factor1, factor2);
 	}
 	
 	public void setCanvasVisuRect() {
-		print();
+		//print();
 		this.visualization = new VisuRect(width, height, t1, t3, CP, CM, alpha, corpus, factor1, factor2);
 	}
 	
 	public void setCanvasVisuRectBlack() {
-		print();
+		//print();
 		this.visualization = new VisuRectBlack(width, height, t1, t3, CP, CM, alpha, corpus, factor1, factor2);
 	}
 	
