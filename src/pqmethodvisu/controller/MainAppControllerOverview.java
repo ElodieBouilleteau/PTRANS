@@ -67,6 +67,8 @@ public class MainAppControllerOverview implements Initializable {
 	@FXML
 	private Slider HeightCursor;
 	@FXML
+	private Slider TransparentCursor;
+	@FXML
 	private Label HeightLabel;
 	@FXML
 	private Slider MaxSizeCursor;
@@ -363,6 +365,7 @@ public class MainAppControllerOverview implements Initializable {
 		model.getTraitementVisualization().setCorpus(model.getCollectionImage().getCorpus());
 		model.getTraitementVisualization().setWidth((int) WidthCursor.getValue());
 		model.getTraitementVisualization().setHeight((int) HeightCursor.getValue());
+		model.getTraitementVisualization().setAlpha((int) TransparentCursor.getValue());
 		model.getTraitementVisualization().setFactor1(Integer.parseInt(MajorFactorCombobox.getValue()));
 		model.getTraitementVisualization().setFactor2(Integer.parseInt(MinorFactorCombobox.getValue()));
 		model.getTraitementVisualization().setCP(Color1Vizu.getValue());
