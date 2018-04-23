@@ -11,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import pqmethodvisu.controller.MainAppControllerOverview;
 import pqmethodvisu.model.Model;
-import test.VisuBipolarTest;
 
 public class Main extends Application {
 
@@ -32,6 +31,8 @@ public class Main extends Application {
         //crée un model et l'ajouter dans le controller
         Model m = new Model();
         controller.setModel(m);
+        //ajout de la stage primaire dans le controller
+        controller.setMainStage(primaryStage);
         //fermer l'application
         primaryStage.setOnCloseRequest(e -> Platform.exit());
     }

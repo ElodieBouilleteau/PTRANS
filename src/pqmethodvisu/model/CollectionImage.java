@@ -17,17 +17,22 @@ public class CollectionImage {
 	//the path of the pictures is path of the folder with the number of the picture at the end
 	public boolean importImage(String pathFolder)
 	{
+		boolean test = true;
 		File repertoire = new File(pathFolder);
-		if (repertoire.isDirectory())
+		this.imagesNumber = repertoire.listFiles().length;
+		this.corpus = new ArrayList<Image> (imagesNumber);
+		for (int i = 0; i < imagesNumber; i++)
 		{
-			this.imagesNumber = repertoire.listFiles().length;
-			this.corpus = new ArrayList<Image> (imagesNumber);
-			for (int i = 0; i < imagesNumber; i++)
+			File image = new File(pathFolder+"\\"+(i+1)+".jpg");
+			if (image.isFile())
 			{
 				this.corpus.add(new Image(pathFolder+"\\"+(i+1)+".jpg"));
+			} else {
+				test = false;
+				break;
 			}
 		}
-		return repertoire.isDirectory();
+		return test;
 	}
 	
 	//function importation result from qmethod

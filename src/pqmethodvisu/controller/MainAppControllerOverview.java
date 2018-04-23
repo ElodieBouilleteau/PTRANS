@@ -21,7 +21,6 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -32,11 +31,10 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
@@ -51,6 +49,8 @@ import javafx.fxml.Initializable;
 public class MainAppControllerOverview implements Initializable {
 	
 	private Model model;
+	
+	private Stage mainStage;
 	
 	@FXML
 	private AnchorPane ap;
@@ -206,70 +206,44 @@ public class MainAppControllerOverview implements Initializable {
 	}
 	
 	/*
+	 * Function set the primary stage
+	 */
+	public void setMainStage(Stage mainStage)
+	{
+		this.mainStage = mainStage;
+	}
+	
+	/*
 	 * Poste popup in order to import folder's pictures
 	 */
 	@FXML
 	private void affichePopupImportImage()
 	{
-		Integer w = 400;	//Largeur de la fenetre popup d'importation des images
-		Integer h = 100;	//Hauteur de la fenetre popup d'importation des images
-		final Stage popup = new Stage();	//Création d'un stage
-		popup.initModality(Modality.APPLICATION_MODAL);	//initialisation du stage "popup"
-        VBox popupImportImages = new VBox();	//création d'un VBox
-        HBox textinfoCenter = new HBox();	//création d'un HBox pour centré le texte d'information
-        textinfoCenter.setAlignment(Pos.CENTER);	//Centre le HBox "textinfoCenter"
-        final Label textinfo = new Label("Please input the path of the folder of images");	//Création d'un label pour le texte d'information
-        textinfo.setTranslateY(5);	//Y placement = 5
-        textinfo.setFont(Font.font("Arial", FontWeight.BOLD, 12));	//Type "Arial", Gras, taille : 12.
-        textinfoCenter.getChildren().add(textinfo);	//Ajouter le text "textinfo" dans le HBox "textinfoCenter"
-        final TextField path = new TextField();	//Création d'un textField pour le chemin du dossier contenant les images
-        path.setTranslateY(15);	//Y placement 15
-        HBox submitcenter = new HBox();	//Création d'un HBox pour centré le bouton "submit"
-        submitcenter.setAlignment(Pos.CENTER);	//centré le HBox "submitcenter"
-        final Button submit = new Button("Submit");	//Création du bouton "submit"
-        submit.setTranslateY(25);	//Y placement 25
-        submitcenter.getChildren().add(submit);	//Ajouter le bouton "submit" au HBox "submitcenter" 
-        //EXEMPLE A MODIFIER
-        path.setText("D:\\Elodie\\Documents\\POLYTECHNANTES\\4èm année\\PTRANS\\1 images URDLA online Copie");
-        /**/
-        popupImportImages.getChildren().addAll(textinfoCenter,path,submitcenter);	//Ajouter au VBox "popupImportImages" les champs "textinfocenter", "path" et "submitcenter"
-        Scene popupImportImagesScene = new Scene(popupImportImages, w, h);	//Création d'une scène initialiser avec la VBox "popupImportImages", et de taille : w et h.
-        popup.setTitle("Images importation(format : .jpg)");	//mettre un titre au stage "popup"
-        popup.setScene(popupImportImagesScene);	//Ajouter la scene "popupImportImagesScene"
-        popup.show();	//Afficher
-        submit.setOnAction(new EventHandler<ActionEvent>() {
-        	@Override public void handle(ActionEvent e) {
-        		if((path.getText().length()!=0)) {
-        			Boolean test = model.getCollectionImage().importImage(path.getText());
-        			if (test) 
-        			{
-        				menuImportImmages.setDisable(true);
-        				menuImportResults.setDisable(false);
-            			popup.close();
-            			Alert alert = new Alert(AlertType.INFORMATION);
-            			alert.setTitle("Information");
-            			alert.setHeaderText(null);
-            			alert.setContentText("Importation success");
-            			alert.showAndWait();
-        			}
-        			else
-        			{
-        				Alert alert = new Alert(AlertType.ERROR);
-            			alert.setTitle("Error");
-            			alert.setHeaderText("Importation error");
-            			alert.setContentText("The path of the folder is not correct.");
-            			alert.showAndWait();
-        			}
-        		}
-        		else {
-        			Alert alert = new Alert(AlertType.ERROR);
-        			alert.setTitle("Error");
-        			alert.setHeaderText("Importation error");
-        			alert.setContentText("You have to input a path of the folder");
-        			alert.showAndWait();
-        		}
-        	}
-        });
+		DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Select the folder of pictures (format : .jpg)");
+		File selectedDirectory = directoryChooser.showDialog(this.mainStage);
+        
+		if(selectedDirectory != null){
+            Boolean test = model.getCollectionImage().importImage(selectedDirectory.getAbsolutePath());
+			if (test) 
+			{
+				menuImportImmages.setDisable(true);
+				menuImportResults.setDisable(false);
+    			Alert alert = new Alert(AlertType.INFORMATION);
+    			alert.setTitle("Information");
+    			alert.setHeaderText(null);
+    			alert.setContentText("Importation success");
+    			alert.showAndWait();
+			}
+			else
+			{
+				Alert alert = new Alert(AlertType.ERROR);
+    			alert.setTitle("Error");
+    			alert.setHeaderText("Importation error");
+    			alert.setContentText("The path of the folder is not correct.");
+    			alert.showAndWait();
+			}
+        }
 	}
 	
 	/*
@@ -308,84 +282,58 @@ public class MainAppControllerOverview implements Initializable {
 	@FXML
 	private void affichePopupImportResult()
 	{
-		Integer w = 400;	//Largeur de la fenetre popup d'importation des images
-		Integer h = 100;	//Hauteur de la fenetre popup d'importation des images
-		final Stage popup = new Stage();	//Création d'un stage
-		popup.initModality(Modality.APPLICATION_MODAL);	//initialisation du stage "popup"
-        VBox popupImportResults = new VBox();	//création d'un VBox
-        HBox textinfoCenter = new HBox();	//création d'un HBox pour centré le texte d'information
-        textinfoCenter.setAlignment(Pos.CENTER);	//Centre le HBox "textinfoCenter"
-        final Label textinfo = new Label("Please input the path of the file of results");	//Création d'un label pour le texte d'information
-        textinfo.setTranslateY(5);	//Y placement = 5
-        textinfo.setFont(Font.font("Arial", FontWeight.BOLD, 12));	//Type "Arial", Gras, taille : 12.
-        textinfoCenter.getChildren().add(textinfo);	//Ajouter le text "textinfo" dans le HBox "textinfoCenter"
-        final TextField path = new TextField();	//Création d'un textField pour le chemin du dossier contenant les images
-        path.setTranslateY(15);	//Y placement 15
-        HBox submitcenter = new HBox();	//Création d'un HBox pour centré le bouton "submit"
-        submitcenter.setAlignment(Pos.CENTER);	//centré le HBox "submitcenter"
-        final Button submit = new Button("Submit");	//Création du bouton "submit"
-        submit.setTranslateY(25);	//Y placement 25
-        submitcenter.getChildren().add(submit);	//Ajouter le bouton "submit" au HBox "submitcenter" 
-        //EXEMPLE A MODIFIER
-        path.setText("D:\\Elodie\\Documents\\POLYTECHNANTES\\4èm année\\PTRANS\\appli\\résultats-pqmethod.txt");
-        /**/
-        popupImportResults.getChildren().addAll(textinfoCenter,path,submitcenter);	//Ajouter au VBox "popupImportResults" les champs "textinfocenter", "path" et "submitcenter"
-        Scene popupImportResultsScene = new Scene(popupImportResults, w, h);	//Création d'une scène initialiser avec la VBox "popupImportResults", et de taille : w et h.
-        popup.setTitle("Qmethod results importation(format : .txt)");	//mettre un titre au stage "popup"
-        popup.setScene(popupImportResultsScene);	//Ajouter la scene "popupImportResultsScene"
-        popup.show();	//Afficher
-        submit.setOnAction(new EventHandler<ActionEvent>() {
-        	@Override public void handle(ActionEvent e) {
-        		if((path.getText().length()!=0)) {
-        			Boolean test = model.getCollectionImage().importData(path.getText());
-        			if (test) 
-        			{
-        				menuImportResults.setDisable(true);
-        				ApplyButton.setDisable(false);
-        				//initializer le comboBox du majorFactor
-        				int FactorsNumber = model.getCollectionImage().getFactorsNumber();
-        				ObservableList<String> list = FXCollections.observableArrayList();
-        				for (int i = 1; i<=FactorsNumber;i++)
-        				{
-        					list.add(Integer.toString(i));
-        				}
-        				MajorFactorCombobox.setItems(list);
-        				MajorFactorCombobox.getSelectionModel().select(list.get(0));
-        				//initializer le comboBox du minorFactor
-        				ObservableList<String> list2 = FXCollections.observableArrayList();
-        				for (int j = 2; j<=FactorsNumber;j++)
-        				{
-        					list2.add(Integer.toString(j));
-        				}
-        				MinorFactorCombobox.setItems(list2);
-        				MinorFactorCombobox.getSelectionModel().select(list2.get(0));
-            			popup.close();
-            			Alert alert = new Alert(AlertType.INFORMATION);
-            			alert.setTitle("Information");
-            			alert.setHeaderText(null);
-            			alert.setContentText("Importation success");
-            			alert.showAndWait();
-        			}
-        			else
-        			{
-        				Alert alert = new Alert(AlertType.ERROR);
-            			alert.setTitle("Error");
-            			alert.setHeaderText("Importation error");
-            			alert.setContentText("The path of the file is not correct.");
-            			alert.showAndWait();
-        			}
-        		}
-        		else {
-        			Alert alert = new Alert(AlertType.ERROR);
-        			alert.setTitle("Error");
-        			alert.setHeaderText("Importation error");
-        			alert.setContentText("You have to input a path of the file");
-        			alert.showAndWait();
-        		}
-        	}
-        });
+		FileChooser fileChooser = new FileChooser();
+        
+        //Set extension filter
+        FileChooser.ExtensionFilter extFiltertxt = new FileChooser.ExtensionFilter("txt files (*.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(extFiltertxt);
+        
+        //Show import results file dialog
+        File file = fileChooser.showOpenDialog(this.mainStage);
+        
+        if(file != null){
+        	Boolean test = model.getCollectionImage().importData(file.getAbsolutePath());
+			if (test) 
+			{
+				menuImportResults.setDisable(true);
+				ApplyButton.setDisable(false);
+				//initializer le comboBox du majorFactor
+				int FactorsNumber = model.getCollectionImage().getFactorsNumber();
+				ObservableList<String> list = FXCollections.observableArrayList();
+				for (int i = 1; i<=FactorsNumber;i++)
+				{
+					list.add(Integer.toString(i));
+				}
+				MajorFactorCombobox.setItems(list);
+				MajorFactorCombobox.getSelectionModel().select(list.get(0));
+				//initializer le comboBox du minorFactor
+				ObservableList<String> list2 = FXCollections.observableArrayList();
+				for (int j = 2; j<=FactorsNumber;j++)
+				{
+					list2.add(Integer.toString(j));
+				}
+				MinorFactorCombobox.setItems(list2);
+				MinorFactorCombobox.getSelectionModel().select(list2.get(0));
+    			Alert alert = new Alert(AlertType.INFORMATION);
+    			alert.setTitle("Information");
+    			alert.setHeaderText(null);
+    			alert.setContentText("Importation success");
+    			alert.showAndWait();
+			}
+			else
+			{
+				Alert alert = new Alert(AlertType.ERROR);
+    			alert.setTitle("Error");
+    			alert.setHeaderText("Importation error");
+    			alert.setContentText("The path of the file is not correct.");
+    			alert.showAndWait();
+			}
+        }
 	}
 
+	/*
+	 * Function apply values and poste the visualization
+	 */
 	@FXML
 	private void applyValue()
 	{
@@ -466,6 +414,9 @@ public class MainAppControllerOverview implements Initializable {
         });
 	}
 	
+	/*
+	 * function Save visualization
+	 */
 	@FXML
 	private void saveVisualization() {
 		Integer w = 400;	//Largeur de la fenetre popup de sauvegarde de la visualization
