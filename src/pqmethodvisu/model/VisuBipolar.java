@@ -23,7 +23,7 @@ public class VisuBipolar extends Visualization {
 		this.t3 = t3;
 		this.CP = CP;
 		this.CM = CM;
-		this.alpha = alpha;
+		this.alpha = alpha/100;
 		this.factor1 = factor1;
 		this.factor2 = factor2;
 		this.HP = CP.getHue();
