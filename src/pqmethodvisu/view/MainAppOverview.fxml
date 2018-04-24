@@ -20,10 +20,10 @@
           <Menu mnemonicParsing="false" text="File">
             <items>
               <MenuItem fx:id="menuImportImmages" mnemonicParsing="false" onAction="#affichePopupImportImage" text="Import images..." />
-                  <Menu fx:id="menuImportResults" mnemonicParsing="false" disable="true" text="Import results...">
+                  <Menu fx:id="menuImportResults" disable="true" mnemonicParsing="false" text="Import results...">
                     <items>
-                    <MenuItem fx:id="menuImportResultsTXT" disable="true" mnemonicParsing="false" onAction="#affichePopupImportResultTXT" text="Import results fichier TXT" />
-                      <MenuItem fx:id="menuImportResultsCSV" disable="true" mnemonicParsing="false" onAction="#affichePopupImportResultCSV" text="Import results fichier CSV" />
+                    <MenuItem fx:id="menuImportResultsTXT" disable="true" mnemonicParsing="false" onAction="#affichePopupImportResultTXT" text="Import results file TXT" />
+                      <MenuItem fx:id="menuImportResultsCSV" disable="true" mnemonicParsing="false" onAction="#affichePopupImportResultCSV" text="Import results file CSV" />
                     </items>
                   </Menu>
               <MenuItem fx:id="menuSaveImage" disable="true" mnemonicParsing="false" onAction="#saveVisualization" text="Save Image" />

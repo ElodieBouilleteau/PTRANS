@@ -7,8 +7,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 
 public class CollectionImage {
+	
+	private static String osName = System.getProperty("os.name").toLowerCase();
 	
 	private ArrayList<Image> corpus;
 	private Integer imagesNumber;
@@ -24,10 +27,24 @@ public class CollectionImage {
 		this.corpus = new ArrayList<Image> (imagesNumber);
 		for (int i = 0; i < imagesNumber; i++)
 		{
-			File image = new File(pathFolder+"\\"+(i+1)+".jpg");
+			String slash = null;
+            osName = osName.toLowerCase(Locale.ENGLISH);
+            if (osName.contains("windows")) {
+            	slash = "\\";
+            } else if (osName.contains("linux")
+                    || osName.contains("mpe/ix")
+                    || osName.contains("freebsd")
+                    || osName.contains("irix")
+                    || osName.contains("digital unix")
+                    || osName.contains("unix")
+                    || osName.contains("mac os")) {
+            	slash = "/";
+            }
+            
+            File image = new File(pathFolder+slash+(i+1)+".jpg");;
 			if (image.isFile())
 			{
-				this.corpus.add(new Image(pathFolder+"\\"+(i+1)+".jpg"));
+				this.corpus.add(new Image(pathFolder+slash+(i+1)+".jpg"));
 			} else {
 				test = false;
 				break;
