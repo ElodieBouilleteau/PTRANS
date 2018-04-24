@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class CollectionImage {
 	
@@ -36,7 +37,7 @@ public class CollectionImage {
 	}
 	
 	//function importation result from qmethod
-	public Boolean importData(String pathData) {
+	public Boolean importDataTXT(String pathData) {
 		try{
 			InputStream ips=new FileInputStream(pathData);
 			InputStreamReader ipsr=new InputStreamReader(ips);
@@ -77,7 +78,7 @@ public class CollectionImage {
 					borne1 -= 11;
 					borne2 -= 11;
 					//add factor to the picture
-					this.corpus.get(i).addFactor(j, Double.parseDouble(zscore.replaceAll(" ","")), Integer.parseInt(classement.replaceAll(" ","")));
+					this.corpus.get(i).addFactorClass(j, Double.parseDouble(zscore.replaceAll(" ","")), Integer.parseInt(classement.replaceAll(" ","")));
 				}
 			}
 			
@@ -89,6 +90,90 @@ public class CollectionImage {
 		}
 	}
 
+	//function importation factors values from csv file
+	public Boolean importDataCSV(String pathData) {
+		try{
+			InputStream ips=new FileInputStream(pathData);
+			InputStreamReader ipsr=new InputStreamReader(ips);
+			BufferedReader br=new BufferedReader(ipsr);
+			String ligne;
+			String[] parseLigne;
+			//pass the colonne ligne
+			ligne=br.readLine();
+			parseLigne = ligne.split(";");
+			//catch the number of factor
+			int numberOfFactor = parseLigne.length-1;
+			//add to the local variable
+			setFactorsNumber(numberOfFactor);
+			//parcour all ligne
+			int cptImage = 0;
+			while ((ligne=br.readLine())!=null){
+				parseLigne = ligne.split(";");
+				String name = parseLigne[0];
+				//add the name to the picture number i
+				this.corpus.get(cptImage).setName(name);
+				//add the list of factor to the picture number i
+				this.corpus.get(cptImage).addListFactor(numberOfFactor);
+				for(int i = 0; i < numberOfFactor; i++)
+				{
+					String zscore = parseLigne[i+1].replaceAll(" ","");
+					//add factor to the picture, set classement to 0
+					this.corpus.get(cptImage).addFactorClass(i+1, Double.parseDouble(zscore.replaceAll(",",".")),0);
+				}
+				cptImage++;
+			}
+			//calculate the classement
+			calculateClassement();
+			br.close();
+			return true;
+		}		
+		catch (Exception e){
+			System.out.println(e);
+			return false;
+		}
+	}
+	
+	//calculate the classement and add to the corpus
+	private void calculateClassement() {
+		ArrayList<ArrayList<Double>> factors = new ArrayList<ArrayList<Double>>(this.factorsNumber);
+		for(int j = 0; j < this.factorsNumber; j++)
+		{
+			ArrayList<Double> factor = new ArrayList<Double>(this.imagesNumber);
+			for(int i = 0; i < this.imagesNumber; i++)
+			{
+				factor.add(this.corpus.get(i).getListFactor().get(j).getZscore());
+			}
+			factors.add(factor);
+		}
+		for(int j = 0; j < this.factorsNumber; j++)
+		{
+			ArrayList<Double> factorTri = factors.get(j);
+			Collections.sort(factorTri,Collections.reverseOrder());
+			for(int i = 0; i < this.imagesNumber; i++)
+			{
+				double zscore = this.corpus.get(i).getListFactor().get(j).getZscore();
+				int count = count(factorTri,zscore);
+				int classement = factorTri.indexOf(zscore)+count;
+				this.corpus.get(i).getListFactor().get(j).setClassementNumber(classement);
+			}
+			factorTri.clear();
+		}
+	}
+	
+	//count element = elmt in a arraylist
+	private int count(ArrayList<Double> array,double elmt) 
+   {
+      int count = 0;
+      for(Double d : array)
+      {
+         if(d == elmt)
+         {
+            count++;
+         }
+      }
+      return count;
+   }
+	
 	//get the numbers of factors
 	public Integer getFactorsNumber() {
 		return factorsNumber;

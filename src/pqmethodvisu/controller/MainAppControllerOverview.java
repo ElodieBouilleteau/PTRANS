@@ -60,6 +60,10 @@ public class MainAppControllerOverview implements Initializable {
 	@FXML
 	private MenuItem menuImportResults;
 	@FXML
+	private MenuItem menuImportResultsTXT;
+	@FXML
+	private MenuItem menuImportResultsCSV;
+	@FXML
 	private MenuItem menuSaveImage;
 	@FXML
 	private ComboBox<String> MajorFactorCombobox;
@@ -229,6 +233,8 @@ public class MainAppControllerOverview implements Initializable {
 			{
 				menuImportImmages.setDisable(true);
 				menuImportResults.setDisable(false);
+				menuImportResultsTXT.setDisable(false);
+				menuImportResultsCSV.setDisable(false);
     			Alert alert = new Alert(AlertType.INFORMATION);
     			alert.setTitle("Information");
     			alert.setHeaderText(null);
@@ -280,7 +286,7 @@ public class MainAppControllerOverview implements Initializable {
 	 * Poste popup in order to import qmethod's results
 	 */
 	@FXML
-	private void affichePopupImportResult()
+	private void affichePopupImportResultTXT()
 	{
 		FileChooser fileChooser = new FileChooser();
         
@@ -292,28 +298,14 @@ public class MainAppControllerOverview implements Initializable {
         File file = fileChooser.showOpenDialog(this.mainStage);
         
         if(file != null){
-        	Boolean test = model.getCollectionImage().importData(file.getAbsolutePath());
+        	Boolean test = model.getCollectionImage().importDataTXT(file.getAbsolutePath());
 			if (test) 
 			{
 				menuImportResults.setDisable(true);
+				menuImportResultsTXT.setDisable(true);
+				menuImportResultsCSV.setDisable(true);
 				ApplyButton.setDisable(false);
-				//initializer le comboBox du majorFactor
-				int FactorsNumber = model.getCollectionImage().getFactorsNumber();
-				ObservableList<String> list = FXCollections.observableArrayList();
-				for (int i = 1; i<=FactorsNumber;i++)
-				{
-					list.add(Integer.toString(i));
-				}
-				MajorFactorCombobox.setItems(list);
-				MajorFactorCombobox.getSelectionModel().select(list.get(0));
-				//initializer le comboBox du minorFactor
-				ObservableList<String> list2 = FXCollections.observableArrayList();
-				for (int j = 2; j<=FactorsNumber;j++)
-				{
-					list2.add(Integer.toString(j));
-				}
-				MinorFactorCombobox.setItems(list2);
-				MinorFactorCombobox.getSelectionModel().select(list2.get(0));
+				initComboboxFactors();
     			Alert alert = new Alert(AlertType.INFORMATION);
     			alert.setTitle("Information");
     			alert.setHeaderText(null);
@@ -331,6 +323,72 @@ public class MainAppControllerOverview implements Initializable {
         }
 	}
 
+	/*
+	 * Poste popup in order to import factors values
+	 */
+	@FXML
+	private void affichePopupImportResultCSV()
+	{
+		FileChooser fileChooser = new FileChooser();
+        
+        //Set extension filter
+        FileChooser.ExtensionFilter extFiltertxt = new FileChooser.ExtensionFilter("csv files (*.csv)", "*.csv");
+        fileChooser.getExtensionFilters().add(extFiltertxt);
+        
+        //Show import results file dialog
+        File file = fileChooser.showOpenDialog(this.mainStage);
+        
+        if(file != null){
+        	Boolean test = model.getCollectionImage().importDataCSV(file.getAbsolutePath());
+			if (test) 
+			{
+				menuImportResults.setDisable(true);
+				menuImportResultsTXT.setDisable(true);
+				menuImportResultsCSV.setDisable(true);
+				ApplyButton.setDisable(false);
+				initComboboxFactors();
+    			Alert alert = new Alert(AlertType.INFORMATION);
+    			alert.setTitle("Information");
+    			alert.setHeaderText(null);
+    			alert.setContentText("Importation success");
+    			alert.showAndWait();
+			}
+			else
+			{
+				Alert alert = new Alert(AlertType.ERROR);
+    			alert.setTitle("Error");
+    			alert.setHeaderText("Importation error");
+    			alert.setContentText("The path of the file is not correct.");
+    			alert.showAndWait();
+			}
+        }
+	}
+	
+	
+	/*
+	 * Function initialize comboBox of factors
+	 */
+	private void initComboboxFactors() {
+		//initializer le comboBox du majorFactor
+		int FactorsNumber = model.getCollectionImage().getFactorsNumber();
+		ObservableList<String> list = FXCollections.observableArrayList();
+		for (int i = 1; i<=FactorsNumber;i++)
+		{
+			list.add(Integer.toString(i));
+		}
+		MajorFactorCombobox.setItems(list);
+		MajorFactorCombobox.getSelectionModel().select(list.get(0));
+		//initializer le comboBox du minorFactor
+		ObservableList<String> list2 = FXCollections.observableArrayList();
+		for (int j = 2; j<=FactorsNumber;j++)
+		{
+			list2.add(Integer.toString(j));
+		}
+		MinorFactorCombobox.setItems(list2);
+		MinorFactorCombobox.getSelectionModel().select(list2.get(0));
+	}
+	
+	
 	/*
 	 * Function apply values and poste the visualization
 	 */

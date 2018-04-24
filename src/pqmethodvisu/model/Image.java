@@ -49,11 +49,11 @@ public class Image {
 	
 	//add a factor into the factor list
 	//position 0 matches with factor 1
-	public void addFactor(int numberFactor, double zscore, int classementNumber)
+	public void addFactorClass(int numberFactor, double zscore, int classementNumber)
 	{
 		this.getListFactor().set(numberFactor-1,new Factor(zscore,classementNumber));
 	}
-
+	
 	public ArrayList<Factor> getListFactor() {
 		return listFactor;
 	}
