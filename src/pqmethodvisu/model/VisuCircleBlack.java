@@ -15,10 +15,6 @@ public class VisuCircleBlack extends VisuBipolar{
 	//size parameters
 	private int D1, D2, D3, d1, d2, d3;
 	
-	//save
-	//private static String savePath;
-	//private static boolean save;
-	
 	public VisuCircleBlack(int width, int height, int t1, int t3, Color CP, Color CM, double alpha,
 			ArrayList<pqmethodvisu.model.Image> corpus, int factor1, int factor2) {
 		super(width, height, t1, t3, CP, CM, alpha, corpus, factor1, factor2);
@@ -61,7 +57,7 @@ public class VisuCircleBlack extends VisuBipolar{
 					180,180,ArcType.ROUND);
 		}
 		setGradient(super.getWidth()/2,super.getHeight()/2,super.getWidth(),20,super.getCP(), super.getCM(), gc);
-		gc.setGlobalAlpha(this.alpha);
+		gc.setGlobalAlpha(super.alpha);
 		for(int i =1; i<=super.G1P.size();i++){
 		    double w = resizew(images.get(super.G1P.get(i-1)).getWidth(), images.get(super.G1P.get(i-1)).getHeight(), t1);
 		    double h = resizeh(images.get(super.G1P.get(i-1)).getWidth(), images.get(super.G1P.get(i-1)).getHeight(), t1);
@@ -72,7 +68,7 @@ public class VisuCircleBlack extends VisuBipolar{
 		    double h = resizeh(images.get(super.G1M.get(i-1)).getWidth(), images.get(super.G1M.get(i-1)).getHeight(), t1);
 		    gc.drawImage(images.get(super.G1M.get(i-1)), super.getWidth()/2+Math.cos((super.G1M.size()+1+i)*Math.PI/(super.G1M.size()+1))*D1/2-w/2, super.getHeight()/2-Math.sin((super.G1M.size()+1+i)*Math.PI/(super.G1M.size()+1))*d1/2-h/2, w, h);
 		}
-		gc.setGlobalAlpha(this.alpha+(1-this.alpha)*0.4);
+		gc.setGlobalAlpha(super.alpha+(1-super.alpha)*0.4);
 		for(int i =1; i<=super.G2P.size();i++){
 		  double w = resizew(images.get(super.G2P.get(i-1)).getWidth(), images.get(super.G2P.get(i-1)).getHeight(), t2);
 		  double h = resizeh(images.get(super.G2P.get(i-1)).getWidth(), images.get(super.G2P.get(i-1)).getHeight(), t2);

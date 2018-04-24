@@ -15,10 +15,6 @@ public class VisuRectBlack extends VisuBipolar {
 	//size parameters
 	private int W, H1, H2, H3;
 	
-	//save
-	//private static String savePath;
-	//private static boolean save;
-	
 	public VisuRectBlack(int width, int height, int t1, int t3, Color CP, Color CM, double alpha,
 			ArrayList<pqmethodvisu.model.Image> corpus, int factor1, int factor2) {
 		super(width, height, t1, t3, CP, CM, alpha, corpus, factor1, factor2);
@@ -53,7 +49,7 @@ public class VisuRectBlack extends VisuBipolar {
 		
 		setGradient(super.width/2,super.height/2,super.width,20,super.CP, super.CM, gc);
 		
-		gc.setGlobalAlpha(this.alpha);
+		gc.setGlobalAlpha(super.alpha);
 		for(int i =1; i<=super.G1P.size();i++){
 		    double w = resizew(images.get(super.G1P.get(i-1)).getWidth(), images.get(super.G1P.get(i-1)).getHeight(), t1);
 		    double h = resizeh(images.get(super.G1P.get(i-1)).getWidth(), images.get(super.G1P.get(i-1)).getHeight(), t1);
@@ -67,7 +63,7 @@ public class VisuRectBlack extends VisuBipolar {
 		}
 		  
 		  
-		gc.setGlobalAlpha(this.alpha+(1-this.alpha)*0.4);
+		gc.setGlobalAlpha(super.alpha+(1-super.alpha)*0.4);
 		for(int i =1; i<=super.G2P.size();i++){
 		    double w = resizew(images.get(super.G2P.get(i-1)).getWidth(), images.get(super.G2P.get(i-1)).getHeight(), t2);
 		    double h = resizeh(images.get(super.G2P.get(i-1)).getWidth(), images.get(super.G2P.get(i-1)).getHeight(), t2);
