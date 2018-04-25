@@ -92,7 +92,7 @@ public class VisuBipolar extends Visualization {
 				this.G0I.remove(0);
 			}
 			else {
-				this.G2PI.add(this.G0I.get(0));
+				this.G1MI.add(this.G0I.get(0));
 				this.G0I.remove(0);
 			}
 			compteur++;
@@ -114,7 +114,7 @@ public class VisuBipolar extends Visualization {
 		  /*Partitionner for the quicksort*/
 	      int i = left, j = right;
 	      Integer tmp;
-	      //recuperer le numéro de l'image à la moitier de la liste
+	      //recuperer le numÃ©ro de l'image Ã  la moitier de la liste
 	      double pivot = getClassement(G.get((left + right) / 2), factor);
 	      while (i <= j) {
 	    	  while (getClassement(G.get(i), factor) < pivot)
