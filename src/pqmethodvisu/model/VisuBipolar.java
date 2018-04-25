@@ -68,7 +68,7 @@ public class VisuBipolar extends Visualization {
 			else if(zscore > 1 && zscore <= 1.8) {
 				this.G2PI.add(compteur);
 			}
-			else if(zscore > 1.8 && zscore <= 2) {
+			else if(zscore > 1.8) {
 				this.G3PI.add(compteur);
 			}
 			else if(zscore < 0 && zscore >= -1) {
@@ -77,7 +77,7 @@ public class VisuBipolar extends Visualization {
 			else if(zscore < -1 && zscore >= -1.8) {
 				this.G2MI.add(compteur);
 			}
-			else if(zscore < -1.8 && zscore >= -2) {
+			else if(zscore < -1.8) {
 				this.G3MI.add(compteur);
 			}
 			else if(zscore == 0) {
