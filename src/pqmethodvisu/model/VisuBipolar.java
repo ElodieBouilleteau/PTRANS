@@ -111,24 +111,27 @@ public class VisuBipolar extends Visualization {
 	}
 	
 	private int partition(ArrayList<Integer> G, int left, int right, int factor){
-		  /*Partitionner for the quicksort*/
+		  /*Partitionner for the quicksort
+		   * source : http://www.algolist.net/Algorithms/Sorting/Quicksort*/
 	      int i = left, j = right;
-	      Integer tmp;
-	      //recuperer le numéro de l'image à la moitier de la liste
-	      double pivot = getClassement(G.get((left + right) / 2), factor);
-	      while (i <= j) {
-	    	  while (getClassement(G.get(i), factor) < pivot)
-	               	i++;
-	          while (getClassement(G.get(j), factor) > pivot)
-	                j--;
-	          if (i <= j) {
-	                tmp = G.get(i);
-	                G.set(i, G.get(j));
-	                G.set(j, tmp);
-	                i++;
-	                j--;
-	          }
-	      };
+	      if(!(G.isEmpty())) {
+		      Integer tmp;
+		      //recuperer le numéro de l'image à la moitier de la liste
+		      double pivot = getClassement(G.get((left + right) / 2), factor);
+		      while (i <= j) {
+		    	  while (getClassement(G.get(i), factor) < pivot)
+		               	i++;
+		          while (getClassement(G.get(j), factor) > pivot)
+		                j--;
+		          if (i <= j) {
+		                tmp = G.get(i);
+		                G.set(i, G.get(j));
+		                G.set(j, tmp);
+		                i++;
+		                j--;
+		          }
+		      }
+	      }
 	      return i;
 	}
 	 
