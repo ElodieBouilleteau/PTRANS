@@ -38,7 +38,7 @@ public class VisuCircle extends VisuBipolar {
 		  images.put(super.getCorpus().get(i).getName(), img);
 		}
 		for (double i = (D1+t1); i >= 0; i--) {
-			gc.setFill(Color.hsb(HP, (i-(D1+t1))*(0-SP)/(D1+t1), 1+(i-(D1+t1))*(1-BP)/(D1+t1)));
+			gc.setFill(Color.hsb(HP, Math.max(0,(i-(D1+t1))*(0-SP)/(D1+t1)), Math.min(1,1+(i-(D1+t1))*(1-BP)/(D1+t1))));
 			gc.fillArc(canvas.getWidth()/2-i/2,
 					canvas.getHeight()/2-i*(d1+t1/2)/(2*(D1+t1))-10,
 					i,
@@ -47,7 +47,7 @@ public class VisuCircle extends VisuBipolar {
 
 		}
 		for (double i = (D1+t1); i >= 0; i--) {
-			gc.setFill(Color.hsb(HM, (i-(D1+t1))*(0-SM)/(D1+t1), 1+(i-(D1+t1))*(1-BM)/(D1+t1)));
+			gc.setFill(Color.hsb(HM, Math.max(0,(i-(D1+t1))*(0-SM)/(D1+t1)), Math.min(1,1+(i-(D1+t1))*(1-BM)/(D1+t1))));
 			gc.fillArc(canvas.getWidth()/2-i/2,
 					canvas.getHeight()/2-i*(d1+t1/2)/(2*(D1+t1))+10,
 					i,
@@ -102,8 +102,8 @@ public class VisuCircle extends VisuBipolar {
 	  for (int i = 0; i < h; i++) {
 	    //création couleur
 	    ci = Color.color(c1.getRed()+i*(c2.getRed()-c1.getRed())/h, c1.getGreen()+i*(c2.getGreen()-c1.getGreen())/h,c1.getBlue()+i*(c2.getBlue()-c1.getBlue())/h);
-	    for (double j = x; j <= x+w/2; j++) {
-	        Color c = Color.hsb(ci.getHue(), Math.max((j-x)*ci.getSaturation()/(w/2),0),Math.min(1+(j-x)*(ci.getBrightness()-1)/(w/2),1));
+	    for (double j = Math.round(x); j <= x+w/2; j++) {
+	        Color c = Color.hsb(ci.getHue(), Math.max(0,(j-x)*ci.getSaturation()/(w/2)),Math.min(1+(j-x)*(ci.getBrightness()-1)/(w/2),1));
 	        gc.setFill(c);
 	        gc.fillRect(j, y+i, 1, 1);
 	    }

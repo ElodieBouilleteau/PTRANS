@@ -38,12 +38,12 @@ public class VisuRectBlack extends VisuBipolar {
 	  
 
 		for (double r = (H1/2+t1/2); r >= 0; r--) {
-			gc.setFill(Color.hsb(HP, SP, BP-r*(BP-0)/(H1/2+t1/2)));
+			gc.setFill(Color.hsb(HP, SP, Math.max(0,BP-r*(BP-0)/(H1/2+t1/2))));
 			gc.fillRect(0,(H1/2+t1/2)-r,width,height-r);
 
 		}
 		for (double r = (H1/2+t1/2); r >= 0; r--) {
-			gc.setFill(Color.hsb(HM, SM, BM-r*(BM-0)/(H1/2+t1/2)));
+			gc.setFill(Color.hsb(HM, SM, Math.max(0,BM-r*(BM-0)/(H1/2+t1/2))));
 			gc.fillRect(0,height/2+10,width,r);
 		}
 		
