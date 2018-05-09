@@ -614,22 +614,22 @@ public class MainAppControllerOverview implements Initializable {
 		
 		TextFlow flow = new TextFlow();
 		/*Step 1*/
-        Text title1 = new Text(">> Etape 1 : importer le dossier d'images \n\n");
+        Text title1 = new Text(">> Step 1 : import the image folder \n\n");
         title1.setStyle("-fx-fill: #4F8A10;-fx-font-weight:bold;");
-        Text etape1txt = new Text(">> Vérifier que le dossier contient des images numéroté de 1 à n. \n"
-        		+ ">> Vérifier que les images sont au format .JPG. \n"
-        		+ ">> Allez dans le menu \"File\" puis cliquez sur \"Import images...\" \n"
-        		+ ">> Sélectionnez le dossier contenant les images. \n\n");
-        Text error1 = new Text(">> Un message d'erreur s'affiche si vous n'avez pas selectionner de dossier ou si le dossier selectionné est incorrecte. \n\n");
+        Text etape1txt = new Text(">> Verify that the folder contains images numbered 1 to n. \n"
+        		+ ">> Verify that the images have the .JPG format. \n"
+        		+ ">> Click on the \"File\" menu then click on \"Import images...\" \n"
+        		+ ">> Select the folder which contains the images \n\n");
+        Text error1 = new Text(">> An error message pops up if you didn't select any folder or if the selected folder is uncorrect. \n\n");
         error1.setStyle("-fx-fill: RED;-fx-font-weight:normal;");
         /*Step 2*/
-        Text title2 = new Text(">> Etape 2 : importer les zscores des images \n\n");
+        Text title2 = new Text(">> Step 2 : Import the zscore of images \n\n");
         title2.setStyle("-fx-fill: #4F8A10;-fx-font-weight:bold;");
-        Text subtitle2txt = new Text("> Soit importer les résultats de sortie du logiciel \"Qmethod\" \n");
+        Text subtitle2txt = new Text("> Either import the results as output of the software \"Qmethod\" \n");
         subtitle2txt.setStyle("-fx-fill: #4B108A;-fx-font-weight:bold;");
-        Text etape2txt = new Text(">> Allez dans le menu \"File\" puis sur \"Import results...\" et cliquer sur \"Import results file TXT\"\n"
-        		+ ">> Sélectionnez le fichier contenant les résultats. \n"
-        		+ ">> Vérifier que le fichier des résultats correspond à ");
+        Text etape2txt = new Text(">> Click on the \"File\" menu then on \"Import results...\" and finally on \"Import results file TXT\"\n"
+        		+ ">> Select the file which contains the results. \n"
+        		+ ">> Verify the file resembles ");
         Hyperlink hyperlink2txt = new Hyperlink("resultats-pqmethod-exemple");
         hyperlink2txt.setOnAction(new EventHandler<ActionEvent>()
     	{
@@ -672,17 +672,17 @@ public class MainAppControllerOverview implements Initializable {
     			
     		}
     	});
-        Text error2txt = new Text("\n>> Un message d'erreur s'affiche si vous n'avez pas selectionner de fichier ou si le fichier selectionné est incorrecte.\n\n");
+        Text error2txt = new Text("\n>> An error message pops up if you didn't select any file or if the selected file is uncorrect.\n\n");
         error2txt.setStyle("-fx-fill: RED;-fx-font-weight:normal;");
-        Text subtitle2csv = new Text("> Soit importer les zscores des images contenu dans un tableau au format .CSV \n");
+        Text subtitle2csv = new Text("> Or import the zscores in a table with the .CSV format \n");
         subtitle2csv.setStyle("-fx-fill: #4B108A;-fx-font-weight:bold;");
-        Text etape2csv = new Text(">> Allez dans le menu \"File\" puis \"Import results...\" et cliquer sur \"Import results file CSV\"\n"
-        		+ ">> Sélectionnez le fichier contenant les zscores. \n"
-        		+ ">> Vérifier que le séparateur de texte est \";\".\n"
-        		+ ">> Vérifier que les nombres ont des \",\" comme séparateur.\n"
-        		+ ">> Vérifier que le nombre de ligne correspond au nombre d'images importer via le dossier.\n"
-        		+ ">> Les numéros de ligne corresponde au nom de l'image contenu dans le dossier.\n"
-        		+ ">> Vérifier que le fichier des résultats correspond à ");
+        Text etape2csv = new Text(">> Click on the \"File\" menu then on \"Import results...\" and finally on \"Import results file CSV\"\n"
+        		+ ">> Select the file which contains the zscores. \n"
+        		+ ">> Verify that the separator is \";\".\n"
+        		+ ">> Verify that numbers have \",\" as separator.\n"
+        		+ ">> Verify that the number of lines fits in with the numbers of images.\n"
+        		+ ">> Verify that the numbers of each line fitin  with the numbers of each images.\n"
+        		+ ">> Verify that the file of results resembles ");
         Hyperlink hyperlink2csv = new Hyperlink("resultats-csv-exemple");
         hyperlink2csv.setOnAction(new EventHandler<ActionEvent>()
     	{
@@ -736,40 +736,40 @@ public class MainAppControllerOverview implements Initializable {
     			
     		}
     	});
-        Text error2csv = new Text("\n>> Un message d'erreur s'affiche si vous n'avez pas selectionner de fichier ou si le fichier selectionné est incorrecte.\n\n");
+        Text error2csv = new Text("\n>> An error message pops up if you didn't select any file or if the selected file is uncorrect.\n\n");
         error2csv.setStyle("-fx-fill: RED;-fx-font-weight:normal;");
         /*Step 3*/
-        Text title3 = new Text(">> Etape 3 : afficher la visualisation \n\n");
+        Text title3 = new Text(">> Step 3 : Display the visualization \n\n");
         title3.setStyle("-fx-fill: #4F8A10;-fx-font-weight:bold;");
-        Text etape3txt = new Text(">> Changer les paramètres de la visualisation.\n\n"
-        		+ "> Major correspond au facteur principal (Vertical). \n"
-        		+ "> Minor correspond au facteur secondaire (Horizontal). \n"
-        		+ "> Visualization Style correspond au style de la visualisation (Position des images en Rectangle ou en Cercle). \n"
-        		+ "> Color Style correspond au style de couleur de fond de la visualisation (Noir ou Blanc). \n"
-        		+ "> Color1 correspond à la couleur de la partie supérieur de la visualisation (Zscore positif). \n"
-        		+ "> Color2 correspond à la couleur de la partie inférieur de la visualisation (Zscore négatif). \n"
-        		+ "> Width correspond à la largeur de la visualisation (ne peut pas dépaser la taille de l'écran). \n"
-        		+ "> Height correspond à la hauteur de la visualisation (ne peut pas dépaser la taille de l'écran). \n"
-        		+ "> Transparence correspond au dégré de transparence des images (degré 0 : les images de zscores à 0 disparaise). \n"
-        		+ "> MaxSize correspond à la taille des images centrales de la visualisation. \n"
-        		+ "> MinSize correspond à la taille des images en périphérie de la visualisation. \n\n"
-        		+ ">> Cliquez sur la bouton \"Apply\" \n\n");
+        Text etape3txt = new Text(">> Changes the parameters of the visualization.\n\n"
+        		+ "> Major fits in with the main factor (Vertical). \n"
+        		+ "> Minor fits in with the secondary factor (Horizontal). \n"
+        		+ "> Visualization Style fits in with the style of the visualization (rectangular or circular position of the images). \n"
+        		+ "> Color Style fits in with the style of the coloring for the background (Black or white). \n"
+        		+ "> Color1 fits in with the color of the upper part of the visualization (positive Zscore). \n"
+        		+ "> Color2 fits in with the color of the lower part of the visualization (negative Zscore). \n"
+        		+ "> Width fits in with the width of the visualization (can't be higher than the screen size). \n"
+        		+ "> Height fits in with the height of the visualization (can't be higher than the screen size). \n"
+        		+ "> Transparence fits in with the level of transparency of the images (0 : images with a zscore near to 0 are invisible). \n"
+        		+ "> MaxSize fits in with the size of the images on the central part of the visualization. \n"
+        		+ "> MinSize fits in with the size of the images on the peripheral part of the visualization. \n\n"
+        		+ ">> Click on the \"Apply\" button \n\n");
         Text error3 = new Text(">> ATTENTION : Vous ne pouvez afficher que seulement 4 visualisations en même temps !\n"
-        		+">> Un message d'erreur s'affichera si vous essayer dans afficher plus de 4.\n");
+        		+">> An error message pops up if you try to display more than 4 visualization at the same time.\n");
         error3.setStyle("-fx-fill: RED;-fx-font-weight:normal;");
-        Text complement3 = new Text(">> Les visualisations sont numérotés de 1 à 4.\n"
-        		+"> Exemple : vous avez 3 visualisations d'affichées, vous supprimez la visualisation 2,\n" 
-        		+"> si vous en affichez une nouvelle alors celle-ci aura pour nom \"visualisation 2\".\n\n");
+        Text complement3 = new Text(">> Visualizations are numbered from 1 to 4.\n"
+        		+"> Example : you are displaying 3 visualizations, you close the 2nd one,\n" 
+        		+"> if you display a new visualization, then that one will have as name \"visualisation 2\".\n\n");
         /*Step 4*/
-        Text title4 = new Text(">> Etape 4 : Sauvegarder une visualisation \n\n");
+        Text title4 = new Text(">> Step 4 : Save a visualization \n\n");
         title4.setStyle("-fx-fill: #4F8A10;-fx-font-weight:bold;");
-        Text etape4txt = new Text(">> Allez dans le menu \"Save Image\"\n"
-        		+ ">> Une fenètre de choix s'ouvrira.\n"
-        		+ ">> Sélectionner la visualisation que vous souhaiter sauvegarder.\n"
-        		+ ">> Cliquez sur le bouton \"Save\"\n"
-        		+ ">> Choisissez le dossier de sauvegarde.\n"
-        		+ ">> Choisissez le nom de la visualisation et son format (PNG ou JPG).\n"
-        		+ ">> Cliquez sur sauvegarder.\n");
+        Text etape4txt = new Text(">> Click on the \\\"File\\\" menu then on \"Save Image\"\n"
+        		+ ">> A new windows pops up.\n"
+        		+ ">> Select the visualization that you want to save.\n"
+        		+ ">> Click on \"Save\" button\n"
+        		+ ">> Choose the saving folder.\n"
+        		+ ">> Choose the name of the visualization and his format.\n"
+        		+ ">> Click on Save.\n");
         
         flow.getChildren().addAll(title1,etape1txt,error1
         		,title2,subtitle2txt,etape2txt,hyperlink2txt,error2txt
