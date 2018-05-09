@@ -1,8 +1,13 @@
 package pqmethodvisu.controller;
 
 import java.awt.image.RenderedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -28,12 +33,15 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -134,10 +142,12 @@ public class MainAppControllerOverview implements Initializable {
 		//initializer of size cursors
 		WidthCursor.setBlockIncrement(1);
 		WidthCursor.setMin(primaryScreenBounds.getWidth()/3);
+		//primaryScreenBounds.getWidth()-primaryScreenBounds.getWidth()*0.05
 		WidthCursor.setMax(primaryScreenBounds.getWidth()-primaryScreenBounds.getWidth()*0.05);
 		WidthCursor.setValue(1200);
 		HeightCursor.setBlockIncrement(1);
 		HeightCursor.setMin(primaryScreenBounds.getHeight()/3);
+		//primaryScreenBounds.getHeight()-primaryScreenBounds.getHeight()*0.05
 		HeightCursor.setMax(primaryScreenBounds.getHeight()-primaryScreenBounds.getHeight()*0.05);
 		HeightCursor.setValue(700);
 		
@@ -590,5 +600,192 @@ public class MainAppControllerOverview implements Initializable {
 			}
 		}
 		return bool;
+	}
+	
+	/*
+	 * Help function
+	 */
+	@FXML
+	private void helpfunction() {
+		Integer w = 550;	//Largeur de la fenetre popup d'aide
+		Integer h = 400;	//Hauteur de la fenetre popup d'aide
+		
+		final Stage popup = new Stage();	//Création d'un stage
+		
+		TextFlow flow = new TextFlow();
+		/*Step 1*/
+        Text title1 = new Text(">> Etape 1 : importer le dossier d'images \n\n");
+        title1.setStyle("-fx-fill: #4F8A10;-fx-font-weight:bold;");
+        Text etape1txt = new Text(">> Vérifier que le dossier contient des images numéroté de 1 à n. \n"
+        		+ ">> Vérifier que les images sont au format .JPG. \n"
+        		+ ">> Allez dans le menu \"File\" puis cliquez sur \"Import images...\" \n"
+        		+ ">> Sélectionnez le dossier contenant les images. \n\n");
+        Text error1 = new Text(">> Un message d'erreur s'affiche si vous n'avez pas selectionner de dossier ou si le dossier selectionné est incorrecte. \n\n");
+        error1.setStyle("-fx-fill: RED;-fx-font-weight:normal;");
+        /*Step 2*/
+        Text title2 = new Text(">> Etape 2 : importer les zscores des images \n\n");
+        title2.setStyle("-fx-fill: #4F8A10;-fx-font-weight:bold;");
+        Text subtitle2txt = new Text("> Soit importer les résultats de sortie du logiciel \"Qmethod\" \n");
+        subtitle2txt.setStyle("-fx-fill: #4B108A;-fx-font-weight:bold;");
+        Text etape2txt = new Text(">> Allez dans le menu \"File\" puis sur \"Import results...\" et cliquer sur \"Import results file TXT\"\n"
+        		+ ">> Sélectionnez le fichier contenant les résultats. \n"
+        		+ ">> Vérifier que le fichier des résultats correspond à ");
+        Hyperlink hyperlink2txt = new Hyperlink("resultats-pqmethod-exemple");
+        hyperlink2txt.setOnAction(new EventHandler<ActionEvent>()
+    	{
+
+			@Override
+    		public void handle(ActionEvent event)
+    		{
+				TextFlow flow = new TextFlow();
+    			String path = "exempleHelpFunction\\résultats-pqmethod.txt";
+    			InputStream ips = null;
+				try {
+					ips = new FileInputStream(path);
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+    			InputStreamReader ipsr=new InputStreamReader(ips);
+    			BufferedReader br=new BufferedReader(ipsr);
+    			String ligne;
+    			int i = 1;
+    			try {
+					while ((ligne=br.readLine())!=null){
+						Text txt = new Text(i+"\t"+ligne+"\n");
+						flow.getChildren().add(txt);
+						i++;
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+    			flow.setDisable(false);
+    			ScrollPane scrollpane = new ScrollPane();
+    			scrollpane.setContent(flow); // Set content for ScrollPane
+    			scrollpane.setVbarPolicy(ScrollBarPolicy.ALWAYS); // Setting vertical scroll bar is never displayed.
+    			scrollpane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED); // Horizontal scroll bar is only displayed when needed
+    			final Stage pqmethodex = new Stage();	//Création d'un stage
+    			pqmethodex.initModality(Modality.APPLICATION_MODAL);	//initialisation du stage "popup"
+    			Scene pqmethodexScene = new Scene(scrollpane, 650, 600);
+    			pqmethodex.setTitle("pdmethod-results-exemple");	//mettre un titre au stage
+    			pqmethodex.setScene(pqmethodexScene);	//Ajouter la scene
+    			pqmethodex.show();	//Afficher
+    			
+    		}
+    	});
+        Text error2txt = new Text("\n>> Un message d'erreur s'affiche si vous n'avez pas selectionner de fichier ou si le fichier selectionné est incorrecte.\n\n");
+        error2txt.setStyle("-fx-fill: RED;-fx-font-weight:normal;");
+        Text subtitle2csv = new Text("> Soit importer les zscores des images contenu dans un tableau au format .CSV \n");
+        subtitle2csv.setStyle("-fx-fill: #4B108A;-fx-font-weight:bold;");
+        Text etape2csv = new Text(">> Allez dans le menu \"File\" puis \"Import results...\" et cliquer sur \"Import results file CSV\"\n"
+        		+ ">> Sélectionnez le fichier contenant les zscores. \n"
+        		+ ">> Vérifier que le séparateur de texte est \";\".\n"
+        		+ ">> Vérifier que les nombres ont des \",\" comme séparateur.\n"
+        		+ ">> Vérifier que le nombre de ligne correspond au nombre d'images importer via le dossier.\n"
+        		+ ">> Les numéros de ligne corresponde au nom de l'image contenu dans le dossier.\n"
+        		+ ">> Vérifier que le fichier des résultats correspond à ");
+        Hyperlink hyperlink2csv = new Hyperlink("resultats-csv-exemple");
+        hyperlink2csv.setOnAction(new EventHandler<ActionEvent>()
+    	{
+
+			@Override
+    		public void handle(ActionEvent event)
+    		{
+    			GridPane grid = new GridPane();
+    			//grid.setHgap(20);
+    	        //grid.setVgap(10);
+    	        grid.setPadding(new Insets(15, 40, 10, 40));
+    			String path = "exempleHelpFunction\\resultsCSV.csv";
+    			InputStream ips = null;
+				try {
+					ips = new FileInputStream(path);
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+    			InputStreamReader ipsr=new InputStreamReader(ips);
+    			BufferedReader br=new BufferedReader(ipsr);
+    			String ligne;
+    			String[] parseLigne;
+    			try {
+    				int numline = 0;
+					while ((ligne=br.readLine())!=null){
+						parseLigne = ligne.split(";");
+						int numberOfFactor = parseLigne.length; //catch the number of factor
+						Text col1 = new Text(" "+parseLigne[0]+" ");
+						grid.add(col1, 0, numline);
+						for(int i = 1; i < numberOfFactor; i++)
+						{
+							Text coli = new Text(" "+parseLigne[i]+" ");
+							grid.add(coli, i, numline);
+						}
+						numline++;
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+    			grid.setStyle("-fx-background-color: white; -fx-grid-lines-visible: true");
+    			ScrollPane scrollpane = new ScrollPane();
+    			scrollpane.setContent(grid); // Set content for ScrollPane
+    			scrollpane.setVbarPolicy(ScrollBarPolicy.ALWAYS); // Setting vertical scroll bar is never displayed.
+    			scrollpane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED); // Horizontal scroll bar is only displayed when needed
+    			final Stage pqmethodex = new Stage();	//Création d'un stage
+    			pqmethodex.initModality(Modality.APPLICATION_MODAL);	//initialisation du stage "popup"
+    			Scene pqmethodexScene = new Scene(scrollpane, 540, 600);
+    			pqmethodex.setTitle("results-csv-exemple");	//mettre un titre au stage
+    			pqmethodex.setScene(pqmethodexScene);	//Ajouter la scene
+    			pqmethodex.show();	//Afficher
+    			
+    		}
+    	});
+        Text error2csv = new Text("\n>> Un message d'erreur s'affiche si vous n'avez pas selectionner de fichier ou si le fichier selectionné est incorrecte.\n\n");
+        error2csv.setStyle("-fx-fill: RED;-fx-font-weight:normal;");
+        /*Step 3*/
+        Text title3 = new Text(">> Etape 3 : afficher la visualisation \n\n");
+        title3.setStyle("-fx-fill: #4F8A10;-fx-font-weight:bold;");
+        Text etape3txt = new Text(">> Changer les paramètres de la visualisation.\n\n"
+        		+ "> Major correspond au facteur principal (Vertical). \n"
+        		+ "> Minor correspond au facteur secondaire (Horizontal). \n"
+        		+ "> Visualization Style correspond au style de la visualisation (Position des images en Rectangle ou en Cercle). \n"
+        		+ "> Color Style correspond au style de couleur de fond de la visualisation (Noir ou Blanc). \n"
+        		+ "> Color1 correspond à la couleur de la partie supérieur de la visualisation (Zscore positif). \n"
+        		+ "> Color2 correspond à la couleur de la partie inférieur de la visualisation (Zscore négatif). \n"
+        		+ "> Width correspond à la largeur de la visualisation (ne peut pas dépaser la taille de l'écran). \n"
+        		+ "> Height correspond à la hauteur de la visualisation (ne peut pas dépaser la taille de l'écran). \n"
+        		+ "> Transparence correspond au dégré de transparence des images (degré 0 : les images de zscores à 0 disparaise). \n"
+        		+ "> MaxSize correspond à la taille des images centrales de la visualisation. \n"
+        		+ "> MinSize correspond à la taille des images en périphérie de la visualisation. \n\n"
+        		+ ">> Cliquez sur la bouton \"Apply\" \n\n");
+        Text error3 = new Text(">> ATTENTION : Vous ne pouvez afficher que seulement 4 visualisations en même temps !\n"
+        		+">> Un message d'erreur s'affichera si vous essayer dans afficher plus de 4.\n");
+        error3.setStyle("-fx-fill: RED;-fx-font-weight:normal;");
+        Text complement3 = new Text(">> Les visualisations sont numérotés de 1 à 4.\n"
+        		+"> Exemple : vous avez 3 visualisations d'affichées, vous supprimez la visualisation 2,\n" 
+        		+"> si vous en affichez une nouvelle alors celle-ci aura pour nom \"visualisation 2\".\n\n");
+        /*Step 4*/
+        Text title4 = new Text(">> Etape 4 : Sauvegarder une visualisation \n\n");
+        title4.setStyle("-fx-fill: #4F8A10;-fx-font-weight:bold;");
+        Text etape4txt = new Text(">> Allez dans le menu \"Save Image\"\n"
+        		+ ">> Une fenètre de choix s'ouvrira.\n"
+        		+ ">> Sélectionner la visualisation que vous souhaiter sauvegarder.\n"
+        		+ ">> Cliquez sur le bouton \"Save\"\n"
+        		+ ">> Choisissez le dossier de sauvegarde.\n"
+        		+ ">> Choisissez le nom de la visualisation et son format (PNG ou JPG).\n"
+        		+ ">> Cliquez sur sauvegarder.\n");
+        
+        flow.getChildren().addAll(title1,etape1txt,error1
+        		,title2,subtitle2txt,etape2txt,hyperlink2txt,error2txt
+        		,subtitle2csv,etape2csv,hyperlink2csv,error2csv
+        		,title3,etape3txt,error3,complement3
+        		,title4,etape4txt);
+		
+		ScrollPane scrollpane = new ScrollPane();
+		
+		scrollpane.setContent(flow); // Set content for ScrollPane
+		scrollpane.setVbarPolicy(ScrollBarPolicy.ALWAYS); // Setting vertical scroll bar is never displayed.
+		scrollpane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED); // Horizontal scroll bar is only displayed when needed
+		
+		Scene popupHelp = new Scene(scrollpane, w, h);
+		popup.setTitle("Help");	//mettre un titre au stage "popup"
+        popup.setScene(popupHelp);	//Ajouter la scene "popupHelp"
+        popup.show();	//Afficher
 	}
 }

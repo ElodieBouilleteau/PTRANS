@@ -29,7 +29,7 @@
               <MenuItem fx:id="menuSaveImage" disable="true" mnemonicParsing="false" onAction="#saveVisualization" text="Save Image" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="Help" onAction="#helpfunction">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
             </items>
