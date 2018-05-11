@@ -37,6 +37,9 @@ public class VisuCircle extends VisuBipolar {
 	      Image img = new Image("file:"+super.getCorpus().get(i).getPath());
 		  images.put(super.getCorpus().get(i).getName(), img);
 		}
+		
+		gc.setFill(Color.WHITE);
+		gc.fillRect(0, 0, width, height);
 		for (double i = (D1+t1); i >= 0; i--) {
 			gc.setFill(Color.hsb(HP, Math.max(0,(i-(D1+t1))*(0-SP)/(D1+t1)), Math.min(1,1+(i-(D1+t1))*(1-BP)/(D1+t1))));
 			gc.fillArc(canvas.getWidth()/2-i/2,

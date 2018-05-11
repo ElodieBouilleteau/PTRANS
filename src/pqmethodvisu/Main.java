@@ -23,7 +23,7 @@ public class Main extends Application {
         loader.setLocation(Main.class.getResource("view/MainAppOverview.fxml"));
         //Création de l'anchor pane du menu
         AnchorPane MainApp = (AnchorPane) loader.load();
-        primaryStage.setTitle("Q-Visu");
+        primaryStage.setTitle("Q-IMAGE");
         primaryStage.setScene(new Scene(MainApp, 332, 600));
         primaryStage.show();
         // Acceder au controller du fichier fxml

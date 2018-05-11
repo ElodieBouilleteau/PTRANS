@@ -1,13 +1,8 @@
 package pqmethodvisu.controller;
 
 import java.awt.image.RenderedImage;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -641,50 +636,8 @@ public class MainAppControllerOverview implements Initializable {
         Text subtitle2txt = new Text("> Either import the results as output of the software \"Qmethod\" \n");
         subtitle2txt.setStyle("-fx-fill: #4B108A;-fx-font-weight:bold;");
         Text etape2txt = new Text(">> Click on the \"File\" menu then on \"Import results...\" and finally on \"Import results file TXT\"\n"
-        		+ ">> Select the file which contains the results. \n"
-        		+ ">> Verify the file resembles ");
-        Hyperlink hyperlink2txt = new Hyperlink("resultats-pqmethod-exemple");
-        hyperlink2txt.setOnAction(new EventHandler<ActionEvent>()
-    	{
-
-			@Override
-    		public void handle(ActionEvent event)
-    		{
-				TextFlow flow = new TextFlow();
-    			String path = "exempleHelpFunction\\résultats-pqmethod.txt";
-    			InputStream ips = null;
-				try {
-					ips = new FileInputStream(path);
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-    			InputStreamReader ipsr=new InputStreamReader(ips);
-    			BufferedReader br=new BufferedReader(ipsr);
-    			String ligne;
-    			int i = 1;
-    			try {
-					while ((ligne=br.readLine())!=null){
-						Text txt = new Text(i+"\t"+ligne+"\n");
-						flow.getChildren().add(txt);
-						i++;
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-    			flow.setDisable(false);
-    			ScrollPane scrollpane = new ScrollPane();
-    			scrollpane.setContent(flow); // Set content for ScrollPane
-    			scrollpane.setVbarPolicy(ScrollBarPolicy.ALWAYS); // Setting vertical scroll bar is never displayed.
-    			scrollpane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED); // Horizontal scroll bar is only displayed when needed
-    			final Stage pqmethodex = new Stage();	//Création d'un stage
-    			pqmethodex.initModality(Modality.APPLICATION_MODAL);	//initialisation du stage "popup"
-    			Scene pqmethodexScene = new Scene(scrollpane, 650, 600);
-    			pqmethodex.setTitle("pdmethod-results-exemple");	//mettre un titre au stage
-    			pqmethodex.setScene(pqmethodexScene);	//Ajouter la scene
-    			pqmethodex.show();	//Afficher
-    			
-    		}
-    	});
+        		+ ">> Select the file which contains the results.\n");
+        
         Text error2txt = new Text("\n>> An error message pops up if you didn't select any file or if the selected file is uncorrect.\n\n");
         error2txt.setStyle("-fx-fill: RED;-fx-font-weight:normal;");
         Text subtitle2csv = new Text("> Or import the zscores in a table with the .CSV format \n");
@@ -694,61 +647,8 @@ public class MainAppControllerOverview implements Initializable {
         		+ ">> Verify that the separator is \";\".\n"
         		+ ">> Verify that numbers have \",\" as separator.\n"
         		+ ">> Verify that the number of lines fits in with the numbers of images.\n"
-        		+ ">> Verify that the numbers of each line fitin  with the numbers of each images.\n"
-        		+ ">> Verify that the file of results resembles ");
-        Hyperlink hyperlink2csv = new Hyperlink("resultats-csv-exemple");
-        hyperlink2csv.setOnAction(new EventHandler<ActionEvent>()
-    	{
-
-			@Override
-    		public void handle(ActionEvent event)
-    		{
-    			GridPane grid = new GridPane();
-    			//grid.setHgap(20);
-    	        //grid.setVgap(10);
-    	        grid.setPadding(new Insets(15, 40, 10, 40));
-    			String path = "exempleHelpFunction\\resultsCSV.csv";
-    			InputStream ips = null;
-				try {
-					ips = new FileInputStream(path);
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
-    			InputStreamReader ipsr=new InputStreamReader(ips);
-    			BufferedReader br=new BufferedReader(ipsr);
-    			String ligne;
-    			String[] parseLigne;
-    			try {
-    				int numline = 0;
-					while ((ligne=br.readLine())!=null){
-						parseLigne = ligne.split(";");
-						int numberOfFactor = parseLigne.length; //catch the number of factor
-						Text col1 = new Text(" "+parseLigne[0]+" ");
-						grid.add(col1, 0, numline);
-						for(int i = 1; i < numberOfFactor; i++)
-						{
-							Text coli = new Text(" "+parseLigne[i]+" ");
-							grid.add(coli, i, numline);
-						}
-						numline++;
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-    			grid.setStyle("-fx-background-color: white; -fx-grid-lines-visible: true");
-    			ScrollPane scrollpane = new ScrollPane();
-    			scrollpane.setContent(grid); // Set content for ScrollPane
-    			scrollpane.setVbarPolicy(ScrollBarPolicy.ALWAYS); // Setting vertical scroll bar is never displayed.
-    			scrollpane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED); // Horizontal scroll bar is only displayed when needed
-    			final Stage pqmethodex = new Stage();	//Création d'un stage
-    			pqmethodex.initModality(Modality.APPLICATION_MODAL);	//initialisation du stage "popup"
-    			Scene pqmethodexScene = new Scene(scrollpane, 540, 600);
-    			pqmethodex.setTitle("results-csv-exemple");	//mettre un titre au stage
-    			pqmethodex.setScene(pqmethodexScene);	//Ajouter la scene
-    			pqmethodex.show();	//Afficher
-    			
-    		}
-    	});
+        		+ ">> Verify that the numbers of each line fitin  with the numbers of each images.\n");
+      
         Text error2csv = new Text("\n>> An error message pops up if you didn't select any file or if the selected file is uncorrect.\n\n");
         error2csv.setStyle("-fx-fill: RED;-fx-font-weight:normal;");
         /*Step 3*/
@@ -767,7 +667,7 @@ public class MainAppControllerOverview implements Initializable {
         		+ "> MaxSize fits in with the size of the images on the central part of the visualization. \n"
         		+ "> MinSize fits in with the size of the images on the peripheral part of the visualization. \n\n"
         		+ ">> Click on the \"Apply\" button \n\n");
-        Text error3 = new Text(">> ATTENTION : Vous ne pouvez afficher que seulement 4 visualisations en même temps !\n"
+        Text error3 = new Text(">>WARNING : You can display only 4 visualizations at the same time !\n"
         		+">> An error message pops up if you try to display more than 4 visualization at the same time.\n");
         error3.setStyle("-fx-fill: RED;-fx-font-weight:normal;");
         Text complement3 = new Text(">> Visualizations are numbered from 1 to 4.\n"
@@ -785,8 +685,8 @@ public class MainAppControllerOverview implements Initializable {
         		+ ">> Click on Save.\n");
         
         flow.getChildren().addAll(title1,etape1txt,error1
-        		,title2,subtitle2txt,etape2txt,hyperlink2txt,error2txt
-        		,subtitle2csv,etape2csv,hyperlink2csv,error2csv
+        		,title2,subtitle2txt,etape2txt,error2txt
+        		,subtitle2csv,etape2csv,error2csv
         		,title3,etape3txt,error3,complement3
         		,title4,etape4txt);
 		
