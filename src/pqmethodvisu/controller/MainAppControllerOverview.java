@@ -179,6 +179,7 @@ public class MainAppControllerOverview implements Initializable {
 		//Initializer of max size cursors
 		//MAx cursor min = width*0.13F et Min cursor max = width*0.13F
 		MaxSizeCursor.setMin(1200*0.13);
+		MaxSizeCursor.setMax(300);
 		MaxSizeCursor.setValue(180);
 		MaxSizeCursor.setBlockIncrement(1);
 		//Change double value to integer value
@@ -206,6 +207,18 @@ public class MainAppControllerOverview implements Initializable {
 		HeightLabel.setText(String.valueOf(HeightCursor.getValue()));
 		MaxSizeLabel.setText(String.valueOf(MaxSizeCursor.getValue()));
 		MinSizeLabel.setText(String.valueOf(MinSizeCursor.getValue()));
+	}
+	
+	/*
+	 * function reset
+	 */
+	@FXML
+	private void reset() {
+		WidthCursor.setValue(1200);
+		HeightCursor.setValue(700);
+		TransparentCursor.setValue(60);
+		MaxSizeCursor.setValue(180);
+		MinSizeCursor.setValue(80);
 	}
 	
 	/*
