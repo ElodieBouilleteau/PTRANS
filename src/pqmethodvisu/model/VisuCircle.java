@@ -38,8 +38,11 @@ public class VisuCircle extends VisuBipolar {
 		  images.put(super.getCorpus().get(i).getName(), img);
 		}
 		
+		// set the background in white
 		gc.setFill(Color.WHITE);
 		gc.fillRect(0, 0, width, height);
+		
+		// set the gradient for up part
 		for (double i = (D1+t1); i >= 0; i--) {
 			gc.setFill(Color.hsb(HP, Math.max(0,(i-(D1+t1))*(0-SP)/(D1+t1)), Math.min(1,1+(i-(D1+t1))*(1-BP)/(D1+t1))));
 			gc.fillArc(canvas.getWidth()/2-i/2,
@@ -49,6 +52,8 @@ public class VisuCircle extends VisuBipolar {
 					0,180,ArcType.ROUND);
 
 		}
+		
+		// set the gradient for low part
 		for (double i = (D1+t1); i >= 0; i--) {
 			gc.setFill(Color.hsb(HM, Math.max(0,(i-(D1+t1))*(0-SM)/(D1+t1)), Math.min(1,1+(i-(D1+t1))*(1-BM)/(D1+t1))));
 			gc.fillArc(canvas.getWidth()/2-i/2,
@@ -57,38 +62,45 @@ public class VisuCircle extends VisuBipolar {
 					i*(d1+t1/2)/(D1+t1),
 					180,180,ArcType.ROUND);
 		}
+		
+		//set the gradient between the both part
 		setGradient(super.getWidth()/2,super.getHeight()/2,super.getWidth(),20,super.getCP(), super.getCM(), gc);
+		
+		//set the smallest images
 		gc.setGlobalAlpha(super.alpha);
+		//up part
 		for(int i =1; i<=super.G1P.size();i++){
 		    double w = resizew(images.get(super.G1P.get(i-1)).getWidth(), images.get(super.G1P.get(i-1)).getHeight(), t1);
 		    double h = resizeh(images.get(super.G1P.get(i-1)).getWidth(), images.get(super.G1P.get(i-1)).getHeight(), t1);
 		    gc.drawImage(images.get(super.G1P.get(i-1)), super.getWidth()/2+Math.cos(i*Math.PI/(super.G1P.size()+1))*D1/2-w/2, super.getHeight()/2-Math.sin(i*Math.PI/(super.G1P.size()+1))*d1/2-h/2, w, h);
 		  }
+		//low part
 		for(int i =0; i<super.G1M.size();i++){
 		    double w = resizew(images.get(super.G1M.get(i)).getWidth(), images.get(super.G1M.get(i)).getHeight(), t1);
 		    double h = resizeh(images.get(super.G1M.get(i)).getWidth(), images.get(super.G1M.get(i)).getHeight(), t1);
 		    gc.drawImage(images.get(super.G1M.get(i)), super.getWidth()/2+Math.cos((super.G1M.size()+1+(super.G1M.size()-i))*Math.PI/(super.G1M.size()+1))*D1/2-w/2, super.getHeight()/2-Math.sin((super.G1M.size()+1+(super.G1M.size()-i))*Math.PI/(super.G1M.size()+1))*d1/2-h/2, w, h);
 		}
+		
+		//set the middle size images
 		gc.setGlobalAlpha(super.alpha+(1-super.alpha)*0.4);
 		for(int i =1; i<=super.G2P.size();i++){
 		    double w = resizew(images.get(super.G2P.get(i-1)).getWidth(), images.get(super.G2P.get(i-1)).getHeight(), t2);
 		    double h = resizeh(images.get(super.G2P.get(i-1)).getWidth(), images.get(super.G2P.get(i-1)).getHeight(), t2);
 		    gc.drawImage(images.get(super.G2P.get(i-1)), super.getWidth()/2+Math.cos(i*Math.PI/(super.G2P.size()+1))*D2/2-w/2, super.getHeight()/2-Math.sin(i*Math.PI/(super.G2P.size()+1))*d2/2-h/2, w, h);
 		}
-		  
 		for(int i =0; i<super.G2M.size();i++){
 			double w = resizew(images.get(super.G2M.get(i)).getWidth(), images.get(super.G2M.get(i)).getHeight(), t2);
 			double h = resizeh(images.get(super.G2M.get(i)).getWidth(), images.get(super.G2M.get(i)).getHeight(), t2);
 			gc.drawImage(images.get(super.G2M.get(i)), super.getWidth()/2+Math.cos((super.G2M.size()+1+(super.G2M.size()-i))*Math.PI/(super.G2M.size()+1))*D2/2-w/2, super.getHeight()/2-Math.sin((super.G2M.size()+1+(super.G2M.size()-i))*Math.PI/(super.G2M.size()+1))*d2/2-h/2, w, h);
 		}
 		
+		//set the largest images
 		gc.setGlobalAlpha(1);
 		for(int i =1; i<=super.G3P.size();i++){
 			double w = resizew(images.get(super.G3P.get(i-1)).getWidth(), images.get(super.G3P.get(i-1)).getHeight(), t3);
 			double h = resizeh(images.get(super.G3P.get(i-1)).getWidth(), images.get(super.G3P.get(i-1)).getHeight(), t3);
 			gc.drawImage(images.get(super.G3P.get(i-1)), super.getWidth()/2+Math.cos(i*Math.PI/(super.G3P.size()+1))*D3/2-w/2, super.getHeight()/2-Math.sin(i*Math.PI/(super.G3P.size()+1))*d3/2-h/2, w, h);
 		}
-		  
 		for(int i =0; i<super.G3M.size();i++){
 			double w = resizew(images.get(super.G3M.get(i)).getWidth(), images.get(super.G3M.get(i)).getHeight(), t3);
 			double h = resizeh(images.get(super.G3M.get(i)).getWidth(), images.get(super.G3M.get(i)).getHeight(), t3);

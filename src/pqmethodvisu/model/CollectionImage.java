@@ -3,6 +3,7 @@ package pqmethodvisu.model;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -72,7 +73,6 @@ public class CollectionImage {
 			//this is the 2 ending caractere of the line
 			int numberOfFactor = Integer.parseInt(ligne.substring(ligne.length()-1, ligne.length()));
 			//add to the local variable
-			setFactorsNumber(numberOfFactor);
 			//pass to the next line where the zscore and the classement number is
 			ligne=br.readLine();
 			for (int i = 0; i < imagesNumber; i++)

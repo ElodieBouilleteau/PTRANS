@@ -19,10 +19,7 @@ public class TraitementVisu {
 	
 	private int factor1, factor2; //factor1 = main factor, factor2 = secondary factor
 	private int alpha; //transparency for the little images, between 0 and 255
-	private String savePath; //path to the saving directory
-	private String format; //format of the file (png or jpg);
-	private String name;
-	private boolean save; //true is we want to save the visualization, false else
+
 	
 	
 	private TraitementVisu() {
@@ -128,38 +125,6 @@ public class TraitementVisu {
 
 	public void setAlpha(int alpha) {
 		this.alpha = alpha;
-	}
-
-	public String getSavePath() {
-		return savePath;
-	}
-
-	public void setSavePath(String savePath) {
-		this.savePath = savePath;
-	}
-
-	public String getFormat() {
-		return format;
-	}
-
-	public void setFormat(String format) {
-		this.format = format;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public boolean isSave() {
-		return save;
-	}
-
-	public void setSave(boolean save) {
-		this.save = save;
 	}
 
 }

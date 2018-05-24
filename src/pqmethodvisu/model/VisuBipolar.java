@@ -7,13 +7,12 @@ import javafx.scene.paint.Color;
 
 public class VisuBipolar extends Visualization {
 	
-	protected int t1, t2, t3;
-	protected Color CP, CM;
-	protected double alpha;
-	protected double HP, SP, BP, HM, SM, BM;
-	//contient le numero de l'image
-	private ArrayList<Integer> G1PI, G2PI, G3PI, G1MI, G2MI, G3MI, G0I;
-	protected ArrayList<String> G1P, G2P, G3P, G1M, G2M, G3M, G0;
+	protected int t1, t2, t3; //size of the images; t1 is about the smallest, and t3 about the largest
+	protected Color CP, CM; //colors of the backgrounds; CP is about the up part, and CM about the low part
+	protected double alpha; 
+	protected double HP, SP, BP, HM, SM, BM; //parameters of the colors; H for Hue, S for saturation and B for brightness
+	private ArrayList<Integer> G1PI, G2PI, G3PI, G1MI, G2MI, G3MI, G0I; //groups of images (with the numerous)
+	protected ArrayList<String> G1P, G2P, G3P, G1M, G2M, G3M, G0;//groups of images (with the names)
 	protected int factor1, factor2;
 
 	public VisuBipolar(int width, int height, int t1, int t3, Color CP, Color CM, double alpha,
@@ -57,7 +56,7 @@ public class VisuBipolar extends Visualization {
 	}
 	
 	private void setGroupF1() {
-		/*This method allows to set up the group of images according to the two factors*/
+		/*This method allows to set up the groups of images according to the two factors*/
 		double zscore;
 		int compteur = 1;
 		for(Image i : corpus) {
@@ -101,7 +100,9 @@ public class VisuBipolar extends Visualization {
 	}
 	
 	private void setGroupeF2() {
-		/*This method allows to sort the group in comparison to the factor 2*/
+		/*This method allows to sort the group in comparison to the factor 2
+		 *It uses a quicksort
+		 */
 		quickSort(G1PI, 0, G1PI.size()-1, factor2);
 		quickSort(G2PI, 0, G2PI.size()-1, factor2);
 		quickSort(G3PI, 0, G3PI.size()-1, factor2);
@@ -169,11 +170,17 @@ public class VisuBipolar extends Visualization {
 	}
 	
 	protected double resizew(double w, double h, double d){
+		/*This method allows to have the width of the resized picture according to a diameter of a circle
+		 *the picture will be able to be in the circle
+		 */
       double H = Math.sqrt(w*w + h*h);
   	  return w/H*d;
   	}
 
 	protected double resizeh(double w, double h, double d){
+		/*This method allows to have the height of the resized picture according to a diameter of a circle
+		 *the picture will be able to be in the circle
+		 */
   	  double H = Math.sqrt(w*w + h*h);
   	  return h/H*d;
 	}

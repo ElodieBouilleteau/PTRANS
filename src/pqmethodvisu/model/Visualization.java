@@ -11,7 +11,7 @@ public abstract class Visualization {
 	public Visualization(int width, int height, ArrayList<pqmethodvisu.model.Image> corpus) {
 		this.width = width;
 		this.height = height;
-		this.corpus = corpus;
+		this.corpus = corpus; //images
 	}
     
 	//This abstract method allows to launch the visualization
