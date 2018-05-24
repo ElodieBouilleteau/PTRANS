@@ -1,7 +1,7 @@
 # PTRANS
-Application Java de visualisation des données issus d'une analyse avec la Q-méthode
+Application Java de visualisation des données issues d'une analyse avec la Q-méthode
 
 
-Autheurs :
+Auteurs :
 
 Axel JOURNE, Elodie BOUILLETEAU, Zheng DAI
